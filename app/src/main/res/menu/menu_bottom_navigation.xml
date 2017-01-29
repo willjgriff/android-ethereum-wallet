@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_transactions"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/controller_transactions_title"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navigation_send"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/controller_send_title"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navigation_receive"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/controller_receive_title"
+        app:showAsAction="always" />
+</menu>
