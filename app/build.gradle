@@ -92,6 +92,11 @@ dependencies {
     annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
 
     testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:2.7.0"
+    testCompile "org.robolectric:robolectric:3.2.2"
+
+    androidTestCompile "org.mockito:mockito-core:2.7.0"
+    androidTestCompile "org.robolectric:robolectric:3.2.2"
     androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

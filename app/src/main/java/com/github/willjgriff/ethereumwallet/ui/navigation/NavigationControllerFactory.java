@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui;
+package com.github.willjgriff.ethereumwallet.ui.navigation;
 
 import android.view.MenuItem;
 

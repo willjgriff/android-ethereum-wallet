@@ -8,26 +8,12 @@ import android.view.ViewGroup;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 
-import org.ethereum.geth.AccountManager;
-import org.ethereum.geth.EthereumClient;
-import org.ethereum.geth.Geth;
-
 /**
  * Created by Will on 28/01/2017.
  */
 
 public class TransactionsController extends BaseMvpController<TransactionsView, TransactionsPresenter>
 	implements TransactionsView {
-
-	@Override
-	protected TransactionsView getMvpView() {
-		return this;
-	}
-
-	@Override
-	protected TransactionsPresenter createPresenter() {
-		return new TransactionsPresenter();
-	}
 
 	@NonNull
 	@Override
@@ -38,7 +24,15 @@ public class TransactionsController extends BaseMvpController<TransactionsView, 
 	@Override
 	protected void onAttach(@NonNull View view) {
 		super.onAttach(view);
+	}
 
+	@Override
+	protected TransactionsView getMvpView() {
+		return this;
+	}
 
+	@Override
+	protected TransactionsPresenter createPresenter() {
+		return new TransactionsPresenter();
 	}
 }
