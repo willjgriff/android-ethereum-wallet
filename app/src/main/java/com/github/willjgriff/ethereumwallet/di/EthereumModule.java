@@ -1,6 +1,9 @@
 package com.github.willjgriff.ethereumwallet.di;
 
-import org.ethereum.geth.EthereumClient;
+import android.content.Context;
+
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumKeystoreLocation;
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
 
 import javax.inject.Singleton;
 
@@ -16,7 +19,13 @@ public class EthereumModule {
 
 	@Provides
 	@Singleton
-	EthereumClient providesEthereum() {
-		return new EthereumClient("Some string");
+	EthereumKeystoreLocation providesKeystoreLocation(Context context) {
+		return new EthereumKeystoreLocation(context);
+	}
+
+	@Provides
+	@Singleton
+	EthereumManager providesEthereum(EthereumKeystoreLocation ethereumKeystoreLocation) {
+		return new EthereumManager(ethereumKeystoreLocation);
 	}
 }

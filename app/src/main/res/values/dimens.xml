@@ -1,0 +1,23 @@
+<resources>
+
+    <dimen name="caption">12sp</dimen>
+    <dimen name="body">14sp</dimen>
+    <dimen name="button">14sp</dimen>
+    <dimen name="title">20sp</dimen>
+    <dimen name="subtitle">16sp</dimen>
+    <dimen name="headline">24sp</dimen>
+    <dimen name="display">34sp</dimen>
+
+    <dimen name="xxxsmall">4dp</dimen>
+    <dimen name="xxsmall">8dp</dimen>
+    <dimen name="xsmall">16dp</dimen>
+    <dimen name="small">24dp</dimen>
+    <dimen name="smedium">36dp</dimen>
+    <dimen name="medium">48dp</dimen>
+    <dimen name="large">56dp</dimen>
+    <dimen name="xlarge">64dp</dimen>
+    <dimen name="xxlarge">72dp</dimen>
+
+    <dimen name="elevation">5dp</dimen>
+
+</resources>

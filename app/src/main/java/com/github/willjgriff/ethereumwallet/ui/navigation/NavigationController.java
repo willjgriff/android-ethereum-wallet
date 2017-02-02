@@ -38,22 +38,18 @@ public class NavigationController extends Controller {
 		}
 
 		setupBottomNavigationView();
-
 		return view;
 	}
 
 	private void setupBottomNavigationView() {
 		final NavigationControllerFactory navigationControllerFactory = new NavigationControllerFactory();
-		mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				Controller controller = navigationControllerFactory.getController(item);
-				if (controller != null) {
-					switchToController(controller);
-					return true;
-				}
-				return false;
+		mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+			Controller controller = navigationControllerFactory.getController(item);
+			if (controller != null) {
+				switchToController(controller);
+				return true;
 			}
+			return false;
 		});
 	}
 

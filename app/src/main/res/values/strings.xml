@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Ethereum Wallet</string>
+
+    <!--Controller Names-->
     <string name="controller_transactions_title">Transactions</string>
     <string name="controller_send_title">Send</string>
     <string name="controller_receive_title">Receive</string>
+    <string name="controller_create_account_button">Create Account</string>
+
+    <!--Create Account-->
+    <string name="controller_create_account_password">Password</string>
 </resources>

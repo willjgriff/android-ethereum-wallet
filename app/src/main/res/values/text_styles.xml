@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text">
+    </style>
+
+    <style name="Text.Body">
+        <item name="android:textSize">@dimen/body</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="Text.Title">
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="Text.Subtitle">
+        <item name="android:textSize">@dimen/subtitle</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="Text.Headline">
+        <item name="android:textSize">@dimen/headline</item>
+    </style>
+
+    <style name="Text.Display">
+        <item name="android:textSize">@dimen/display</item>
+    </style>
+
+</resources>

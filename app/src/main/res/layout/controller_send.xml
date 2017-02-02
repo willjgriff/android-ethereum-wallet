@@ -11,4 +11,9 @@
         android:text="Where is sent?"
         android:gravity="center"/>
 
+    <FrameLayout
+        android:id="@+id/controller_send_inner_controller"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
 </LinearLayout>

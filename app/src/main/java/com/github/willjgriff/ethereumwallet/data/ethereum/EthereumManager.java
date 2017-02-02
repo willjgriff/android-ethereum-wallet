@@ -64,4 +64,8 @@ public class EthereumManager {
 		return currentAccount;
 	}
 
+	public boolean hasAccount() {
+		return getAccount() != null;
+	}
+
 }

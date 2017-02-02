@@ -22,11 +22,6 @@ public class TransactionsController extends BaseMvpController<TransactionsView, 
 	}
 
 	@Override
-	protected void onAttach(@NonNull View view) {
-		super.onAttach(view);
-	}
-
-	@Override
 	protected TransactionsView getMvpView() {
 		return this;
 	}
