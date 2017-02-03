@@ -11,25 +11,39 @@
         android:focusable="true"
         android:focusableInTouchMode="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/small"
+        android:paddingStart="@dimen/small"
+        android:paddingRight="@dimen/small"
+        android:paddingEnd="@dimen/small"
+        android:paddingBottom="@dimen/xsmall"
+        android:text="@string/controller_create_account_set_password_message"/>
+
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/controller_create_account_password_text_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/medium"
+        android:paddingStart="@dimen/medium"
         android:paddingRight="@dimen/medium"
-        android:gravity="center"
-        android:hint="@string/controller_create_account_password">
+        android:paddingEnd="@dimen/medium"
+        android:paddingBottom="@dimen/xsmall"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/controller_create_account_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textVisiblePassword"/>
+            android:inputType="textVisiblePassword"
+            android:hint="@string/controller_create_account_password"/>
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/controller_create_account_create_button"
-        style="@style/ButtonStyle"
+        android:theme="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
