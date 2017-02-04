@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.transactions;
+package com.github.willjgriff.ethereumwallet.ui.transactions.mvp;
 
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 

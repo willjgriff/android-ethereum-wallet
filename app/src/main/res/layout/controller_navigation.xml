@@ -9,10 +9,35 @@
     android:fitsSystemWindows="true"
     tools:context="com.github.willjgriff.ethereumwallet.ui.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/controller_create_account_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimary"
+        android:elevation="@dimen/toolbar_elevation">
+
+        <TextView
+            android:id="@+id/controller_navigation_balance"
+            style="@style/Text.Subtitle"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/xsmall"
+            android:paddingEnd="@dimen/xsmall"
+            android:paddingStart="@dimen/xsmall"
+            android:text="ETH 3.587"
+            android:layout_gravity="end"/>
+
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/controller_navigation_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/controller_create_account_toolbar"
         android:layout_above="@+id/controller_navigation_bottom_navigation"/>
 
     <android.support.design.widget.BottomNavigationView
@@ -23,6 +48,7 @@
         app:itemBackground="@color/primary"
         app:itemIconTint="@drawable/selector_navigation_icon_color"
         app:itemTextColor="@drawable/selector_navigation_icon_color"
-        app:menu="@menu/menu_bottom_navigation" />
+        app:menu="@menu/menu_bottom_navigation"
+        android:elevation="@dimen/bottom_nav_elevation"/>
 
 </RelativeLayout>

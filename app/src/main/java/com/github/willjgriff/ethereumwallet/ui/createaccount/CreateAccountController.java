@@ -2,6 +2,7 @@ package com.github.willjgriff.ethereumwallet.ui.createaccount;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import io.reactivex.Observable;
 public class CreateAccountController extends BaseMvpController<CreateAccountView, CreateAccountPresenter>
 	implements CreateAccountView {
 
+	@BindView(R.id.controller_create_account_toolbar)
+	Toolbar mToolbar;
 	@BindView(R.id.controller_create_account_password_text_input)
 	TextInputLayout mPassword;
 	@BindView(R.id.controller_create_account_create_button)
@@ -63,11 +66,16 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 		View view = inflater.inflate(R.layout.controller_create_account, container, false);
 		ButterKnife.bind(this, view);
 
+		mToolbar.setTitle(R.string.controller_create_account_title);
+		setupPresenter();
+
+		return view;
+	}
+
+	private void setupPresenter() {
 		Observable<CharSequence> passwordObservable = RxTextView.textChanges(mPassword.getEditText());
 		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
 		mCreateAccountPresenter.setObservables(passwordObservable, submitButtonObservable);
-
-		return view;
 	}
 
 	@Override

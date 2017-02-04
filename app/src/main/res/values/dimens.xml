@@ -18,6 +18,7 @@
     <dimen name="xlarge">64dp</dimen>
     <dimen name="xxlarge">72dp</dimen>
 
-    <dimen name="elevation">5dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="bottom_nav_elevation">8dp</dimen>
 
 </resources>

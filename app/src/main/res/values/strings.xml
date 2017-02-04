@@ -5,10 +5,22 @@
     <string name="controller_transactions_title">Transactions</string>
     <string name="controller_send_title">Send</string>
     <string name="controller_receive_title">Receive</string>
-    <string name="controller_create_account_button">Create Account</string>
+    <string name="controller_create_account_title">Create Account</string>
+
+    <!--Common-->
+    <string name="common_password">Password</string>
 
     <!--Create Account-->
-    <string name="controller_create_account_password">Password</string>
     <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be activated from the settings.</string>
     <string name="controller_create_account_enter_password">Enter a password</string>
+
+    <!--Send-->
+    <string name="controller_send_amount">Amount</string>
+    <string name="controller_send_recipient_address">Recipient Address</string>
+    <string name="controller_send_send_button">Send Ether</string>
+
+    <!--Receive-->
+    <string name="controller_receive_ethereum_address">Ethereum Address:</string>
+    <string name="controller_receive_receive_amount">Receive amount</string>
+    <string name="controller_receive_create_qr_code">Create QR Code</string>
 </resources>

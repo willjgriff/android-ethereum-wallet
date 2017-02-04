@@ -1,9 +1,11 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
 import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
+import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
+import javax.inject.Scope;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -12,6 +14,7 @@ import io.reactivex.functions.Consumer;
  * Created by Will on 03/02/2017.
  */
 
+@ControllerScope
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
 	private EthereumManager mEthereumManager;
@@ -60,6 +63,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 	}
 
 	private void setupSubmitObservable() {
+		// For adding a confirm password field.
 //		Observable<Boolean> validCombined = Observable
 //			.combineLatest(mValidMessage, mValidPhone, mValidEmail,
 //				(messageValid, phoneValid, emailValid) -> messageValid && phoneValid && emailValid)

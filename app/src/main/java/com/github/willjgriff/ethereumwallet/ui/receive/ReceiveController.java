@@ -9,6 +9,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.rxlifecycle2.RxController;
 import com.github.willjgriff.ethereumwallet.R;
+import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 
 /**
@@ -21,10 +22,19 @@ public class ReceiveController extends Controller {
 	@Override
 	protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
 		View view = inflater.inflate(R.layout.controller_receive, container, false);
-		view.findViewById(R.id.controller_receive_detail_button)
-			.setOnClickListener(buttonView -> getRouter()
-				.pushController(RouterTransaction.with(new TransactionsController())));
 
+		setupToolbarTitle();
+
+//		view.findViewById(R.id.controller_receive_detail_button)
+//			.setOnClickListener(buttonView -> getRouter()
+//				.pushController(RouterTransaction.with(new TransactionsController())));
 		return view;
+	}
+
+	private void setupToolbarTitle() {
+		if (getTargetController() instanceof NavigationToolbarListener) {
+			((NavigationToolbarListener) getTargetController())
+				.setToolbarTitle(getApplicationContext().getString(R.string.controller_receive_title));
+		}
 	}
 }

@@ -1,10 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Conductor;
@@ -17,8 +14,6 @@ import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
-import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationControllerFactory;
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 
 import javax.inject.Inject;
 
@@ -29,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
 	@BindView(R.id.activity_main_controller_container)
 	ViewGroup mControllerContainer;
-	private Router mRouter;
-
 	@Inject
 	EthereumManager mEthereumManager;
+	private Router mRouter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
