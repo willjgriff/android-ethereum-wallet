@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet.data.ethereum;
 
 import com.github.willjgriff.ethereumwallet.BuildConfig;
+import com.github.willjgriff.ethereumwallet.EthereumWalletApplication;
 
 import org.ethereum.geth.Account;
 import org.junit.Assert;
@@ -17,7 +18,7 @@ import org.robolectric.annotation.Config;
  * Created by Will on 29/01/2017.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 23, packageName = "com.github.willjgriff.ethereumwallet", application = EthereumWalletApplication.class)
 public class EthereumManagerTest {
 
 	private EthereumManager mSubject;

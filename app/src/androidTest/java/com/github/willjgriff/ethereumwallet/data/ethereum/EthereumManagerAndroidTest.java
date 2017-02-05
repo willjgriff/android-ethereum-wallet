@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.github.willjgriff.ethereumwallet.BuildConfig;
+import com.github.willjgriff.ethereumwallet.EthereumWalletApplication;
 
 import org.ethereum.geth.Account;
 import org.junit.Assert;
@@ -24,7 +25,7 @@ import static org.junit.Assert.*;
  * Created by Will on 29/01/2017.
  */
 @RunWith(AndroidJUnit4.class)
-public class EthereumManagerTest {
+public class EthereumManagerAndroidTest {
 
 	private EthereumManager mSubject;
 

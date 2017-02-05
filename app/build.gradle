@@ -53,9 +53,6 @@ dependencies {
     compile "com.android.support:design:${supportLib}"
     compile "com.jakewharton.timber:timber:${timber}"
 
-    // RxJava
-//    compile "io.reactivex:rxjava:${rxJava}"
-//    compile "io.reactivex:rxandroid:${rxAndroid}"
     // RxJava2
     compile "io.reactivex.rxjava2:rxjava:${rxJava2}"
     compile "io.reactivex.rxjava2:rxandroid:${rxAndroid2}"
@@ -67,16 +64,8 @@ dependencies {
 
     // Conductor
     compile "com.bluelinelabs:conductor:2.0.7"
-//    compile "com.bluelinelabs:conductor-rxlifecycle:2.0.7"
     compile 'com.bluelinelabs:conductor-rxlifecycle2:2.0.7'
     androidTestCompile "com.google.code.findbugs:jsr305:3.0.1"
-
-    // RxBindings
-//    compile "com.jakewharton.rxbinding:rxbinding:${rxBindings}"
-//    compile "com.jakewharton.rxbinding:rxbinding-support-v4:${rxBindings}"
-//    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindings}"
-//    compile "com.jakewharton.rxbinding:rxbinding-design:${rxBindings}"
-//    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${rxBindings}"
 
     // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
     compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_width="match_parent">-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,9 +36,9 @@
             android:id="@+id/textView3"
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/controller_receive_ethereum_address"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            android:layout_marginTop="16dp"
+            />
 
         <TextView
             android:id="@+id/controller_receive_ethereum_address"
@@ -46,7 +46,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="ADLK435ofdij45FDG54oijg45F4Jer45tADF433ASDF"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
             android:textIsSelectable="true"
             android:layout_marginRight="32dp"
             app:layout_constraintRight_toRightOf="parent"
@@ -55,8 +54,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="32dp"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout"/>
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
+
+        <Button
+            android:id="@+id/controller_receive_detail_button"
+            android:theme="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/controller_receive_create_qr_code"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
@@ -65,15 +77,13 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/controller_receive_ethereum_address"
             tools:layout_constraintLeft_creator="1"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/medium"
             android:layout_marginRight="@dimen/medium"
             android:id="@+id/textInputLayout"
-            app:layout_constraintBottom_toTopOf="@+id/controller_receive_detail_button"
             android:layout_marginTop="24dp"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/controller_receive_ethereum_address">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -83,18 +93,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/controller_receive_detail_button"
-            android:theme="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/controller_receive_create_qr_code"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintHorizontal_bias="0.502"/>
-
     </android.support.constraint.ConstraintLayout>
 
-<!--</ScrollView>-->
+</ScrollView>

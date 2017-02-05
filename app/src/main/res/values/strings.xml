@@ -11,7 +11,7 @@
     <string name="common_password">Password</string>
 
     <!--Create Account-->
-    <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be activated from the settings.</string>
+    <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be reactivated from the settings.</string>
     <string name="controller_create_account_enter_password">Enter a password</string>
 
     <!--Send-->
