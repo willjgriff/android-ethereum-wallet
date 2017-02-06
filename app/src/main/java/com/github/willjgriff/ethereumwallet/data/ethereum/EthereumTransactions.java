@@ -6,9 +6,9 @@ package com.github.willjgriff.ethereumwallet.data.ethereum;
 
 public class EthereumTransactions {
 
-	EthereumManager mEthereumManager;
+	EthereumAccountManager mEthereumAccountManager;
 
-	public EthereumTransactions(EthereumManager ethereumManager) {
-		mEthereumManager = ethereumManager;
+	public EthereumTransactions(EthereumAccountManager ethereumAccountManager) {
+		mEthereumAccountManager = ethereumAccountManager;
 	}
 }

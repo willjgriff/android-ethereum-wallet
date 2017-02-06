@@ -3,7 +3,7 @@ package com.github.willjgriff.ethereumwallet.di;
 import android.content.Context;
 
 import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumKeystoreLocation;
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 
 import javax.inject.Singleton;
 
@@ -25,7 +25,7 @@ public class EthereumModule {
 
 	@Provides
 	@Singleton
-	EthereumManager providesEthereum(EthereumKeystoreLocation ethereumKeystoreLocation) {
-		return new EthereumManager(ethereumKeystoreLocation);
+	EthereumAccountManager providesEthereum(EthereumKeystoreLocation ethereumKeystoreLocation) {
+		return new EthereumAccountManager(ethereumKeystoreLocation);
 	}
 }
