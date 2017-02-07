@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 
 /**
@@ -56,7 +57,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	}
 
 	@Override
-	protected CreateAccountPresenter createPresenter() {
+	protected CreateAccountPresenter getPresenter() {
 		return mCreateAccountPresenter;
 	}
 

@@ -38,7 +38,7 @@ public class TransactionsController extends BaseMvpController<TransactionsView, 
 	}
 
 	@Override
-	protected TransactionsPresenter createPresenter() {
+	protected TransactionsPresenter getPresenter() {
 		return new TransactionsPresenter();
 	}
 }
