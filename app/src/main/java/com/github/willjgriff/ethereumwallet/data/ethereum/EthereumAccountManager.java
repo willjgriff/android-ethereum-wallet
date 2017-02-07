@@ -13,16 +13,12 @@ import timber.log.Timber;
  * Created by Will on 29/01/2017.
  */
 
-public class EthereumManager {
+public class EthereumAccountManager {
 
 	private EthereumKeystoreLocation mEthereumKeystoreLocation;
 
-	public EthereumManager(EthereumKeystoreLocation ethereumKeystoreLocation) {
+	public EthereumAccountManager(EthereumKeystoreLocation ethereumKeystoreLocation) {
 		mEthereumKeystoreLocation = ethereumKeystoreLocation;
-	}
-
-	public void sendEther(String address, long amount) {
-
 	}
 
 	// TODO: This could put a user into a deadlock, not capable of creating or deleting accounts, if they forget there password.

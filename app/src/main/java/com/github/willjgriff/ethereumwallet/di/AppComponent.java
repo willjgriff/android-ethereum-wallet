@@ -1,9 +1,7 @@
 package com.github.willjgriff.ethereumwallet.di;
 
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 import com.github.willjgriff.ethereumwallet.ui.MainActivity;
-
-import org.ethereum.geth.EthereumClient;
 
 import javax.inject.Singleton;
 
@@ -16,7 +14,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class, EthereumModule.class})
 public interface AppComponent {
 
-	EthereumManager provideEthereumManager();
+	EthereumAccountManager provideEthereumManager();
 
 	void inject(MainActivity mainActivity);
 }

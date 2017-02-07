@@ -1,14 +1,12 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumManager;
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
-import javax.inject.Scope;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Will on 03/02/2017.
@@ -17,14 +15,14 @@ import io.reactivex.functions.Consumer;
 @ControllerScope
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
-	private EthereumManager mEthereumManager;
+	private EthereumAccountManager mEthereumAccountManager;
 	private Observable<CharSequence> mPassword;
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
 	@Inject
-	CreateAccountPresenter(EthereumManager ethereumManager) {
-		mEthereumManager = ethereumManager;
+	CreateAccountPresenter(EthereumAccountManager ethereumAccountManager) {
+		mEthereumAccountManager = ethereumAccountManager;
 	}
 
 	public void setObservables(Observable<CharSequence> passwordObservable, Observable<Object> submitButtonObservable) {
@@ -77,7 +75,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 
 	private void validPasswordSubmitted() {
 		mPassword.subscribe(password -> {
-			mEthereumManager.createAccount(password.toString());
+			mEthereumAccountManager.createAccount(password.toString());
 			getView().openWallet();
 		});
 	}
