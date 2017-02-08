@@ -45,6 +45,10 @@ public class EthereumAccountManager {
 		}
 	}
 
+	public boolean hasAccount() {
+		return getAccount() != null;
+	}
+
 	@Nullable
 	public Account getAccount() {
 		AccountManager accountManager = new AccountManager(mEthereumKeystoreLocation.getLocation(), Geth.LightScryptN, Geth.LightScryptP);
@@ -58,10 +62,6 @@ public class EthereumAccountManager {
 		}
 
 		return currentAccount;
-	}
-
-	public boolean hasAccount() {
-		return getAccount() != null;
 	}
 
 }

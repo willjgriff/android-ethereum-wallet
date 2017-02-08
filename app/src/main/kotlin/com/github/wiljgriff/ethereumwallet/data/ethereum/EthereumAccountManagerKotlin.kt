@@ -1,32 +1,46 @@
 package com.github.wiljgriff.ethereumwallet.data.ethereum
 
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager
 import org.ethereum.geth.Account
 import org.ethereum.geth.AccountManager
-import timber.log.Timber
+import org.ethereum.geth.Accounts
+import java.util.*
 
 /**
  * Created by Will on 06/02/2017.
+ *
+ * TODO: Probably put everything in Try Catch block (why doesn't Kotlin need this but Java does?)
  */
-class EthereumAccountManagerKotlin(accountManagerConfig: EthereumAccountConfig) {
+class EthereumAccountManagerKotlin(var ethereumAccountManager: AccountManagerDelegate, var activeAccountPosition: Long) {
 
-    private var ethereumAccountManager: AccountManager
-
-    init {
-        ethereumAccountManager = AccountManager(accountManagerConfig.getFilePath(),
-                accountManagerConfig.getCryptoScryptN(), accountManagerConfig.getCryptoScryptP())
+    fun createAccount(password: String): AccountDelegate {
+        activeAccountPosition = ethereumAccountManager.accounts.size()
+        return ethereumAccountManager.newAccount(password)
     }
 
-    fun getAccount(): Account {
-        var account: Account = Account()
-        try {
-            if (ethereumAccountManager.accounts.size() > 0 && ethereumAccountManager.accounts.get(0) != null) {
-                account = ethereumAccountManager.accounts.get(0)
-            }
-        } catch (exception: Exception) {
-            Timber.e(exception, "Error getting Ethereum account from Account Manager")
+    fun getActiveAccount(): AccountDelegate {
+        var account: AccountDelegate = AccountDelegate(Account())
+        if (accountAvailableAtPosition(activeAccountPosition)) {
+            account = ethereumAccountManager.accounts.get(activeAccountPosition)
         }
         return account
     }
 
-    fun hasAccount(): Boolean = ethereumAccountManager.accounts.size() > 0 && ethereumAccountManager.accounts.get(0) != null
+    private fun accountAvailableAtPosition(position: Long) =
+            (ethereumAccountManager.accounts.size() >= position
+                    && ethereumAccountManager.accounts.get(position) != null)
+
+    fun getAllAccounts(): List<AccountDelegate> {
+        var accountsList: List<AccountDelegate> = ArrayList()
+        var accounts = ethereumAccountManager.accounts
+
+        for (position in 0..accounts.size() - 1) {
+            accountsList.plus(accounts.size())
+        }
+
+        return accountsList
+    }
+
+    fun hasAccount(): Boolean = accountAvailableAtPosition(0)
+
 }

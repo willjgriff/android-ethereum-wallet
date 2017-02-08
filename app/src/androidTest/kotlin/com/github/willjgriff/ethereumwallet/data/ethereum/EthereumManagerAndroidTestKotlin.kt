@@ -1,14 +1,13 @@
 package com.github.willjgriff.ethereumwallet.data.ethereum
 
+import android.support.test.InstrumentationRegistry
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountConfig
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin
 import com.github.wiljgriff.ethereumwallet.data.ethereum.LightEthereumAccountConfig
-import org.ethereum.geth.Geth
-import org.junit.Assert
+import org.ethereum.geth.AccountManager
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 /**
@@ -17,27 +16,33 @@ import org.mockito.MockitoAnnotations
 class EthereumManagerAndroidTestKotlin {
 
     private val MOCK_PASSWORD = "password"
-    private val MOCK_FILE_PATH = "/mockPath"
 
     private lateinit var subject: EthereumAccountManagerKotlin
 
-    @Mock
-    private lateinit var mockAccountConfig: EthereumAccountConfig
+    private val appContext = InstrumentationRegistry.getTargetContext()
+    private val accountConfig: EthereumAccountConfig = LightEthereumAccountConfig(appContext)
 
     @Before
     fun setupEthereumManagerAndroidTestKotlin() {
         MockitoAnnotations.initMocks(this)
 
-        Mockito.`when`(mockAccountConfig.getFilePath()).then { MOCK_FILE_PATH }
-        Mockito.`when`(mockAccountConfig.getCryptoScryptN()).then { Geth.LightScryptN }
-        Mockito.`when`(mockAccountConfig.getCryptoScryptP()).then { Geth.LightScryptP }
-
-        subject = EthereumAccountManagerKotlin(mockAccountConfig)
+        val ethereumAccountManager = AccountManager(accountConfig.getFilePath(), accountConfig.getCryptoScryptN(), accountConfig.getCryptoScryptP())
+        subject = EthereumAccountManagerKotlin(ethereumAccountManager, 0);
     }
 
     @Test
-    fun getAccountWithNoAccount_returnsNull() {
-        val account = subject.getAccount()
-        Assert.assertNull(account)
+    fun createAccount_createsANewAccount() {
+        subject.createAccount(MOCK_PASSWORD)
+        subject.getActiveAccount()
+    }
+
+    @Test
+    fun getActiveAccount_returnsAccountAtGivenPosition() {
+        val account = subject.getActiveAccount()
+    }
+
+    @Test
+    fun getAccountWithAccount_() {
+
     }
 }

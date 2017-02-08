@@ -10,4 +10,5 @@ interface EthereumAccountConfig {
     fun getCryptoScryptN(): Long
 
     fun getCryptoScryptP(): Long
+
 }
