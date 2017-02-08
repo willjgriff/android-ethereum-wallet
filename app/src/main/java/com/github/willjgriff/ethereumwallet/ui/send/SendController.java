@@ -89,7 +89,7 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 	}
 
 	@Override
-	protected SendPresenter createPresenter() {
+	protected SendPresenter getPresenter() {
 		return mSendPresenter;
 	}
 }
