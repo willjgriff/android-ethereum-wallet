@@ -7,7 +7,6 @@ import com.github.wiljgriff.ethereumwallet.data.ethereum.LightEthereumAccountCon
 import org.ethereum.geth.AccountManager
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 /**
@@ -27,7 +26,7 @@ class EthereumManagerAndroidTestKotlin {
         MockitoAnnotations.initMocks(this)
 
         val ethereumAccountManager = AccountManager(accountConfig.getFilePath(), accountConfig.getCryptoScryptN(), accountConfig.getCryptoScryptP())
-        subject = EthereumAccountManagerKotlin(ethereumAccountManager, 0);
+//        subject = EthereumAccountManagerKotlin(ethereumAccountManager, 0);
     }
 
     @Test
@@ -41,8 +40,4 @@ class EthereumManagerAndroidTestKotlin {
         val account = subject.getActiveAccount()
     }
 
-    @Test
-    fun getAccountWithAccount_() {
-
-    }
 }

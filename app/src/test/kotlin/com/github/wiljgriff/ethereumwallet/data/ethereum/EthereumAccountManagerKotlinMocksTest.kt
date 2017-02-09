@@ -1,5 +1,8 @@
 package com.github.wiljgriff.ethereumwallet.data.ethereum
 
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -10,23 +13,21 @@ import org.mockito.MockitoAnnotations
 /**
  * Created by Will on 07/02/2017.
  */
-class EthereumAccountManagerKotlinTest {
+class EthereumAccountManagerKotlinMocksTest {
 
     private val MOCK_PASSWORD = "password"
     private val MOCK_ACTIVE_ACCOUNT_POSITION = 0L
 
     private lateinit var subject: EthereumAccountManagerKotlin;
 
-    @Mock
-    private lateinit var mockAccountManager: AccountManagerDelegate
-    @Mock
-    private lateinit var mockAccounts: AccountsDelegate
-    @Mock
-    private lateinit var mockAccount: AccountDelegate
+    private var mockAccounts: AccountsDelegate = mock()
+    private var mockAccount: AccountDelegate = mock()
+    private var mockAccountManager: AccountManagerDelegate = mock() {
+        on { accounts } doReturn mockAccounts
+    }
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        MockitoAnnotations.initMocks(this)
         subject = EthereumAccountManagerKotlin(mockAccountManager, MOCK_ACTIVE_ACCOUNT_POSITION)
     }
 

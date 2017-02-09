@@ -7,18 +7,18 @@ import org.ethereum.geth.Accounts
 /**
  * Created by Will on 07/02/2017.
  */
-class AccountManagerDelegate(val accountManager: AccountManager) {
+class AccountManagerDelegate(private val accountManager: AccountManager) {
 
     val accounts = AccountsDelegate(accountManager.accounts)
     fun newAccount(password: String) = AccountDelegate(accountManager.newAccount(password))
 }
 
-class AccountsDelegate(val accounts: Accounts) {
+class AccountsDelegate(private val accounts: Accounts) {
 
     fun size(): Long = accounts.size()
     fun get(position: Long): AccountDelegate = AccountDelegate(accounts.get(position))
 }
 
-class AccountDelegate(val account: Account) {
+class AccountDelegate(private val account: Account) {
 
 }

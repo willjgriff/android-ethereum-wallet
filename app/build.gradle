@@ -101,6 +101,9 @@ repositories {
         testCompile "junit:junit:4.12"
         testCompile "org.mockito:mockito-core:2.7.0"
         testCompile "org.robolectric:robolectric:3.2.2"
+        // Ethereum
+        testCompile "org.ethereum:geth:1.5.2"
+        testCompile "com.nhaarman:mockito-kotlin:1.1.0"
 
         // Kotlin Mockito, can't make it work in androidTest
 //      androidTestCompile "com.nhaarman:mockito-kotlin:1.1.0"
