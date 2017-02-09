@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.github.willjgriff.ethereumwallet"
         minSdkVersion 16
@@ -15,8 +15,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,30 +33,33 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
-
-    // Necessary for androidTestCompile "com.nhaarman:mockito-kotlin:1.1.0"
-//    packagingOptions {
-//        exclude 'META-INF/LICENSE'
-//    }
 }
 
 ext {
-    supportLib = '25.1.0'
-    constraint = '1.0.0-beta4'
-    dagger = '2.6'
-    javax = '1.0'
-    rxJava = '1.2.0'
-    rxAndroid = '1.2.1'
-    rxJava2 = '2.0.4'
-    rxAndroid2 = '2.0.1'
-    rxBindings = '1.0.0'
-    timber = '4.5.1'
-    autovalue = '1.4-rc1'
-    autoparcel = '0.2.5'
-    autogson = '0.4.5'
+    supportLib  = '25.1.0'
+    constraint  = '1.0.0-beta4'
+    timber      = '4.5.1'
+    conductor   = '2.0.7'
+    rxJava2     = '2.0.4'
+    rxAndroid2  = '2.0.1'
+    geth        = '1.5.2'
+    dagger      = '2.6'
+    javax       = '1.0'
+    butterknife = '8.4.0'
+    autovalue   = '1.4-rc1'
+    autoparcel  = '0.2.5'
+    autogson    = '0.4.5'
 
-    junit = '4.12'
-    espresso = '2.2.2'
+    junit       = '4.12'
+    mockito     = '2.7.0'
+    robolectric = '3.2.2'
+    kotMockito  = '1.1.0'
+    kotJunit    = '1.0.6'
+    kluent      = '1.14'
+
+    dexmaker    = '2.2.0'
+    findbugs    = '3.0.1'
+    espresso    = '2.2.2'
 }
 
 repositories {
@@ -64,57 +71,40 @@ repositories {
         compile "com.android.support:cardview-v7:${supportLib}"
         compile "com.android.support:design:${supportLib}"
         compile "com.jakewharton.timber:timber:${timber}"
-
-        // RxJava2
+        compile "com.bluelinelabs:conductor:${conductor}"
+        compile "com.bluelinelabs:conductor-rxlifecycle2:${conductor}"
         compile "io.reactivex.rxjava2:rxjava:${rxJava2}"
         compile "io.reactivex.rxjava2:rxandroid:${rxAndroid2}"
-
         // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
         compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
+        compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin}"
+        compile "org.ethereum:geth:${geth}"
 
-        // Dagger2
         compile "com.google.dagger:dagger:${dagger}"
         provided "javax.annotation:jsr250-api:${javax}"
         annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
+        compile "com.jakewharton:butterknife:${butterknife}"
+        annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
 
-        // Conductor
-        compile "com.bluelinelabs:conductor:2.0.7"
-        compile 'com.bluelinelabs:conductor-rxlifecycle2:2.0.7'
-
-        // ButterKnife
-        compile "com.jakewharton:butterknife:8.4.0"
-        annotationProcessor "com.jakewharton:butterknife-compiler:8.4.0"
-
-        // Ethereum
-        compile "org.ethereum:geth:1.5.2"
-
-        // AutoValue
+        // AutoValue (currently unused, potentially remove)
         provided "com.google.auto.value:auto-value:${autovalue}"
         annotationProcessor "com.google.auto.value:auto-value:${autovalue}"
         annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoparcel}"
         provided "com.ryanharter.auto.value:auto-value-gson:${autogson}"
         annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
 
-        // Kotlin
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        testCompile "junit:junit:${junit}"
+        testCompile "org.mockito:mockito-core:${mockito}"
+        testCompile "org.robolectric:robolectric:${robolectric}"
+        testCompile "com.nhaarman:mockito-kotlin:${kotMockito}"
+        testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotJunit}"
+        testCompile "org.amshove.kluent:kluent:${kluent}"
 
-        testCompile "junit:junit:4.12"
-        testCompile "org.mockito:mockito-core:2.7.0"
-        testCompile "org.robolectric:robolectric:3.2.2"
-        // Ethereum
-        testCompile "org.ethereum:geth:1.5.2"
-        testCompile "com.nhaarman:mockito-kotlin:1.1.0"
-
-        // Kotlin Mockito, can't make it work in androidTest
-//      androidTestCompile "com.nhaarman:mockito-kotlin:1.1.0"
-//      androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-//      androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-        androidTestCompile "com.google.code.findbugs:jsr305:3.0.1"
-        androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2", {
+        // AndroidTest version of Mockito
+        androidTestCompile "com.linkedin.dexmaker:dexmaker-mockito:${dexmaker}"
+        androidTestCompile "com.google.code.findbugs:jsr305:${findbugs}"
+        androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
             exclude group: 'com.android.support', module: 'support-annotations'
         })
-        // androidTest Mockito
-        androidTestCompile 'com.linkedin.dexmaker:dexmaker-mockito:2.2.0'
-
     }
 }

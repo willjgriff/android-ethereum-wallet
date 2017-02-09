@@ -32,7 +32,7 @@ class EthereumAccountManagerKotlinTest {
 
     @Test
     fun createAccount_callsCreateAccountOnAccountManager() {
-        Mockito.`when`(mockAccountManager.accounts).thenReturn(mockAccounts)
+        Mockito.`when`(mockAccountManager.getAccounts()).thenReturn(mockAccounts)
 
         subject.createAccount(MOCK_PASSWORD)
 
@@ -43,7 +43,7 @@ class EthereumAccountManagerKotlinTest {
     fun getActiveAccount_returnsExpectedAccount() {
         Mockito.`when`(mockAccounts.get(MOCK_ACTIVE_ACCOUNT_POSITION)).thenReturn(mockAccount)
         Mockito.`when`(mockAccounts.size()).thenReturn(1L)
-        Mockito.`when`(mockAccountManager.accounts).thenReturn(mockAccounts)
+        Mockito.`when`(mockAccountManager.getAccounts()).thenReturn(mockAccounts)
 
         var actualAccount = subject.getActiveAccount()
 

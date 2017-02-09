@@ -9,14 +9,14 @@ import org.ethereum.geth.Accounts
  */
 class AccountManagerDelegate(private val accountManager: AccountManager) {
 
-    val accounts = AccountsDelegate(accountManager.accounts)
+    fun getAccounts() = AccountsDelegate(accountManager.accounts)
     fun newAccount(password: String) = AccountDelegate(accountManager.newAccount(password))
 }
 
 class AccountsDelegate(private val accounts: Accounts) {
 
     fun size(): Long = accounts.size()
-    fun get(position: Long): AccountDelegate = AccountDelegate(accounts.get(position))
+    fun get(position: Long): AccountDelegate? = AccountDelegate(accounts.get(position))
 }
 
 class AccountDelegate(private val account: Account) {
