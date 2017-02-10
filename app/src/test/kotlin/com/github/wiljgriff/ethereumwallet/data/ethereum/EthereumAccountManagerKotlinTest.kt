@@ -1,5 +1,8 @@
 package com.github.wiljgriff.ethereumwallet.data.ethereum
 
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountsDelegate
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -18,6 +21,7 @@ class EthereumAccountManagerKotlinTest {
     private lateinit var subject: EthereumAccountManagerKotlin;
 
     @Mock
+    //@JvmField
     private lateinit var mockAccountManager: AccountManagerDelegate
     @Mock
     private lateinit var mockAccounts: AccountsDelegate

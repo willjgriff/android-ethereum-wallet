@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum
+package com.github.wiljgriff.ethereumwallet.data.ethereum.delegates
 
 import org.ethereum.geth.Account
 import org.ethereum.geth.AccountManager

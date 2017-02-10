@@ -10,6 +10,8 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Created by Will on 29/01/2017.
+ *
+ * TODO: Probably delete this and stick to the Kotlin Instrumentation tests.
  */
 public class EthereumAccountManagerAndroidTest {
 

@@ -1,6 +1,10 @@
 package com.github.wiljgriff.ethereumwallet.data.ethereum
 
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountsDelegate
 import com.nhaarman.mockito_kotlin.*
+import org.amshove.kluent.shouldEqual
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -43,6 +47,6 @@ class EthereumAccountManagerKotlinMocksTest {
 
         val actualAccount = subject.getActiveAccount()
 
-        Assert.assertEquals(mockAccount, actualAccount)
+        mockAccount shouldEqual actualAccount
     }
 }

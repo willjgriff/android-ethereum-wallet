@@ -1,5 +1,7 @@
 package com.github.wiljgriff.ethereumwallet.data.ethereum
 
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
 import org.ethereum.geth.Account
 import java.util.*
 
