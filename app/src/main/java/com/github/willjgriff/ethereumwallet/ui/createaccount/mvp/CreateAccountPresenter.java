@@ -3,6 +3,9 @@ package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
+import com.google.auto.factory.AutoFactory;
+import com.google.auto.factory.Provided;
+import com.google.auto.value.AutoValue;
 
 import javax.inject.Inject;
 
@@ -12,7 +15,7 @@ import io.reactivex.Observable;
  * Created by Will on 03/02/2017.
  */
 
-@ControllerScope
+@AutoFactory
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
 	private EthereumAccountManager mEthereumAccountManager;
@@ -20,17 +23,20 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
-	@Inject
-	CreateAccountPresenter(EthereumAccountManager ethereumAccountManager) {
-		mEthereumAccountManager = ethereumAccountManager;
-	}
+	CreateAccountPresenter(@Provided EthereumAccountManager ethereumAccountManager,
+	                       Observable<CharSequence> passwordObservable,
+	                       Observable<Object> submitButtonObservable) {
 
-	public void setObservables(Observable<CharSequence> passwordObservable, Observable<Object> submitButtonObservable) {
-		mPassword = passwordObservable.replay(1).autoConnect();
+		mEthereumAccountManager = ethereumAccountManager;
+
+		mPassword = passwordObservable
+			.replay(1)
+			.autoConnect();
 		mValidPassword = passwordObservable
 			.map(password -> password.length() > 0)
 			.distinctUntilChanged();
-		mSubmitButtonShare = submitButtonObservable.share();
+		mSubmitButtonShare = submitButtonObservable
+			.share();
 	}
 
 	@Override

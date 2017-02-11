@@ -15,6 +15,7 @@ import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.DaggerCreateAccountComponent;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -24,7 +25,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 
 /**
@@ -42,7 +42,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	Button mSubmitButton;
 
 	@Inject
-	CreateAccountPresenter mCreateAccountPresenter;
+	CreateAccountPresenterFactory mCreateAccountPresenterFactory;
 
 	public CreateAccountController() {
 		DaggerCreateAccountComponent.builder()
@@ -58,7 +58,9 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 
 	@Override
 	protected CreateAccountPresenter getPresenter() {
-		return mCreateAccountPresenter;
+		Observable<CharSequence> passwordObservable = RxTextView.textChanges(mPassword.getEditText());
+		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
+		return mCreateAccountPresenterFactory.create(passwordObservable, submitButtonObservable);
 	}
 
 	@NonNull
@@ -68,15 +70,8 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 		ButterKnife.bind(this, view);
 
 		mToolbar.setTitle(R.string.controller_create_account_title);
-		setupPresenter();
 
 		return view;
-	}
-
-	private void setupPresenter() {
-		Observable<CharSequence> passwordObservable = RxTextView.textChanges(mPassword.getEditText());
-		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
-		mCreateAccountPresenter.setObservables(passwordObservable, submitButtonObservable);
 	}
 
 	@Override

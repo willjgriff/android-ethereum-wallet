@@ -49,6 +49,7 @@ ext {
     autovalue   = '1.4-rc1'
     autoparcel  = '0.2.5'
     autogson    = '0.4.5'
+    autofactory = '1.0-beta3'
 
     junit       = '4.12'
     mockito     = '2.7.0'
@@ -86,12 +87,14 @@ repositories {
         compile "com.jakewharton:butterknife:${butterknife}"
         annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
 
-        // AutoValue (currently unused, potentially remove)
+        // AutoValue (currently only use AutoFactory, potentially remove others)
         provided "com.google.auto.value:auto-value:${autovalue}"
         annotationProcessor "com.google.auto.value:auto-value:${autovalue}"
         annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoparcel}"
         provided "com.ryanharter.auto.value:auto-value-gson:${autogson}"
         annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
+        provided "com.google.auto.factory:auto-factory:${autofactory}"
+        annotationProcessor "com.google.auto.factory:auto-factory:${autofactory}"
 
         testCompile "junit:junit:${junit}"
         testCompile "org.mockito:mockito-core:${mockito}"
