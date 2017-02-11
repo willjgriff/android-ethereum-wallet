@@ -103,7 +103,6 @@ repositories {
         // AndroidTest version of Mockito
         androidTestCompile "com.linkedin.dexmaker:dexmaker-mockito:${dexmaker}"
         androidTestCompile "com.google.code.findbugs:jsr305:${findbugs}"
-        androidTestCompile "org.amshove.kluent:kluent:${kluent}"
         androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
             exclude group: 'com.android.support', module: 'support-annotations'
         })

@@ -3,10 +3,10 @@ package com.github.willjgriff.ethereumwallet.data.ethereum
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
-import org.amshove.kluent.shouldEqual
-import org.amshove.kluent.shouldNotBe
 import org.ethereum.geth.AccountManager
 import org.ethereum.geth.Geth
+import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,28 +23,27 @@ class GethDelegatesAndroidTestKotlin {
     @Before
     fun setupEthereumManagerAndroidTestKotlin() {
         val appContext = InstrumentationRegistry.getTargetContext()
-        val keystoreLocation = appContext.getFilesDir() as String + "/keystore_location"
+        val keystoreLocation = appContext.getFilesDir().toString() + "/keystore_location"
         subject = AccountManagerDelegate(AccountManager(keystoreLocation, Geth.LightScryptN, Geth.LightScryptP))
     }
-
 
     @Test
     fun getAccounts_withNewKeystoreReturnsAccountsWithSize0() {
         val accounts = subject.getAccounts()
-        accounts.size() shouldEqual 0
+        assertEquals(0, accounts.size())
     }
 
     @Test
     fun newAccount_shouldNotBeNull() {
         val account = subject.newAccount(PASSWORD)
-        account shouldNotBe null
+        assertNotNull(account)
     }
 
     @Test
     fun getAccounts_withAccountShouldHaveSize1() {
         subject.newAccount(PASSWORD)
         val accounts = subject.getAccounts()
-        accounts.size() shouldEqual 1
+        assertEquals(1, accounts.size())
     }
 
 }

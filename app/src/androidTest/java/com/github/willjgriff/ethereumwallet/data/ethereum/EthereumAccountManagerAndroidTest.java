@@ -1,5 +1,7 @@
 package com.github.willjgriff.ethereumwallet.data.ethereum;
 
+import android.support.test.InstrumentationRegistry;
+
 import org.ethereum.geth.Account;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,7 +28,7 @@ public class EthereumAccountManagerAndroidTest {
 	@Before
 	public void setupEthereumManagerTest() {
 		MockitoAnnotations.initMocks(this);
-		Mockito.when(mMockEthereumKeystoreLocation.getLocation()).thenReturn(MOCK_FILE_PATH);
+		mMockEthereumKeystoreLocation = new EthereumKeystoreLocation(InstrumentationRegistry.getContext());
 
 		mSubject = new EthereumAccountManager(mMockEthereumKeystoreLocation);
 	}
