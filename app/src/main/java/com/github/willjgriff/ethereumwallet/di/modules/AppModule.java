@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.di;
+package com.github.willjgriff.ethereumwallet.di.modules;
 
 import android.content.Context;
 

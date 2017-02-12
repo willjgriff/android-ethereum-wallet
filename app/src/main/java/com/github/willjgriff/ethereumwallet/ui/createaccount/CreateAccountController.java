@@ -13,6 +13,7 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.DaggerCreateAccountComponent;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenterFactory;
@@ -45,10 +46,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	CreateAccountPresenterFactory mCreateAccountPresenterFactory;
 
 	public CreateAccountController() {
-		DaggerCreateAccountComponent.builder()
-			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
-			.build()
-			.inject(this);
+		CreateAccountInjector.INSTANCE.getComponent().inject(this);
 	}
 
 	@Override

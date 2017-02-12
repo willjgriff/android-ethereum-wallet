@@ -11,6 +11,7 @@ import dagger.Component;
  */
 
 @Component(dependencies = AppComponent.class)
+// TODO: This scope isn't used, consider removing.
 @ControllerScope
 public interface CreateAccountComponent {
 

@@ -2,6 +2,8 @@ package com.github.willjgriff.ethereumwallet.di;
 
 import android.content.Context;
 
+import com.github.willjgriff.ethereumwallet.di.modules.AppModule;
+
 /**
  * Created by Will on 29/01/2017.
  */
