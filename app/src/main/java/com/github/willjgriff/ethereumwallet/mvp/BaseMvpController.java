@@ -11,10 +11,13 @@ import com.bluelinelabs.conductor.rxlifecycle2.RxController;
 
 public abstract class BaseMvpController<VIEW, PRESENTER extends MvpPresenter<VIEW>> extends RxController {
 
+	private PRESENTER mPresenter;
+
 	@Override
 	protected void onAttach(@NonNull View view) {
 		super.onAttach(view);
 		getPresenter().bindView(getMvpView());
+		getPresenter().viewReady();
 	}
 
 	@Override
@@ -23,7 +26,14 @@ public abstract class BaseMvpController<VIEW, PRESENTER extends MvpPresenter<VIE
 		getPresenter().unbindView();
 	}
 
+	public PRESENTER getPresenter() {
+		if (mPresenter == null) {
+			mPresenter = createPresenter();
+		}
+		return mPresenter;
+	}
+
 	protected abstract VIEW getMvpView();
 
-	protected abstract PRESENTER getPresenter();
+	protected abstract PRESENTER createPresenter();
 }

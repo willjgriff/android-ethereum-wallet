@@ -12,7 +12,6 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
-import com.github.willjgriff.ethereumwallet.di.ComponentsInvalidator;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 

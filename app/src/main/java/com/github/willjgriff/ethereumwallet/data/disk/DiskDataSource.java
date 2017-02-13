@@ -10,5 +10,5 @@ public interface DiskDataSource<TYPE, QUERY> {
 
 	Observable<TYPE> getFromDisk(QUERY query);
 
-	TYPE saveToDisk(TYPE data);
+	void saveToDisk(TYPE data);
 }

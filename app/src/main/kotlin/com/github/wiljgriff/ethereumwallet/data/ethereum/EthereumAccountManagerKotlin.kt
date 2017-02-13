@@ -33,8 +33,8 @@ class EthereumAccountManagerKotlin(var accountManager: AccountManagerDelegate, v
                     && accountManager.getAccounts().get(position) != null)
 
     fun getAllAccounts(): List<AccountDelegate> {
-        var accountsList: List<AccountDelegate> = ArrayList()
-        var accounts = accountManager.getAccounts()
+        val accountsList: List<AccountDelegate> = ArrayList()
+        val accounts = accountManager.getAccounts()
 
         for (position in 0..accounts.size() - 1) {
             accountsList.plus(accounts.size())

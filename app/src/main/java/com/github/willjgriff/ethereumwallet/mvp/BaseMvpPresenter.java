@@ -19,16 +19,7 @@ public abstract class BaseMvpPresenter<VIEW> implements MvpPresenter<VIEW> {
 	@Override
 	public final void bindView(VIEW mvpView) {
 		mMvpView = mvpView;
-		viewReady();
 	}
-
-	/**
-	 * Should be used with {@link BaseMvpPresenter#addDisposable} to ensure view updates
-	 * are only attempted between {@link BaseMvpPresenter#bindView(Object)} and
-	 * {@link BaseMvpPresenter#unbindView()} alternatively check {@link BaseMvpPresenter#getView()}
-	 * != null before using, although question the setup if this needs to be done.
-	 */
-	protected abstract void viewReady();
 
 	@Override
 	public final void unbindView() {

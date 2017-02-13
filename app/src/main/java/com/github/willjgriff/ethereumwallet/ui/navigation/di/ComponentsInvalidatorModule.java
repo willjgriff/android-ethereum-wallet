@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.navigation.di;
 
-import com.github.willjgriff.ethereumwallet.di.ComponentsInvalidator;
+import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentsInvalidator;
 
 import dagger.Module;
 import dagger.Provides;

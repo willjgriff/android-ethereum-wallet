@@ -15,7 +15,7 @@ public class TransactionsPresenter extends BaseMvpPresenter<TransactionsView> {
 	}
 
 	@Override
-	protected void viewReady() {
+	public void viewReady() {
 
 	}
 }

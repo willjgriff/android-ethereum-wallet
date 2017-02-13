@@ -80,7 +80,7 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 		Observable<CharSequence> sendAmountObservable = RxTextView.textChanges(mSendAmount.getEditText());
 		Observable<CharSequence> accountPasswordObservable = RxTextView.textChanges(mAccountPassword.getEditText());
 		Observable<Object> sendObservable = RxView.clicks(mSendEtherButton);
-		mSendPresenter.setObservables(recipientAddressObservable, sendAmountObservable, accountPasswordObservable, sendObservable);
+		getPresenter().setObservables(recipientAddressObservable, sendAmountObservable, accountPasswordObservable, sendObservable);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 	}
 
 	@Override
-	protected SendPresenter getPresenter() {
+	protected SendPresenter createPresenter() {
 		return mSendPresenter;
 	}
 }

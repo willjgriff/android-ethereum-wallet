@@ -55,7 +55,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	}
 
 	@Override
-	protected CreateAccountPresenter getPresenter() {
+	protected CreateAccountPresenter createPresenter() {
 		Observable<CharSequence> passwordObservable = RxTextView.textChanges(mPassword.getEditText());
 		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
 		return mCreateAccountPresenterFactory.create(passwordObservable, submitButtonObservable);

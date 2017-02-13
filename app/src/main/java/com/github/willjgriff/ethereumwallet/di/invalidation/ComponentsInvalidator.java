@@ -1,5 +1,6 @@
-package com.github.willjgriff.ethereumwallet.di;
+package com.github.willjgriff.ethereumwallet.di.invalidation;
 
+import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumKeystoreLocation;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInjector;
 
 import java.util.ArrayList;

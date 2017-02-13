@@ -40,7 +40,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 	}
 
 	@Override
-	protected void viewReady() {
+	public void viewReady() {
 		setupPasswordObservable();
 		setupSubmitObservable();
 	}

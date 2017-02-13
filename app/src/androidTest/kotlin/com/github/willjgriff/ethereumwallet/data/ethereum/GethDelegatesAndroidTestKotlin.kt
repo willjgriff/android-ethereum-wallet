@@ -5,11 +5,12 @@ import android.support.test.runner.AndroidJUnit4
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
 import org.ethereum.geth.AccountManager
 import org.ethereum.geth.Geth
-import org.junit.Assert
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.File
 
 /**
  * Created by Will on 06/02/2017.
@@ -20,11 +21,17 @@ class GethDelegatesAndroidTestKotlin {
     private val PASSWORD = "password"
     private lateinit var subject: AccountManagerDelegate
 
+    private val appContext = InstrumentationRegistry.getTargetContext()
+    private val keystoreLocation = appContext.getFilesDir().toString() + "/keystore_location/"
+
     @Before
     fun setupEthereumManagerAndroidTestKotlin() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val keystoreLocation = appContext.getFilesDir().toString() + "/keystore_location"
         subject = AccountManagerDelegate(AccountManager(keystoreLocation, Geth.LightScryptN, Geth.LightScryptP))
+    }
+
+    @After
+    fun cleanEthereumManagerAndroidTestKotlin() {
+        File(keystoreLocation).deleteRecursively()
     }
 
     @Test
@@ -46,4 +53,26 @@ class GethDelegatesAndroidTestKotlin {
         assertEquals(1, accounts.size())
     }
 
+    @Test
+    fun getAccountAtPosition1_returnsAccountAtPosition1WithSameFilePath() {
+        val account1Path = subject.newAccount(PASSWORD).getFile()
+        val account2Path = subject.newAccount(PASSWORD).getFile()
+
+        val actualAccountPath = subject.getAccounts().get(1).getFile();
+
+        assertEquals(account2Path, actualAccountPath)
+        assertNotEquals(account1Path, actualAccountPath)
+    }
+
+    @Test
+    fun getAddressHex_isTheSameAfterFetchingFromAccountManager() {
+        val address = subject.newAccount(PASSWORD).getAddress().getHex()
+        val fetched = subject.getAccounts().get(0).getAddress().getHex()
+        assertEquals(address, fetched)
+    }
+
+    @Test
+    fun blah() {
+//        subject.newAccount(PASSWORD).getAddress().
+    }
 }

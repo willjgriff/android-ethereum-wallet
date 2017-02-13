@@ -24,7 +24,7 @@ public class SendPresenter extends BaseMvpPresenter<SendView> {
 	}
 
 	@Override
-	protected void viewReady() {
+	public void viewReady() {
 
 	}
 
