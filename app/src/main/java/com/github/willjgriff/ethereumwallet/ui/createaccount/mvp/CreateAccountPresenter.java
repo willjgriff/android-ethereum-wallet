@@ -1,13 +1,9 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
-import com.github.willjgriff.ethereumwallet.di.ControllerScope;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
-import com.google.auto.value.AutoValue;
-
-import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
@@ -18,12 +14,12 @@ import io.reactivex.Observable;
 @AutoFactory
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
-	private EthereumAccountManager mEthereumAccountManager;
+	private EthereumAccountManagerKotlin mEthereumAccountManager;
 	private Observable<CharSequence> mPassword;
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
-	CreateAccountPresenter(@Provided EthereumAccountManager ethereumAccountManager,
+	CreateAccountPresenter(@Provided EthereumAccountManagerKotlin ethereumAccountManager,
 	                       Observable<CharSequence> passwordObservable,
 	                       Observable<Object> submitButtonObservable) {
 
@@ -79,18 +75,18 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 			.subscribe(aBoolean -> validPasswordSubmitted());
 	}
 
-	private void validPasswordSubmitted() {
-		mPassword.subscribe(password -> {
-			mEthereumAccountManager.createAccount(password.toString());
-			getView().openWallet();
-		});
-	}
-
 	private void hidePasswordError() {
 		getView().hidePasswordError();
 	}
 
 	private void showPasswordError() {
 		getView().showPasswordError();
+	}
+
+	private void validPasswordSubmitted() {
+		mPassword.subscribe(password -> {
+			mEthereumAccountManager.createAccount(password.toString());
+			getView().openWallet();
+		});
 	}
 }

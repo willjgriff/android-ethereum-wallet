@@ -6,6 +6,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
+import com.github.willjgriff.ethereumwallet.ui.settings.SettingsController;
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 
 /**
@@ -22,6 +23,8 @@ public class NavigationControllerFactory {
 				return new SendController();
 			case R.id.navigation_receive:
 				return new ReceiveController();
+			case R.id.navigation_settings:
+				return new SettingsController();
 		}
 		return null;
 	}

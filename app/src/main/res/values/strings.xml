@@ -6,6 +6,7 @@
     <string name="controller_send_title">Send</string>
     <string name="controller_receive_title">Receive</string>
     <string name="controller_create_account_title">Create Account</string>
+    <string name="controller_settings_title">Settings</string>
 
     <!--Common-->
     <string name="common_password">Password</string>
@@ -23,4 +24,10 @@
     <string name="controller_receive_ethereum_address">Ethereum Address:</string>
     <string name="controller_receive_receive_amount">Receive amount</string>
     <string name="controller_receive_create_qr_code">Create QR Code</string>
+
+    <!--Settings-->
+    <string name="controller_settings_active_address">Current active address</string>
+    <string name="controller_settings_change_address">Change address</string>
+    <string name="controller_settings_new_address">New</string>
+    <string name="controller_settings_delete_address">Delete</string>
 </resources>

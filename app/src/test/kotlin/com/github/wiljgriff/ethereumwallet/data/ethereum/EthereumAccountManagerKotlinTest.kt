@@ -3,54 +3,50 @@ package com.github.wiljgriff.ethereumwallet.data.ethereum
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountsDelegate
+import com.nhaarman.mockito_kotlin.*
+import org.amshove.kluent.shouldEqual
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 
 /**
  * Created by Will on 07/02/2017.
  */
 class EthereumAccountManagerKotlinTest {
 
-    private val MOCK_PASSWORD = "password"
     private val MOCK_ACTIVE_ACCOUNT_POSITION = 0L
+    private val MOCK_ACCOUNTS_SIZE = 1L
 
     private lateinit var subject: EthereumAccountManagerKotlin;
 
-    @Mock
-    //@JvmField
-    private lateinit var mockAccountManager: AccountManagerDelegate
-    @Mock
-    private lateinit var mockAccounts: AccountsDelegate
-    @Mock
-    private lateinit var mockAccount: AccountDelegate
+    private var mockAccount: AccountDelegate = mock()
+    private var mockAccounts: AccountsDelegate = mock {
+        on { get(any()) } doReturn mockAccount
+    }
+    private var mockAccountManager: AccountManagerDelegate = mock {
+        on { getAccounts() } doReturn mockAccounts
+    }
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        MockitoAnnotations.initMocks(this)
         subject = EthereumAccountManagerKotlin(mockAccountManager, MOCK_ACTIVE_ACCOUNT_POSITION)
     }
 
     @Test
-    fun createAccount_callsCreateAccountOnAccountManager() {
-        Mockito.`when`(mockAccountManager.getAccounts()).thenReturn(mockAccounts)
+    fun createAccount_callsNewAccountOnAccountManager() {
+        val MOCK_PASSWORD = "password"
 
         subject.createAccount(MOCK_PASSWORD)
 
-        Mockito.verify(mockAccountManager).newAccount(MOCK_PASSWORD)
+        verify(mockAccountManager).newAccount(MOCK_PASSWORD)
     }
 
     @Test
     fun getActiveAccount_returnsExpectedAccount() {
-        Mockito.`when`(mockAccounts.get(MOCK_ACTIVE_ACCOUNT_POSITION)).thenReturn(mockAccount)
-        Mockito.`when`(mockAccounts.size()).thenReturn(1L)
-        Mockito.`when`(mockAccountManager.getAccounts()).thenReturn(mockAccounts)
+        whenever(mockAccounts.size()).then { MOCK_ACCOUNTS_SIZE }
 
-        var actualAccount = subject.getActiveAccount()
+        val actualAccount = subject.getActiveAccount()
 
-        Assert.assertEquals(mockAccount, actualAccount)
+        mockAccount shouldEqual actualAccount
     }
 }

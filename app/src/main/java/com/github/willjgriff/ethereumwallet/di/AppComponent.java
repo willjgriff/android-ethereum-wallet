@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.di;
 
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule;
 import com.github.willjgriff.ethereumwallet.di.modules.EthereumModule;
 import com.github.willjgriff.ethereumwallet.ui.MainActivity;
@@ -16,7 +16,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class, EthereumModule.class})
 public interface AppComponent {
 
-	EthereumAccountManager provideEthereumManager();
+	EthereumAccountManagerKotlin provideEthereumManager();
 
 	void inject(MainActivity mainActivity);
 }

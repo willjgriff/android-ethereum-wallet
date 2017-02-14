@@ -9,8 +9,8 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
@@ -24,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
 	@BindView(R.id.activity_main_controller_container)
 	ViewGroup mControllerContainer;
+
 	@Inject
-	EthereumAccountManager mEthereumAccountManager;
+	EthereumAccountManagerKotlin mEthereumAccountManager;
+
 	private Router mRouter;
 
 	@Override
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 		if (mEthereumAccountManager.hasAccount()) {
 			setConductorRoot(new NavigationController());
 		} else {
-			setConductorRoot(new CreateAccountController());
+			setConductorRoot(CreateAccountController.getInstance(true));
 		}
 	}
 

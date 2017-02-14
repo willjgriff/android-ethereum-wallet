@@ -43,7 +43,7 @@ ext {
     rxJava2     = '2.0.4'
     rxAndroid2  = '2.0.1'
     geth        = '1.5.2'
-    dagger      = '2.6'
+    dagger      = '2.7'
     javax       = '1.0'
     butterknife = '8.4.0'
     autovalue   = '1.4-rc1'

@@ -2,9 +2,13 @@ package com.github.willjgriff.ethereumwallet.di.modules;
 
 import android.content.Context;
 
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumKeystoreLocation;
-import com.github.willjgriff.ethereumwallet.data.ethereum.EthereumAccountManager;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate;
 
+import org.ethereum.geth.AccountManager;
+import org.ethereum.geth.Geth;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -19,13 +23,34 @@ public class EthereumModule {
 
 	@Provides
 	@Singleton
-	EthereumKeystoreLocation providesKeystoreLocation(Context context) {
-		return new EthereumKeystoreLocation(context);
+	@Named("account_position")
+	int activeAccountPosition() {
+		return 0;
 	}
 
 	@Provides
 	@Singleton
-	EthereumAccountManager providesEthereum(EthereumKeystoreLocation ethereumKeystoreLocation) {
-		return new EthereumAccountManager(ethereumKeystoreLocation);
+	@Named("keystore_location")
+	String keystoreLocation(Context context) {
+		return context.getFilesDir().toString() + "/keystore_location/";
+	}
+
+	@Provides
+	@Singleton
+	AccountManager providesAccountManager(@Named("keystore_location") String keystoreLocation) {
+		return new AccountManager(keystoreLocation, Geth.LightScryptN, Geth.LightScryptP);
+	}
+
+	@Provides
+	@Singleton
+	AccountManagerDelegate providesEthereumAccountManagerDelegate(AccountManager accountManager) {
+		return new AccountManagerDelegate(accountManager);
+	}
+
+	@Provides
+	@Singleton
+	EthereumAccountManagerKotlin providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
+	                                                            @Named("account_position") int activeAccountPosition) {
+		return new EthereumAccountManagerKotlin(accountManagerDelegate, activeAccountPosition);
 	}
 }

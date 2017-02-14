@@ -1,5 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +12,8 @@ import android.widget.Button;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInjector;
-import com.github.willjgriff.ethereumwallet.ui.createaccount.di.DaggerCreateAccountComponent;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView;
@@ -35,6 +34,8 @@ import io.reactivex.Observable;
 public class CreateAccountController extends BaseMvpController<CreateAccountView, CreateAccountPresenter>
 	implements CreateAccountView {
 
+	public static final String ARG_OPEN_NAVIGATION_ON_EXIT = CreateAccountController.class.getName() + "ARG_OPEN_NAVIGATION_ON_EXIT";
+
 	@BindView(R.id.controller_create_account_toolbar)
 	Toolbar mToolbar;
 	@BindView(R.id.controller_create_account_password_text_input)
@@ -45,8 +46,18 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	@Inject
 	CreateAccountPresenterFactory mCreateAccountPresenterFactory;
 
-	public CreateAccountController() {
+	// TODO: See if there's a better way to do this, or pass to Presenter.
+	private boolean mOpenNavigationOnExit;
+
+	public CreateAccountController(Bundle bundle) {
+		mOpenNavigationOnExit = bundle.getBoolean(ARG_OPEN_NAVIGATION_ON_EXIT);
 		CreateAccountInjector.INSTANCE.getComponent().inject(this);
+	}
+
+	public static CreateAccountController getInstance(boolean openNavigationOnExit) {
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(ARG_OPEN_NAVIGATION_ON_EXIT, openNavigationOnExit);
+		return new CreateAccountController(bundle);
 	}
 
 	@Override
@@ -84,8 +95,12 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 
 	@Override
 	public void openWallet() {
-		getRouter().setRoot(RouterTransaction.with(new NavigationController())
-			.pushChangeHandler(new FadeChangeHandler())
-			.popChangeHandler(new FadeChangeHandler()));
+		if (mOpenNavigationOnExit) {
+			getRouter().setRoot(RouterTransaction.with(new NavigationController())
+				.pushChangeHandler(new FadeChangeHandler())
+				.popChangeHandler(new FadeChangeHandler()));
+		} else {
+			getRouter().popCurrentController();
+		}
 	}
 }

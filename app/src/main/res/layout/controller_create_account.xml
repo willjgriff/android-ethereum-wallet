@@ -19,22 +19,9 @@
         android:layout_width="0dp"
         />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <TextView
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        android:id="@+id/view4"/>
-
-    <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/xsmall"

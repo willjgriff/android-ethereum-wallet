@@ -29,7 +29,7 @@ class EthereumAccountManagerKotlin(var accountManager: AccountManagerDelegate, v
     fun hasAccount(): Boolean = accountAvailableAtPosition(0)
 
     private fun accountAvailableAtPosition(position: Long) =
-            (accountManager.getAccounts().size() >= position
+            (accountManager.getAccounts().size() >= position + 1
                     && accountManager.getAccounts().get(position) != null)
 
     fun getAllAccounts(): List<AccountDelegate> {
