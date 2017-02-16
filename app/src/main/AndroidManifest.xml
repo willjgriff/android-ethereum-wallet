@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme"
         android:name=".EthereumWalletApplication">
         <activity android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

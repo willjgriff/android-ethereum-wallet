@@ -7,4 +7,6 @@ package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 public interface SettingsView {
 
 	void openCreateAccountScreen();
+
+	void showPasswordConfirmationDialog();
 }
