@@ -11,6 +11,7 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.SettingsCreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
@@ -76,7 +77,7 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 
 	@Override
 	public void openCreateAccountScreen() {
-		getRouter().pushController(RouterTransaction.with(CreateAccountController.getInstance(false))
+		getRouter().pushController(RouterTransaction.with(new SettingsCreateAccountController())
 			.pushChangeHandler(new FadeChangeHandler())
 			.popChangeHandler(new FadeChangeHandler()));
 	}

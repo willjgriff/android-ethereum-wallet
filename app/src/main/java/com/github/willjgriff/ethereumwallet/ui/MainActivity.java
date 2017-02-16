@@ -13,6 +13,7 @@ import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerK
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.PreNavigationCreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 
 import javax.inject.Inject;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 		if (mEthereumAccountManager.hasAccount()) {
 			setConductorRoot(new NavigationController());
 		} else {
-			setConductorRoot(CreateAccountController.getInstance(true));
+			setConductorRoot(new PreNavigationCreateAccountController());
 		}
 	}
 
