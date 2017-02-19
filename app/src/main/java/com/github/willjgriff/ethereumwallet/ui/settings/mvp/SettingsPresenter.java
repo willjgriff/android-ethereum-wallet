@@ -35,5 +35,6 @@ public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 	}
 
 	public void deleteActiveAccount(String password) {
+		// Validate password
 	}
 }

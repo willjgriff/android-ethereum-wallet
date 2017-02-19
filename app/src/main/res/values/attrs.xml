@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="ValidatedTextInputLayout">
+        <attr name="error_text" format="reference|string"/>
+        <attr name="android:inputType"/>
+        <attr name="validator"/>
+    </declare-styleable>
+
+    <attr name="validator" format="integer">
+        <flag name="notEmpty" value="1"/>
+    </attr>
+
+</resources>

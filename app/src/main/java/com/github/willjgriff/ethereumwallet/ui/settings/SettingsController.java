@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
@@ -17,6 +17,7 @@ import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListe
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsView;
+import com.github.willjgriff.ethereumwallet.ui.utils.widget.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
@@ -87,20 +88,31 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 
 	@Override
 	public void showPasswordConfirmationDialog() {
-		// TODO: Add strings to res.
-		EditText editText = new EditText(getApplicationContext());
-		int padding = (int) getResources().getDimension(R.dimen.xsmall);
-		editText.setPadding(padding, 0, padding, 0);
-		new AlertDialog
-			.Builder(getActivity())
-			.setTitle("Delete active address")
-			.setMessage("This action cannot be undone. Any Ether in this wallet will be lost. To delete this address, enter its password:")
-			.setPositiveButton("Delete", (dialogInterface, i) -> {
-				getPresenter().deleteActiveAccount(editText.getText().toString());
-				dialogInterface.dismiss();
-			})
-			.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel())
-			.setView(editText)
-			.show();
+//		// This should be in an independent component with its own MVP structure.
+//		ValidatedTextInputLayout validatedTextInputLayout = (ValidatedTextInputLayout) LayoutInflater.from(getActivity())
+//			.inflate(R.layout.view_controller_settings_delete_validated_input, new FrameLayout(getApplicationContext()), false);
+//
+//		AlertDialog deleteAccountDialog = new AlertDialog
+//			.Builder(getActivity())
+//			.setTitle(R.string.controller_settings_delete_address_dialog_title)
+//			.setMessage(R.string.controller_settings_delete_address_dialog_message)
+//			.setPositiveButton(R.string.controller_settings_delete_address, null)
+//			.setNegativeButton(R.string.controller_settings_delete_address_cancel, (dialogInterface, i) -> dialogInterface.cancel())
+//			.setView(validatedTextInputLayout)
+//			.show();
+//
+//		Button dialogPositiveButton = deleteAccountDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+//		Observable<Object> dialogPositiveButtonObservable = RxView.clicks(dialogPositiveButton).share();
+//
+//		validatedTextInputLayout.setCheckValidationTrigger(dialogPositiveButtonObservable);
+//
+//		Observable<Boolean> isTextValidObservable = validatedTextInputLayout.getTextValidObservable();
+//
+//		dialogPositiveButtonObservable
+//			.withLatestFrom(isTextValidObservable, (buttonClick, areAllValid) -> areAllValid)
+//			.filter(areAllValid -> areAllValid)
+//			.subscribe(aBoolean -> getPresenter().deleteActiveAccount(validatedTextInputLayout.getText()));
+
+		new SettingsDeleteAlertDialog(getActivity()).show();
 	}
 }

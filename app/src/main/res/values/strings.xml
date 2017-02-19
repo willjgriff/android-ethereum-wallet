@@ -13,7 +13,7 @@
 
     <!--Create Account-->
     <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be reactivated from the settings.</string>
-    <string name="controller_create_account_enter_password">Enter a password</string>
+    <string name="controller_create_account_enter_password_error">Enter a password</string>
 
     <!--Send-->
     <string name="controller_send_amount">Amount</string>
@@ -30,4 +30,7 @@
     <string name="controller_settings_change_address">Change address</string>
     <string name="controller_settings_new_address">New</string>
     <string name="controller_settings_delete_address">Delete</string>
+    <string name="controller_settings_delete_address_dialog_title">Delete active address</string>
+    <string name="controller_settings_delete_address_dialog_message">This action cannot be undone. Any Ether in this wallet will be lost. To delete this address, enter its password:</string>
+    <string name="controller_settings_delete_address_cancel">Cancel</string>
 </resources>

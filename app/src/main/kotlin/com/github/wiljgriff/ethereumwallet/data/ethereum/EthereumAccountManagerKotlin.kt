@@ -43,4 +43,13 @@ class EthereumAccountManagerKotlin(var accountManager: AccountManagerDelegate, v
         return accountsList
     }
 
+    fun verifyPassword(password: String): Boolean {
+        // TODO: To be implemented
+        return true;
+    }
+
+    fun deleteActiveAccount(password: String) {
+        // TODO: To be implemented
+    }
+
 }

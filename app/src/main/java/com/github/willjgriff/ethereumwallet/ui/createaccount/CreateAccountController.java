@@ -68,7 +68,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 
 	@Override
 	public void showPasswordError() {
-		mPassword.setError(getApplicationContext().getString(R.string.controller_create_account_enter_password));
+		mPassword.setError(getApplicationContext().getString(R.string.controller_create_account_enter_password_error));
 	}
 
 	@Override

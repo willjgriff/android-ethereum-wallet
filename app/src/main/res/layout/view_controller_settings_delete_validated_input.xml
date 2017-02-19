@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.willjgriff.ethereumwallet.ui.utils.widget.ValidatedTextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/xsmall"
+    android:paddingRight="@dimen/xsmall"
+    android:inputType="textPassword"
+    app:error_text="@string/controller_create_account_enter_password_error"
+    app:validator="notEmpty"/>
