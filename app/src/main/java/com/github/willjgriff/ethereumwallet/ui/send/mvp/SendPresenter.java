@@ -7,6 +7,7 @@ import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Will on 04/02/2017.
@@ -29,5 +30,6 @@ public class SendPresenter extends BaseMvpPresenter<SendView> {
 
 	public void setObservables(Observable<CharSequence> recipientAddressObservable, Observable<CharSequence> sendAmountObservable, Observable<CharSequence> accountPasswordObservable, Observable<Object> sendObservable) {
 		mSendEther = sendObservable;
+		mSendEther.subscribe(o -> getView().toString());
 	}
 }

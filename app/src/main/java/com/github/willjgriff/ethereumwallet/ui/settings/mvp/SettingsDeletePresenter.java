@@ -12,7 +12,6 @@ import io.reactivex.Observable;
  * Created by Will on 19/02/2017.
  */
 
-@ControllerScope
 public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView> {
 
 	private EthereumAccountManagerKotlin mEthereumAccountManager;
@@ -27,13 +26,17 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 	public void viewReady() {
 	}
 
-	public void setObservables(Observable<Object> dialogPositiveButtonObservable, Observable<Boolean> isTextValidObservable, Observable<String> passwordChangedObservable) {
-		dialogPositiveButtonObservable
-			.withLatestFrom(isTextValidObservable, (buttonClick, areAllValid) -> areAllValid)
+	public void setObservables(Observable<Object> deleteButton, Observable<Object> cancelButton,
+	                           Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
+		deleteButton
+			.withLatestFrom(passwordValid, (buttonClick, areAllValid) -> areAllValid)
 			.filter(areAllValid -> areAllValid)
 			.subscribe(aBoolean -> deleteActiveAccount());
 
-		mPasswordObservable = passwordChangedObservable.replay(1).autoConnect();
+		cancelButton
+			.subscribe(cancelClicked -> getView().closeDialog());
+
+		mPasswordObservable = passwordChanged.replay(1).autoConnect();
 	}
 
 	private void deleteActiveAccount() {

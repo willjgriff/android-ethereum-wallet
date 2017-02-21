@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet.di.invalidation;
 
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInjector;
+import com.github.willjgriff.ethereumwallet.ui.send.di.SendInjector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class ComponentsInvalidator {
 
 	public ComponentsInvalidator() {
 		mComponentInvalidators.add(CreateAccountInjector.INSTANCE);
+		mComponentInvalidators.add(SendInjector.INSTANCE);
 	}
 
 	public void invalidateComponents() {

@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/xsmall"
     android:paddingLeft="@dimen/xsmall"
     android:paddingRight="@dimen/xsmall"
     android:inputType="textPassword"
+    android:hint="@string/common_password"
     app:error_text="@string/controller_create_account_enter_password_error"
     app:validator="notEmpty"/>

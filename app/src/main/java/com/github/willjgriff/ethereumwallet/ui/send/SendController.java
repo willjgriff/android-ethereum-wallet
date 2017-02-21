@@ -6,20 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.rxlifecycle2.RxController;
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
-import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
-import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
-import com.github.willjgriff.ethereumwallet.ui.send.di.DaggerSendComponent;
+import com.github.willjgriff.ethereumwallet.ui.send.di.SendInjector;
 import com.github.willjgriff.ethereumwallet.ui.send.mvp.SendPresenter;
 import com.github.willjgriff.ethereumwallet.ui.send.mvp.SendView;
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -28,7 +21,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import timber.log.Timber;
 
 /**
  * Created by Will on 29/01/2017.
@@ -48,10 +40,18 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 	@Inject
 	SendPresenter mSendPresenter;
 
+	@Override
+	protected SendView getMvpView() {
+		return this;
+	}
+
+	@Override
+	protected SendPresenter createPresenter() {
+		return mSendPresenter;
+	}
+
 	public SendController() {
-		DaggerSendComponent.builder()
-			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
-			.build().inject(this);
+		SendInjector.INSTANCE.getComponent().inject(this);
 	}
 
 	@NonNull
@@ -63,8 +63,6 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 		setupToolbarTitle();
 		setInputObservables();
 
-//		getChildRouter(mInnerController)
-//			.pushController(RouterTransaction.with(new CreateAccountController()));
 		return view;
 	}
 
@@ -81,15 +79,5 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 		Observable<CharSequence> accountPasswordObservable = RxTextView.textChanges(mAccountPassword.getEditText());
 		Observable<Object> sendObservable = RxView.clicks(mSendEtherButton);
 		getPresenter().setObservables(recipientAddressObservable, sendAmountObservable, accountPasswordObservable, sendObservable);
-	}
-
-	@Override
-	protected SendView getMvpView() {
-		return this;
-	}
-
-	@Override
-	protected SendPresenter createPresenter() {
-		return mSendPresenter;
 	}
 }
