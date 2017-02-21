@@ -1,7 +1,6 @@
-package com.github.willjgriff.ethereumwallet.ui.utils.widget;
+package com.github.willjgriff.ethereumwallet.ui.widget;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**

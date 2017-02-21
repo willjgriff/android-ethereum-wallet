@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Delete active address"/>
 
-    <com.github.willjgriff.ethereumwallet.ui.utils.widget.ValidatedTextInputLayout
+    <com.github.willjgriff.ethereumwallet.ui.widget.ValidatedTextInputLayout
         android:id="@+id/dialog_settings_delete_address_text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

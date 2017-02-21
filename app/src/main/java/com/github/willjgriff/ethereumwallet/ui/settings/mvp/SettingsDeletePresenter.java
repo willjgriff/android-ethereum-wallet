@@ -1,7 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
-import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
@@ -15,7 +14,6 @@ import io.reactivex.Observable;
 public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView> {
 
 	private EthereumAccountManagerKotlin mEthereumAccountManager;
-	private Observable<String> mPasswordObservable;
 
 	@Inject
 	public SettingsDeletePresenter(EthereumAccountManagerKotlin ethereumAccountManager) {
@@ -28,23 +26,38 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 
 	public void setObservables(Observable<Object> deleteButton, Observable<Object> cancelButton,
 	                           Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
-		deleteButton
-			.withLatestFrom(passwordValid, (buttonClick, areAllValid) -> areAllValid)
-			.filter(areAllValid -> areAllValid)
-			.subscribe(aBoolean -> deleteActiveAccount());
+
+		setupDeleteButton(deleteButton, passwordValid, passwordChanged);
 
 		cancelButton
 			.subscribe(cancelClicked -> getView().closeDialog());
 
-		mPasswordObservable = passwordChanged.replay(1).autoConnect();
+		passwordChanged
+			.subscribe(password -> mEthereumAccountManager.deleteActiveAccount(password));
 	}
 
-	private void deleteActiveAccount() {
-		mPasswordObservable.subscribe(password -> {
-			if (mEthereumAccountManager.verifyPassword(password)) {
-				mEthereumAccountManager.deleteActiveAccount(password);
+	private void setupDeleteButton(Observable<Object> deleteButton, Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
+		Observable<String> enteredPasswordObservable = passwordChanged
+			.replay(1)
+			.autoConnect();
+
+		Observable<String> deleteObservable = deleteButton
+			.withLatestFrom(passwordValid, (buttonClick, passwordIsValid) -> passwordIsValid)
+			.filter(passwordIsValid -> passwordIsValid)
+			.flatMap(passwordIsValid -> enteredPasswordObservable);
+
+		// Show incorrect password error if the password is incorrect
+		deleteObservable
+			.map(validPassword -> mEthereumAccountManager.verifyPassword(validPassword))
+			.filter(correctPassword -> !correctPassword)
+			.subscribe(incorrectPassword -> getView().showIncorrectPassword());
+
+		// Delete active account if the password is correct
+		deleteObservable
+			.filter(enteredPassword -> mEthereumAccountManager.verifyPassword(enteredPassword))
+			.subscribe(enteredPassword -> {
+				mEthereumAccountManager.deleteActiveAccount(enteredPassword);
 				getView().closeDialog();
-			}
-		});
+			});
 	}
 }

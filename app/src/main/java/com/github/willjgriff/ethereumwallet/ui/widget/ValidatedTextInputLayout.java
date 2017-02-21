@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.utils.widget;
+package com.github.willjgriff.ethereumwallet.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -22,10 +22,10 @@ import io.reactivex.Observable;
 
 public class ValidatedTextInputLayout extends TextInputLayout {
 
-	Observable<String> mTextChanged;
-	Observable<Boolean> mTextValid;
-	List<Validator> mValidators = new ArrayList<>();
-	CharSequence mErrorMessage;
+	private Observable<String> mTextChanged;
+	private Observable<Boolean> mTextValid;
+	private List<Validator> mValidators = new ArrayList<>();
+	private CharSequence mErrorMessage;
 
 	{
 		LayoutInflater.from(getContext()).inflate(R.layout.view_validated_text_input_layout, this);
@@ -75,15 +75,21 @@ public class ValidatedTextInputLayout extends TextInputLayout {
 			.distinctUntilChanged();
 
 		// Hide the error when valid text is emitted
-		mTextValid.filter(isValid -> isValid).subscribe(isValid -> setErrorEnabled(false));
+		mTextValid
+			.filter(isValid -> isValid)
+			.subscribe(isValid -> setErrorEnabled(false));
 
-		Observable<Boolean> hotValidText = mTextValid.publish().autoConnect();
+		// Skip until the field has a valid result
+		Observable<Boolean> hotValidText = mTextValid
+			.publish()
+			.autoConnect();
 		Observable<Boolean> skipUntilValid = hotValidText
-			// Skip until the field has a valid result
 			.skipUntil(hotValidText.filter(isValid -> isValid));
 
 		// Show the error when invalid text is emitted
-		skipUntilValid.filter(isValid -> !isValid).subscribe(isNotValid -> setError(mErrorMessage));
+		skipUntilValid
+			.filter(isValid -> !isValid)
+			.subscribe(isNotValid -> setError(mErrorMessage));
 	}
 
 	@NonNull
@@ -105,8 +111,17 @@ public class ValidatedTextInputLayout extends TextInputLayout {
 //		return mTextChanged.filter(textInput -> isValidObservable.blockingGet());
 	}
 
+	public void showAdditionalError(CharSequence errorMessage) {
+		setError(errorMessage);
+	}
+
+	public void hideError() {
+		setErrorEnabled(false);
+	}
+
 	public void setCheckValidationTrigger(Observable<Object> validationTrigger) {
-		validationTrigger.flatMap(anyEmission -> mTextValid)
+		validationTrigger
+			.flatMap(anyEmission -> mTextValid)
 			.filter(isValid -> !isValid)
 			.subscribe(isNotValid -> setError(mErrorMessage));
 	}

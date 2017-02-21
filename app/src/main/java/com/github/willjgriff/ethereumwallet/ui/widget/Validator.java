@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.utils.widget;
+package com.github.willjgriff.ethereumwallet.ui.widget;
 
 /**
  * Created by Will on 17/02/2017.

@@ -3,6 +3,7 @@ package com.github.willjgriff.ethereumwallet;
 import android.app.Application;
 
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
+import com.squareup.leakcanary.LeakCanary;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -17,9 +18,20 @@ public class EthereumWalletApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		setupLeakCanary();
 		setupTimber();
 		setupRealm();
 		setupDagger();
+	}
+
+	private void setupLeakCanary() {
+		if (LeakCanary.isInAnalyzerProcess(this)) {
+			// This process is dedicated to LeakCanary for heap analysis.
+			// You should not init your app in this process.
+			return;
+		}
+		LeakCanary.install(this);
+		// Normal app init code...
 	}
 
 	private void setupTimber() {

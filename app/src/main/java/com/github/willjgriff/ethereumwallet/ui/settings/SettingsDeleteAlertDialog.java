@@ -14,7 +14,7 @@ import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.DaggerSettingsDeleteComponent;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeleteView;
-import com.github.willjgriff.ethereumwallet.ui.utils.widget.ValidatedTextInputLayout;
+import com.github.willjgriff.ethereumwallet.ui.widget.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
@@ -62,8 +62,7 @@ public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDe
 	private void setupDialog() {
 		DaggerSettingsDeleteComponent.builder()
 			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
-			.build()
-			.inject(this);
+			.build().inject(this);
 		setupAppearance();
 	}
 
@@ -96,5 +95,10 @@ public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDe
 	@Override
 	public void closeDialog() {
 		dismiss();
+	}
+
+	@Override
+	public void showIncorrectPassword() {
+		mValidatedTextInputLayout.showAdditionalError("Password incorrect");
 	}
 }

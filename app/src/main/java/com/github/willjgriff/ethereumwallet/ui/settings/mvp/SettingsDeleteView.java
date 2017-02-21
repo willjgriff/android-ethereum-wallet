@@ -7,4 +7,6 @@ package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 public interface SettingsDeleteView {
 
 	void closeDialog();
+
+	void showIncorrectPassword();
 }

@@ -1,12 +1,10 @@
 package com.github.willjgriff.ethereumwallet.ui.settings;
 
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
@@ -17,7 +15,7 @@ import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListe
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsView;
-import com.github.willjgriff.ethereumwallet.ui.utils.widget.ValidatedTextInputLayout;
+import com.github.willjgriff.ethereumwallet.ui.widget.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
