@@ -14,13 +14,14 @@ public enum CreateAccountInjector implements ComponentInvalidator {
 	private CreateAccountComponent mCreateAccountComponent;
 
 	public CreateAccountComponent getComponent() {
-		if (mCreateAccountComponent == null) {
-			mCreateAccountComponent = DaggerCreateAccountComponent
+//		if (mCreateAccountComponent == null) {
+//			mCreateAccountComponent = DaggerCreateAccountComponent
+		return DaggerCreateAccountComponent
 				.builder()
 				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
 				.build();
-		}
-		return mCreateAccountComponent;
+//		}
+//		return mCreateAccountComponent;
 	}
 
 	@Override

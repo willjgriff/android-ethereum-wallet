@@ -111,14 +111,6 @@ public class ValidatedTextInputLayout extends TextInputLayout {
 //		return mTextChanged.filter(textInput -> isValidObservable.blockingGet());
 	}
 
-	public void showAdditionalError(CharSequence errorMessage) {
-		setError(errorMessage);
-	}
-
-	public void hideError() {
-		setErrorEnabled(false);
-	}
-
 	public void setCheckValidationTrigger(Observable<Object> validationTrigger) {
 		validationTrigger
 			.flatMap(anyEmission -> mTextValid)

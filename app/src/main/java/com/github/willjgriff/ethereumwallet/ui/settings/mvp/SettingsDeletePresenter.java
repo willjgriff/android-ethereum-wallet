@@ -50,13 +50,14 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 		deleteObservable
 			.map(validPassword -> mEthereumAccountManager.verifyPassword(validPassword))
 			.filter(correctPassword -> !correctPassword)
-			.subscribe(incorrectPassword -> getView().showIncorrectPassword());
+			.subscribe(incorrectPassword -> getView().incorrectPasswordEntered());
 
 		// Delete active account if the password is correct
 		deleteObservable
 			.filter(enteredPassword -> mEthereumAccountManager.verifyPassword(enteredPassword))
 			.subscribe(enteredPassword -> {
 				mEthereumAccountManager.deleteActiveAccount(enteredPassword);
+				getView().addressDeleted();
 				getView().closeDialog();
 			});
 	}

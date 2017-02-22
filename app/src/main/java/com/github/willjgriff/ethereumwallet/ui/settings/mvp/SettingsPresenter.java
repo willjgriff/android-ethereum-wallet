@@ -19,14 +19,16 @@ import io.reactivex.Observable;
 @ControllerScope
 public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 
-	@Inject
-	public SettingsPresenter(EthereumAccountManagerKotlin ethereumAccountManagerKotlin) {
+	private EthereumAccountManagerKotlin mEthereumAccountManager;
 
+	@Inject
+	SettingsPresenter(EthereumAccountManagerKotlin ethereumAccountManagerKotlin) {
+		mEthereumAccountManager = ethereumAccountManagerKotlin;
 	}
 
 	@Override
 	public void viewReady() {
-
+		getAndSetActiveAddress();
 	}
 
 	public void setObservables(Observable<Object> newAccountButton, Observable<Object> deleteAddressButton) {
@@ -34,7 +36,13 @@ public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 		deleteAddressButton.subscribe(clicked -> getView().showPasswordConfirmationDialog());
 	}
 
-	public void deleteActiveAccount(String password) {
-		// Validate password
+	public void updateActiveAccount() {
+		// TODO: Add an animation when updating active address.
+		getAndSetActiveAddress();
+	}
+
+	private void getAndSetActiveAddress() {
+		String address = mEthereumAccountManager.getActiveAccount().getAddress().getHex();
+		getView().setActiveAddress(address);
 	}
 }

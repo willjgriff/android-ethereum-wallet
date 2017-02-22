@@ -28,13 +28,15 @@ import io.reactivex.Observable;
 public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDeleteView {
 
 	private ValidatedTextInputLayout mValidatedTextInputLayout;
+	private SettingsDeleteAlertDialogListener mDialogListener;
 
 	@Inject
 	SettingsDeletePresenter mPresenter;
 
-	protected SettingsDeleteAlertDialog(@NonNull Context context) {
+	protected SettingsDeleteAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
 		super(context);
 		setupDialog();
+		mDialogListener = listener;
 	}
 
 	protected SettingsDeleteAlertDialog(@NonNull Context context, @StyleRes int themeResId) {
@@ -98,7 +100,20 @@ public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDe
 	}
 
 	@Override
-	public void showIncorrectPassword() {
-		mValidatedTextInputLayout.showAdditionalError("Password incorrect");
+	public void incorrectPasswordEntered() {
+		dismiss();
+		mDialogListener.showIncorrectPasswordDialog();
+	}
+
+	@Override
+	public void addressDeleted() {
+		mDialogListener.addressSuccessfullyDeleted();
+	}
+
+	public interface SettingsDeleteAlertDialogListener {
+
+		void showIncorrectPasswordDialog();
+
+		void addressSuccessfullyDeleted();
 	}
 }

@@ -39,4 +39,5 @@ public class SettingsCreateAccountController extends Controller
 	public void onAccountCreated() {
 		getRouter().popCurrentController();
 	}
+
 }

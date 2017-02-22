@@ -14,12 +14,14 @@ public enum SendInjector implements ComponentInvalidator {
 	private SendComponent mSendComponent;
 
 	public SendComponent getComponent() {
-		if (mSendComponent == null) {
-			mSendComponent = DaggerSendComponent.builder()
+//		if (mSendComponent == null) {
+//			mSendComponent = DaggerSendComponent
+		return DaggerSendComponent
+				.builder()
 				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
 				.build();
-		}
-		return mSendComponent;
+//		}
+//		return mSendComponent;
 	}
 
 	@Override

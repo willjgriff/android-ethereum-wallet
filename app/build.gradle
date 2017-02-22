@@ -63,56 +63,54 @@ ext {
     espresso    = '2.2.2'
 }
 
-repositories {
-    mavenCentral()
-    dependencies {
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile "com.android.support:appcompat-v7:${supportLib}"
-        compile "com.android.support.constraint:constraint-layout:${constraint}"
-        compile "com.android.support:cardview-v7:${supportLib}"
-        compile "com.android.support:design:${supportLib}"
-        compile "com.jakewharton.timber:timber:${timber}"
-        compile "com.bluelinelabs:conductor:${conductor}"
-        compile "com.bluelinelabs:conductor-rxlifecycle2:${conductor}"
-        compile "io.reactivex.rxjava2:rxjava:${rxJava2}"
-        compile "io.reactivex.rxjava2:rxandroid:${rxAndroid2}"
-        // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
-        compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
-        compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin}"
-        compile "org.ethereum:geth:${geth}"
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:${supportLib}"
+    compile "com.android.support.constraint:constraint-layout:${constraint}"
+    compile "com.android.support:cardview-v7:${supportLib}"
+    compile "com.android.support:design:${supportLib}"
+    compile "com.jakewharton.timber:timber:${timber}"
+    compile "com.bluelinelabs:conductor:${conductor}"
+    compile "com.bluelinelabs:conductor-rxlifecycle2:${conductor}"
+    compile "io.reactivex.rxjava2:rxjava:${rxJava2}"
+    compile "io.reactivex.rxjava2:rxandroid:${rxAndroid2}"
+    // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
+    compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin}"
+    compile "org.ethereum:geth:${geth}"
+    debugCompile "nl.littlerobots.rxlint:rxlint:1.2"
 
-        compile "com.google.dagger:dagger:${dagger}"
-        provided "javax.annotation:jsr250-api:${javax}"
-        annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
-        compile "com.jakewharton:butterknife:${butterknife}"
-        annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
+    compile "com.google.dagger:dagger:${dagger}"
+    provided "javax.annotation:jsr250-api:${javax}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
+    compile "com.jakewharton:butterknife:${butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
 
-        // AutoValue (currently only use AutoFactory, potentially remove others)
-        provided "com.google.auto.value:auto-value:${autovalue}"
-        annotationProcessor "com.google.auto.value:auto-value:${autovalue}"
-        annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoparcel}"
-        provided "com.ryanharter.auto.value:auto-value-gson:${autogson}"
-        annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
-        provided "com.google.auto.factory:auto-factory:${autofactory}"
-        annotationProcessor "com.google.auto.factory:auto-factory:${autofactory}"
+    // AutoValue (currently only use AutoFactory, potentially remove others)
+    provided "com.google.auto.value:auto-value:${autovalue}"
+    annotationProcessor "com.google.auto.value:auto-value:${autovalue}"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoparcel}"
+    provided "com.ryanharter.auto.value:auto-value-gson:${autogson}"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
+    provided "com.google.auto.factory:auto-factory:${autofactory}"
+    annotationProcessor "com.google.auto.factory:auto-factory:${autofactory}"
 
-        // Leak Canary
-        debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-        releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-        testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    // Leak Canary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
-        testCompile "junit:junit:${junit}"
-        testCompile "org.mockito:mockito-core:${mockito}"
-        testCompile "org.robolectric:robolectric:${robolectric}"
-        testCompile "com.nhaarman:mockito-kotlin:${kotMockito}"
-        testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotJunit}"
-        testCompile "org.amshove.kluent:kluent:${kluent}"
+    testCompile "junit:junit:${junit}"
+    testCompile "org.mockito:mockito-core:${mockito}"
+    testCompile "org.robolectric:robolectric:${robolectric}"
+    testCompile "com.nhaarman:mockito-kotlin:${kotMockito}"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotJunit}"
+    testCompile "org.amshove.kluent:kluent:${kluent}"
 
-        // AndroidTest version of Mockito
-        androidTestCompile "com.linkedin.dexmaker:dexmaker-mockito:${dexmaker}"
-        androidTestCompile "com.google.code.findbugs:jsr305:${findbugs}"
-        androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
-    }
+    // AndroidTest version of Mockito
+    androidTestCompile "com.linkedin.dexmaker:dexmaker-mockito:${dexmaker}"
+    androidTestCompile "com.google.code.findbugs:jsr305:${findbugs}"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }

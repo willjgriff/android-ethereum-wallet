@@ -8,5 +8,7 @@ public interface SettingsDeleteView {
 
 	void closeDialog();
 
-	void showIncorrectPassword();
+	void incorrectPasswordEntered();
+
+	void addressDeleted();
 }

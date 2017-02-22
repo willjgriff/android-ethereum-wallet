@@ -16,13 +16,14 @@ public enum SettingsInjector implements ComponentInvalidator {
 	private SettingsComponent mSettingsComponent;
 
 	public SettingsComponent getComponent() {
-		if (mSettingsComponent == null) {
-			mSettingsComponent = DaggerSettingsComponent
+//		if (mSettingsComponent == null) {
+//			mSettingsComponent = DaggerSettingsComponent
+		return DaggerSettingsComponent
 				.builder()
 				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
 				.build();
-		}
-		return mSettingsComponent;
+//		}
+//		return mSettingsComponent;
 	}
 
 	@Override

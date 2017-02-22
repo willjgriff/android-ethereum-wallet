@@ -9,4 +9,6 @@ public interface SettingsView {
 	void openCreateAccountScreen();
 
 	void showPasswordConfirmationDialog();
+
+	void setActiveAddress(String address);
 }
