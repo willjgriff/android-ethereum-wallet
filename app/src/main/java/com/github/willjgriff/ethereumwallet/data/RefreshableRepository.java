@@ -8,5 +8,5 @@ import io.reactivex.Observable;
 
 public interface RefreshableRepository {
 
-	void setRefreshTrigger(Observable<Void> refreshTrigger);
+	void setRefreshTrigger(Observable<Object> refreshTrigger);
 }

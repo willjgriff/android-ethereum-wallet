@@ -17,6 +17,7 @@ import com.github.willjgriff.ethereumwallet.ui.settings.SettingsDeleteAlertDialo
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsView;
+import com.github.willjgriff.ethereumwallet.ui.widget.TestView;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
@@ -94,7 +95,7 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 	}
 
 	@Override
-	public void showPasswordConfirmationDialog() {
+	public void showDeleteAddressDialog() {
 		new SettingsDeleteAlertDialog(getActivity(), this).show();
 	}
 

@@ -18,7 +18,7 @@ import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 /**
  * Created by williamgriffiths on 22/09/2016.
  * <p>
- * This should probably be injected using Dagger and not be static.
+ * TODO: This should be injected somehow.
  */
 public class ErrorDisplayer {
 

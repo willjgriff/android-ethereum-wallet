@@ -14,7 +14,7 @@ import timber.log.Timber;
 public abstract class ListMvpPresenter<TYPE, VIEW extends ListMvpView<TYPE>, QUERY>
 	extends BaseMvpPresenter<VIEW> {
 
-	public void setRefreshTrigger(Observable<Void> swipeRefreshObservable) {
+	public void setRefreshTrigger(Observable<Object> swipeRefreshObservable) {
 		getRepository().setRefreshTrigger(swipeRefreshObservable);
 	}
 

@@ -8,7 +8,7 @@ public interface SettingsView {
 
 	void openCreateAccountScreen();
 
-	void showPasswordConfirmationDialog();
+	void showDeleteAddressDialog();
 
 	void setActiveAddress(String address);
 }

@@ -16,13 +16,12 @@ import com.github.willjgriff.ethereumwallet.ui.utils.ErrorDisplayer;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by Will on 28/09/2016.
  * <p>
- * TODO: Sort out the static accesses.
+ * TODO: Sort out the static objects.
  */
 
 public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PRESENTER extends ListMvpPresenter<TYPE, VIEW, QUERY>, VIEWHOLDER extends ListMvpViewHolder<TYPE>, QUERY>
@@ -60,12 +59,10 @@ public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PR
 	private void setupSwipeRefreshLayout(View view) {
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_list_swipe_refresh);
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.accent);
+		PublishSubject<Object> swipeRefreshObservable = PublishSubject.create();
+		mSwipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshObservable.onNext(new Object()));
 
-		// TODO: Create SwipeRefreshObservable.
-//		Observable<Void> swipeRefreshObservable = RxSwipeRefreshLayout.refreshes(mSwipeRefreshLayout).share();
-		Observable<Void> swipeRefreshObservable = PublishSubject.create();
-
-		getPresenter().setRefreshTrigger(swipeRefreshObservable
+		getPresenter().setRefreshTrigger(swipeRefreshObservable.hide()
 			.filter(aVoid -> ConnectivityUtils.isConnected(getApplicationContext())));
 
 		swipeRefreshObservable

@@ -1,12 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import android.text.Editable;
-
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
-import com.google.auto.factory.AutoFactory;
-import com.google.auto.factory.Provided;
 
 import javax.inject.Inject;
 
@@ -33,7 +29,7 @@ public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 
 	public void setObservables(Observable<Object> newAccountButton, Observable<Object> deleteAddressButton) {
 		newAccountButton.subscribe(clicked -> getView().openCreateAccountScreen());
-		deleteAddressButton.subscribe(clicked -> getView().showPasswordConfirmationDialog());
+		deleteAddressButton.subscribe(clicked -> getView().showDeleteAddressDialog());
 	}
 
 	public void updateActiveAccount() {
