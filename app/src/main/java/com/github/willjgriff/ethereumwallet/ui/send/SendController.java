@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observable;
 
 /**
@@ -51,7 +52,7 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 	}
 
 	public SendController() {
-		SendInjector.INSTANCE.getComponent().inject(this);
+		SendInjector.INSTANCE.injectRetainedPresenter(this);
 	}
 
 	@NonNull
@@ -59,10 +60,8 @@ public class SendController extends BaseMvpController<SendView, SendPresenter> i
 	protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
 		View view = inflater.inflate(R.layout.controller_send, container, false);
 		ButterKnife.bind(this, view);
-
 		setupToolbarTitle();
 		setInputObservables();
-
 		return view;
 	}
 

@@ -1,31 +1,22 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.di;
 
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
-import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentInvalidator;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 
 /**
  * Created by Will on 12/02/2017.
  */
 
-public enum CreateAccountInjector implements ComponentInvalidator {
+public enum CreateAccountInjector {
 
 	INSTANCE;
 
-	private CreateAccountComponent mCreateAccountComponent;
-
-	public CreateAccountComponent getComponent() {
-//		if (mCreateAccountComponent == null) {
-//			mCreateAccountComponent = DaggerCreateAccountComponent
-		return DaggerCreateAccountComponent
-				.builder()
-				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
-				.build();
-//		}
-//		return mCreateAccountComponent;
+	public void injectPresenterFactory(CreateAccountController createAccountController) {
+		DaggerCreateAccountComponent
+			.builder()
+			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
+			.build()
+			.inject(createAccountController);
 	}
 
-	@Override
-	public void invalidateComponent() {
-		mCreateAccountComponent = null;
-	}
 }

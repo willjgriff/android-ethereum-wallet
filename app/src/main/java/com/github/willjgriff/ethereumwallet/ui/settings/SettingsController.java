@@ -17,14 +17,12 @@ import com.github.willjgriff.ethereumwallet.ui.settings.SettingsDeleteAlertDialo
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsView;
-import com.github.willjgriff.ethereumwallet.ui.widget.TestView;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.reactivex.Observable;
 
 /**
@@ -42,12 +40,12 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 	Button mChangeAddress;
 	@BindView(R.id.controller_settings_delete_address)
 	Button mDeleteAddress;
+
 	@Inject
 	SettingsPresenter mSettingsPresenter;
-	private Unbinder mUnbinder;
 
 	public SettingsController() {
-		SettingsInjector.INSTANCE.getComponent().inject(this);
+		SettingsInjector.INSTANCE.injectRetainedSettingsPresenter(this);
 	}
 
 	@Override
@@ -64,20 +62,16 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 	@Override
 	protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
 		View view = inflater.inflate(R.layout.controller_settings, container, false);
-		mUnbinder = ButterKnife.bind(this, view);
-
-		Observable<Object> newAddressButton = RxView.clicks(mNewAddress);
-		Observable<Object> deleteAddressButton = RxView.clicks(mDeleteAddress);
-		mSettingsPresenter.setObservables(newAddressButton, deleteAddressButton);
+		ButterKnife.bind(this, view);
+		setObservablesOnPresenter();
 		setToolbarTitle();
-
 		return view;
 	}
 
-	@Override
-	protected void onDestroyView(@NonNull View view) {
-		super.onDestroyView(view);
-		mUnbinder.unbind();
+	private void setObservablesOnPresenter() {
+		Observable<Object> newAddressButton = RxView.clicks(mNewAddress);
+		Observable<Object> deleteAddressButton = RxView.clicks(mDeleteAddress);
+		mSettingsPresenter.setObservables(newAddressButton, deleteAddressButton);
 	}
 
 	private void setToolbarTitle() {

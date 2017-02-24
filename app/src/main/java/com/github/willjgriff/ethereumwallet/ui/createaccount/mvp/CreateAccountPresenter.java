@@ -56,7 +56,8 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 			// Output the valid field observable when the send button is clicked
 			.flatMap(aVoid -> mValidPassword);
 
-		Observable.merge(skipUntilValid, validSubmitFlatMap)
+		Observable
+			.merge(skipUntilValid, validSubmitFlatMap)
 			// Checks the input is invalid and shows error
 			.filter(isValid -> !isValid)
 			.subscribe(isNotValid -> showPasswordError());

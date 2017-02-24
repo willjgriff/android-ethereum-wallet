@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.widget;
+package com.github.willjgriff.ethereumwallet.ui.widget.validated;
 
 public class NotEmptyValidator implements Validator {
 

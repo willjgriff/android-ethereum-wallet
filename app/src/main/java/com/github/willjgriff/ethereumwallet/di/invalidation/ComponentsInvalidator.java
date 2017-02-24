@@ -21,9 +21,9 @@ public class ComponentsInvalidator {
 	private final List<ComponentInvalidator> mComponentInvalidators = new ArrayList<>();
 
 	public ComponentsInvalidator() {
-		mComponentInvalidators.add(SettingsInjector.INSTANCE);
-		mComponentInvalidators.add(CreateAccountInjector.INSTANCE);
-		mComponentInvalidators.add(SendInjector.INSTANCE);
+//		mComponentInvalidators.add(SettingsInjector.INSTANCE);
+//		mComponentInvalidators.add(CreateAccountInjector.INSTANCE);
+//		mComponentInvalidators.add(SendInjector.INSTANCE);
 	}
 
 	public void invalidateComponents() {

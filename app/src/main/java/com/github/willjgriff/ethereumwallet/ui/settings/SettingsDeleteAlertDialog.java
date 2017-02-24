@@ -3,18 +3,16 @@ package com.github.willjgriff.ethereumwallet.ui.settings;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
-import com.github.willjgriff.ethereumwallet.ui.settings.di.DaggerSettingsDeleteComponent;
+import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenter;
+import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeleteView;
-import com.github.willjgriff.ethereumwallet.ui.widget.ValidatedTextInputLayout;
+import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
@@ -27,58 +25,46 @@ import io.reactivex.Observable;
 
 public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDeleteView {
 
+	private SettingsDeletePresenter mPresenter;
 	private ValidatedTextInputLayout mValidatedTextInputLayout;
 	private SettingsDeleteAlertDialogListener mDialogListener;
 
 	@Inject
-	SettingsDeletePresenter mPresenter;
+	SettingsDeletePresenterFactory mPresenterFactory;
 
 	protected SettingsDeleteAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
 		super(context);
-		setupDialog();
-		mDialogListener = listener;
-	}
-
-	protected SettingsDeleteAlertDialog(@NonNull Context context, @StyleRes int themeResId) {
-		super(context, themeResId);
-		setupDialog();
-	}
-
-	protected SettingsDeleteAlertDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-		super(context, cancelable, cancelListener);
-		setupDialog();
-	}
-
-	@Override
-	public void onAttachedToWindow() {
-		super.onAttachedToWindow();
-		mPresenter.bindView(this);
-	}
-
-	@Override
-	public void onDetachedFromWindow() {
-		super.onDetachedFromWindow();
-		mPresenter.unbindView();
-	}
-
-	private void setupDialog() {
-		DaggerSettingsDeleteComponent.builder()
-			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
-			.build().inject(this);
+		SettingsInjector.INSTANCE.injectNewSettingsDeletePresenter(this);
 		setupAppearance();
+		mDialogListener = listener;
 	}
 
 	private void setupAppearance() {
 		setButton(BUTTON_POSITIVE, getContext().getString(R.string.controller_settings_delete_address),
-			(dialogInterface, i) -> {});
+			(dialogInterface, i) -> {
+			});
 		setButton(BUTTON_NEGATIVE, getContext().getString(R.string.controller_settings_delete_address_cancel),
-			(dialogInterface, i) -> {});
+			(dialogInterface, i) -> {
+			});
 		setTitle(R.string.controller_settings_delete_address_dialog_title);
 		setMessage(getContext().getString(R.string.controller_settings_delete_address_dialog_message));
 
 		mValidatedTextInputLayout = (ValidatedTextInputLayout) LayoutInflater.from(getContext())
 			.inflate(R.layout.view_controller_settings_delete_validated_input, new FrameLayout(getContext()), false);
 		setView(mValidatedTextInputLayout);
+	}
+
+	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		mPresenter.bindView(this);
+		mPresenter.viewReady();
+	}
+
+	@Override
+	public void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		mPresenter.unbindView();
 	}
 
 	@Override
@@ -91,7 +77,7 @@ public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDe
 		Observable<Boolean> isTextValid = mValidatedTextInputLayout.getTextValidObservable();
 		Observable<String> textChanged = mValidatedTextInputLayout.getTextChangedObservable();
 
-		mPresenter.setObservables(deleteButton, cancelButton, isTextValid, textChanged);
+		mPresenter = mPresenterFactory.create(deleteButton, cancelButton, isTextValid, textChanged);
 	}
 
 	@Override

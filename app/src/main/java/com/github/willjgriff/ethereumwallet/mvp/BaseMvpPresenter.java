@@ -24,8 +24,18 @@ public abstract class BaseMvpPresenter<VIEW> implements MvpPresenter<VIEW> {
 	@Override
 	public final void unbindView() {
 		mCompositeDisposable.clear();
+		releaseViewReferences();
 		mMvpView = null;
 	}
+
+	/**
+	 * If we wish to retain this Presenter beyond the life of the Controller or View that
+	 * it is associated too, override this method and set to null any View references /
+	 * runtime dependencies that can no longer be used to prevent potential memory leaks.
+	 */
+	public void releaseViewReferences() {
+
+	};
 
 	public void addDisposable(Disposable disposable) {
 		mCompositeDisposable.add(disposable);

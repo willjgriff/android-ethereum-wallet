@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.transactions.di;
 
 import com.github.willjgriff.ethereumwallet.di.AppComponent;
-import com.github.willjgriff.ethereumwallet.di.ControllerScope;
+import com.github.willjgriff.ethereumwallet.di.FunctionScope;
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 
 import dagger.Component;
@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @Component(modules = TransactionsModule.class, dependencies = AppComponent.class)
-@ControllerScope
+@FunctionScope
 public interface TransactionsComponent {
 
 	void inject(TransactionsController transactionsController);

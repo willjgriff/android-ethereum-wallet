@@ -38,7 +38,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	CreateAccountPresenterFactory mCreateAccountPresenterFactory;
 
 	public CreateAccountController() {
-		CreateAccountInjector.INSTANCE.getComponent().inject(this);
+		CreateAccountInjector.INSTANCE.injectPresenterFactory(this);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.widget;
+package com.github.willjgriff.ethereumwallet.ui.widget.validated;
 
 import android.content.Context;
 import android.content.res.TypedArray;

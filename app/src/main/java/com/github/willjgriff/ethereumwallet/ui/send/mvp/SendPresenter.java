@@ -1,19 +1,18 @@
 package com.github.willjgriff.ethereumwallet.ui.send.mvp;
 
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
-import com.github.willjgriff.ethereumwallet.di.ControllerScope;
+import com.github.willjgriff.ethereumwallet.di.FunctionScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Will on 04/02/2017.
  */
 
-@ControllerScope
+@FunctionScope
 public class SendPresenter extends BaseMvpPresenter<SendView> {
 
 	private EthereumAccountManagerKotlin mEthereumAccountManager;
@@ -31,5 +30,10 @@ public class SendPresenter extends BaseMvpPresenter<SendView> {
 	public void setObservables(Observable<CharSequence> recipientAddressObservable, Observable<CharSequence> sendAmountObservable, Observable<CharSequence> accountPasswordObservable, Observable<Object> sendObservable) {
 		mSendEther = sendObservable;
 		mSendEther.subscribe(o -> getView().toString());
+	}
+
+	@Override
+	public void releaseViewReferences() {
+		mSendEther = null;
 	}
 }
