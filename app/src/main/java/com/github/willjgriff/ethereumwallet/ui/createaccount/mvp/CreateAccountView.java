@@ -6,9 +6,5 @@ package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
 public interface CreateAccountView {
 
-	void hidePasswordError();
-
-	void showPasswordError();
-
 	void openWallet();
 }

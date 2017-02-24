@@ -5,13 +5,11 @@ import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
 
 /**
  * Created by Will on 19/02/2017.
- *
+ * <p>
  * Note this uses AutoFactory which means it can't be retained beyond the life of
  * the Controller / AlertDialog. Therefore we don't have to release references to
  * View containing objects or dispose of Observable Subscriptions.

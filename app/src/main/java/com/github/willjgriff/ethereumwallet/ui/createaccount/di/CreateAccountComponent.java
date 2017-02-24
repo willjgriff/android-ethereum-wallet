@@ -14,10 +14,5 @@ import dagger.Component;
 @FunctionScope
 public interface CreateAccountComponent {
 
-	// TODO: Using assisted injection prevents us from caching the Presenter as some dependencies
-	// can only be injected at runtime. So the Presenters factory has to create a new Presenter
-	// each time it is injected. Alternatively we can use setters to accept runtime dependencies
-	// which will allow us to cache the Presenter.
-
 	void inject(CreateAccountController createAccountController);
 }

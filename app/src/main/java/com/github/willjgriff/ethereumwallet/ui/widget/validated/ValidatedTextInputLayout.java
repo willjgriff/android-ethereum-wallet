@@ -60,12 +60,14 @@ public class ValidatedTextInputLayout extends TextInputLayout {
 			mValidators = new ValidatorFactory().getValidators(validatorsFlag);
 
 			mErrorMessage = typedArray.getText(R.styleable.ValidatedTextInputLayout_error_text);
+
 		} finally {
 			typedArray.recycle();
 		}
 	}
 
 	private void setupObservables() {
+		// TODO: Debug these Observables and check they behave as expected (they may be firing to often)
 		mTextChanged = RxTextView.textChanges(getEditText())
 			.map(charSequence -> String.valueOf(charSequence))
 			.distinctUntilChanged();

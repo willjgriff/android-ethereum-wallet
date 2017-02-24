@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/controller_create_account_password_text_input"
         app:layout_constraintHorizontal_bias="0.5"/>
 
-    <android.support.design.widget.TextInputLayout
+    <com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
         android:id="@+id/controller_create_account_password_text_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -59,15 +59,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintBottom_toTopOf="@+id/controller_create_account_create_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:hint="@string/common_password"
+        android:inputType="textPassword"
+        app:validator="notEmpty"
+        app:error_text="@string/controller_create_account_enter_password_error">
 
-        <EditText
-            android:id="@+id/controller_create_account_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/common_password"/>
-
-    </android.support.design.widget.TextInputLayout>
+    </com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout>
 
 </android.support.constraint.ConstraintLayout>

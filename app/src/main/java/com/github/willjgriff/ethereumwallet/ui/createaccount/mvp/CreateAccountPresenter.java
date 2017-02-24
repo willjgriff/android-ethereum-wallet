@@ -6,6 +6,8 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.internal.disposables.ObserverFullArbiter;
 
 /**
  * Created by Will on 03/02/2017.
@@ -15,22 +17,18 @@ import io.reactivex.Observable;
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
 	private EthereumAccountManagerKotlin mEthereumAccountManager;
-	private Observable<CharSequence> mPassword;
+	private Observable<String> mPassword;
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
 	CreateAccountPresenter(@Provided EthereumAccountManagerKotlin ethereumAccountManager,
-	                       Observable<CharSequence> passwordObservable,
+	                       Observable<String> passwordObservable,
+	                       Observable<Boolean> passwordValid,
 	                       Observable<Object> submitButtonObservable) {
 
 		mEthereumAccountManager = ethereumAccountManager;
-
-		mPassword = passwordObservable
-			.replay(1)
-			.autoConnect();
-		mValidPassword = passwordObservable
-			.map(password -> password.length() > 0)
-			.distinctUntilChanged();
+		mPassword = passwordObservable;
+		mValidPassword = passwordValid;
 		mSubmitButtonShare = submitButtonObservable
 			.share();
 	}
@@ -42,25 +40,9 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 	}
 
 	private void setupPasswordObservable() {
-		mValidPassword
-			// Hide the error when a valid result is received
-			.filter(isValid -> isValid)
-			.subscribe(isValid -> hidePasswordError());
-
-		Observable<Boolean> hotValidPassword = mValidPassword.publish().autoConnect();
-		Observable<Boolean> skipUntilValid = hotValidPassword
-			// Skip until the field has a valid result
-			.skipUntil(hotValidPassword.filter(isValid -> isValid));
-
 		Observable<Boolean> validSubmitFlatMap = mSubmitButtonShare
 			// Output the valid field observable when the send button is clicked
 			.flatMap(aVoid -> mValidPassword);
-
-		Observable
-			.merge(skipUntilValid, validSubmitFlatMap)
-			// Checks the input is invalid and shows error
-			.filter(isValid -> !isValid)
-			.subscribe(isNotValid -> showPasswordError());
 	}
 
 	private void setupSubmitObservable() {
@@ -74,14 +56,6 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 			.withLatestFrom(mValidPassword, (buttonClick, areAllValid) -> areAllValid)
 			.filter(areAllValid -> areAllValid)
 			.subscribe(aBoolean -> validPasswordSubmitted());
-	}
-
-	private void hidePasswordError() {
-		getView().hidePasswordError();
-	}
-
-	private void showPasswordError() {
-		getView().showPasswordError();
 	}
 
 	private void validPasswordSubmitted() {

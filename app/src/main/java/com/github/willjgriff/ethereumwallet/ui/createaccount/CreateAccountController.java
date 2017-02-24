@@ -13,6 +13,7 @@ import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInj
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView;
+import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -30,7 +31,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	implements CreateAccountView {
 
 	@BindView(R.id.controller_create_account_password_text_input)
-	TextInputLayout mPassword;
+	ValidatedTextInputLayout mPassword;
 	@BindView(R.id.controller_create_account_create_button)
 	Button mSubmitButton;
 
@@ -48,9 +49,11 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 
 	@Override
 	protected CreateAccountPresenter createPresenter() {
-		Observable<CharSequence> passwordObservable = RxTextView.textChanges(mPassword.getEditText());
+		Observable<String> passwordChanged = mPassword.getTextChangedObservable();
+		Observable<Boolean> passwordValid = mPassword.getTextValidObservable();
 		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
-		return mCreateAccountPresenterFactory.create(passwordObservable, submitButtonObservable);
+		mPassword.setCheckValidationTrigger(submitButtonObservable);
+		return mCreateAccountPresenterFactory.create(passwordChanged, passwordValid, submitButtonObservable);
 	}
 
 	@NonNull
@@ -59,16 +62,6 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 		View view = inflater.inflate(R.layout.controller_create_account, container, false);
 		ButterKnife.bind(this, view);
 		return view;
-	}
-
-	@Override
-	public void hidePasswordError() {
-		mPassword.setErrorEnabled(false);
-	}
-
-	@Override
-	public void showPasswordError() {
-		mPassword.setError(getApplicationContext().getString(R.string.controller_create_account_enter_password_error));
 	}
 
 	@Override
