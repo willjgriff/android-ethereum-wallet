@@ -26,7 +26,6 @@ public abstract class BaseMvpController<VIEW, PRESENTER extends MvpPresenter<VIE
 		getPresenter().unbindView();
 	}
 
-	// TODO: Not sure whether I should use AutoFactory or Cache the Presenters in Components.
 	public PRESENTER getPresenter() {
 		if (mPresenter == null) {
 			mPresenter = createPresenter();

@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
 import com.github.willjgriff.ethereumwallet.R;
+import com.github.willjgriff.ethereumwallet.ui.widget.validated.RxTextInputValidation.ValidTextInputListener;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
@@ -20,19 +21,16 @@ import io.reactivex.Observable;
  * Created by Will on 17/02/2017.
  */
 
-public class ValidatedTextInputLayout extends TextInputLayout {
+public class ValidatedTextInputLayout extends TextInputLayout implements ValidTextInputListener {
 
-	private Observable<String> mTextChanged;
-	private Observable<Boolean> mTextValid;
 	private List<Validator> mValidators = new ArrayList<>();
 	private CharSequence mErrorMessage;
+	private RxTextInputValidation mRxTextInputValidation;
 
 	{
 		LayoutInflater.from(getContext()).inflate(R.layout.view_validated_text_input_layout, this);
 	}
 
-	// TODO: Currently erroneous behaviour if created with this constructor.
-	// Create a layout file and use LayoutInflater to invoke any of the other constructors.
 	public ValidatedTextInputLayout(Context context) {
 		super(context);
 		setupObservables();
@@ -67,68 +65,34 @@ public class ValidatedTextInputLayout extends TextInputLayout {
 	}
 
 	private void setupObservables() {
-		// TODO: Debug these Observables and check they behave as expected (they may be firing to often)
-		mTextChanged = RxTextView.textChanges(getEditText())
-			.map(charSequence -> String.valueOf(charSequence))
-			.distinctUntilChanged();
-
-		mTextValid = mTextChanged
-			.map((inputText) -> isTextValid(inputText))
-			.distinctUntilChanged();
-
-		// Hide the error when valid text is emitted
-		mTextValid
-			.filter(isValid -> isValid)
-			.subscribe(isValid -> setErrorEnabled(false));
-
-		// Skip until the field has a valid result
-		Observable<Boolean> hotValidText = mTextValid
-			.publish()
-			.autoConnect();
-		Observable<Boolean> skipUntilValid = hotValidText
-			.skipUntil(hotValidText.filter(isValid -> isValid));
-
-		// Show the error when invalid text is emitted
-		skipUntilValid
-			.filter(isValid -> !isValid)
-			.subscribe(isNotValid -> setError(mErrorMessage));
-	}
-
-	@NonNull
-	private Boolean isTextValid(String inputText) {
-		boolean isValid = true;
-		for (Validator validator : mValidators) {
-			if (!validator.isValid(inputText)) {
-				isValid = false;
-			}
-		}
-		return isValid;
-
-		// Attempt at achieving the above with Rx. I'm sure there's a better way of doing this
-		// but I can't think of it yet.
-//		Single<Boolean> isValidObservable = Observable.fromIterable(mValidators)
-//			.withLatestFrom(mTextChanged, Validator::isValid)
-//			.all(isValid -> isValid);
-//
-//		return mTextChanged.filter(textInput -> isValidObservable.blockingGet());
+		mRxTextInputValidation = new RxTextInputValidation(this, mValidators);
+		mRxTextInputValidation.setTextChangedObservable(RxTextView.textChanges(getEditText())
+			.map(charSequence -> String.valueOf(charSequence)));
 	}
 
 	public void setCheckValidationTrigger(Observable<Object> validationTrigger) {
-		validationTrigger
-			.flatMap(anyEmission -> mTextValid)
-			.filter(isValid -> !isValid)
-			.subscribe(isNotValid -> setError(mErrorMessage));
+		mRxTextInputValidation.setCheckValidationTrigger(validationTrigger);
 	}
 
 	public Observable<String> getTextChangedObservable() {
-		return mTextChanged;
+		return mRxTextInputValidation.getTextChangedObservable();
 	}
 
 	public Observable<Boolean> getTextValidObservable() {
-		return mTextValid;
+		return mRxTextInputValidation.getTextValidObservable();
 	}
 
 	public String getText() {
 		return getEditText().getText().toString();
+	}
+
+	@Override
+	public void showError() {
+		setError(mErrorMessage);
+	}
+
+	@Override
+	public void hideError() {
+		setErrorEnabled(false);
 	}
 }
