@@ -10,7 +10,7 @@
     tools:context="com.github.willjgriff.ethereumwallet.ui.MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/controller_create_account_toolbar"
+        android:id="@+id/controller_navigation_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
@@ -18,6 +18,16 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/toolbar_elevation">
+
+        <!--<TextView-->
+            <!--android:id="@+id/controller_navigation_toolbar_title"-->
+            <!--style="@style/Text.Title"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/lightest_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--tools:text="Transactions"-->
+            <!--android:layout_gravity="start"/>-->
 
         <TextView
             android:id="@+id/controller_navigation_balance"
@@ -37,7 +47,7 @@
         android:id="@+id/controller_navigation_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/controller_create_account_toolbar"
+        android:layout_below="@+id/controller_navigation_toolbar"
         android:layout_above="@+id/controller_navigation_bottom_navigation"/>
 
     <android.support.design.widget.BottomNavigationView

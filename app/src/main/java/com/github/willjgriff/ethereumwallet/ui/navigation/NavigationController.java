@@ -33,8 +33,8 @@ public class NavigationController extends Controller
 
 	private static final String STATE_SELECTED_ITEM = NavigationToolbarListener.class.getName() + ";STATE_SELECTED_ITEM";
 
-	@BindView(R.id.controller_create_account_toolbar)
-	Toolbar mToolbar;
+	@BindView(R.id.controller_navigation_toolbar)
+	Toolbar mToolbarTitle;
 	@BindView(R.id.controller_navigation_balance)
 	TextView mBalance;
 	@BindView(R.id.controller_navigation_container)
@@ -60,6 +60,8 @@ public class NavigationController extends Controller
 		View view = inflater.inflate(R.layout.controller_navigation, container, false);
 		ButterKnife.bind(this, view);
 
+		// This is currently necessary because if the Activity gets reclaimed by the OS we loose the
+		// position on the BottomNavigationMenu. Good job BottomNav...
 		if (mCurrentlySelectedMenuItemId != 0) {
 			mBottomNavigationView.getMenu().findItem(mCurrentlySelectedMenuItemId).setChecked(true);
 		}
@@ -112,7 +114,8 @@ public class NavigationController extends Controller
 
 	@Override
 	public void setToolbarTitle(CharSequence toolbarTitle) {
-		mToolbar.setTitle(toolbarTitle);
+		// TODO: Animate the changing of this title to match the FadeChangeHandler of the Controllers.
+		mToolbarTitle.setTitle(toolbarTitle);
 	}
 
 	@Override

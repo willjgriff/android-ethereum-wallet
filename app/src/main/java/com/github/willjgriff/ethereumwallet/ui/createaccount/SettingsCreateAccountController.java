@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.github.willjgriff.ethereumwallet.R;
+import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,12 +33,21 @@ public class SettingsCreateAccountController extends Controller
 		createAccountController.setTargetController(this);
 		getChildRouter(mCreateAccountContainer).pushController(RouterTransaction.with(createAccountController));
 
+		if (getTargetController() instanceof NavigationToolbarListener) {
+			String settingsTitle = getApplicationContext().getString(R.string.controller_create_account_title);
+			((NavigationToolbarListener) getTargetController()).setToolbarTitle(settingsTitle);
+		}
+
 		return view;
 	}
 
 	@Override
 	public void onAccountCreated() {
 		getRouter().popCurrentController();
+	}
+
+	public interface SettingsToolbarListener {
+		void setToolbarTitle(CharSequence title);
 	}
 
 }

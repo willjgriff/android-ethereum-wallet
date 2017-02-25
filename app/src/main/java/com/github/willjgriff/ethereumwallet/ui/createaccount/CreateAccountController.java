@@ -1,7 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPr
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView;
 import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;
 
@@ -51,7 +49,7 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	protected CreateAccountPresenter createPresenter() {
 		Observable<String> passwordChanged = mPassword.getTextChangedObservable();
 		Observable<Boolean> passwordValid = mPassword.getTextValidObservable();
-		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton);
+		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton).share();
 		mPassword.setCheckValidationTrigger(submitButtonObservable);
 		return mCreateAccountPresenterFactory.create(passwordChanged, passwordValid, submitButtonObservable);
 	}

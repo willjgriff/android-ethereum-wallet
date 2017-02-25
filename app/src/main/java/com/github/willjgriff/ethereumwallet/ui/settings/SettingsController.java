@@ -12,6 +12,7 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.SettingsCreateAccountController;
+import com.github.willjgriff.ethereumwallet.ui.createaccount.SettingsCreateAccountController.SettingsToolbarListener;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
 import com.github.willjgriff.ethereumwallet.ui.settings.SettingsDeleteAlertDialog.SettingsDeleteAlertDialogListener;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
@@ -30,7 +31,7 @@ import io.reactivex.Observable;
  */
 
 public class SettingsController extends BaseMvpController<SettingsView, SettingsPresenter>
-	implements SettingsView, SettingsDeleteAlertDialogListener {
+	implements SettingsView, SettingsDeleteAlertDialogListener, SettingsToolbarListener {
 
 	@BindView(R.id.controller_settings_current_address)
 	TextView mActiveAddress;
@@ -64,7 +65,7 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 		View view = inflater.inflate(R.layout.controller_settings, container, false);
 		ButterKnife.bind(this, view);
 		setObservablesOnPresenter();
-		setToolbarTitle();
+		setToolbarTitle(getApplicationContext().getString(R.string.controller_settings_title));
 		return view;
 	}
 
@@ -72,13 +73,6 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 		Observable<Object> newAddressButton = RxView.clicks(mNewAddress);
 		Observable<Object> deleteAddressButton = RxView.clicks(mDeleteAddress);
 		mSettingsPresenter.setObservables(newAddressButton, deleteAddressButton);
-	}
-
-	private void setToolbarTitle() {
-		if (getTargetController() instanceof NavigationToolbarListener) {
-			String settingsTitle = getApplicationContext().getString(R.string.controller_settings_title);
-			((NavigationToolbarListener) getTargetController()).setToolbarTitle(settingsTitle);
-		}
 	}
 
 	@Override
@@ -106,5 +100,12 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 	@Override
 	public void addressSuccessfullyDeleted() {
 		mActiveAddress.setText(R.string.controller_settings_address_deleted);
+	}
+
+	@Override
+	public void setToolbarTitle(CharSequence title) {
+		if (getTargetController() instanceof NavigationToolbarListener) {
+			((NavigationToolbarListener) getTargetController()).setToolbarTitle(title);
+		}
 	}
 }
