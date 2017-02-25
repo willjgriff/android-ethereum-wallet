@@ -33,9 +33,9 @@ public class SettingsCreateAccountController extends Controller
 		createAccountController.setTargetController(this);
 		getChildRouter(mCreateAccountContainer).pushController(RouterTransaction.with(createAccountController));
 
-		if (getTargetController() instanceof NavigationToolbarListener) {
+		if (getTargetController() instanceof SettingsToolbarListener) {
 			String settingsTitle = getApplicationContext().getString(R.string.controller_create_account_title);
-			((NavigationToolbarListener) getTargetController()).setToolbarTitle(settingsTitle);
+			((SettingsToolbarListener) getTargetController()).setToolbarTitle(settingsTitle);
 		}
 
 		return view;

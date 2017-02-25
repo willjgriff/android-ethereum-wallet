@@ -77,7 +77,9 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 
 	@Override
 	public void openCreateAccountScreen() {
-		getRouter().pushController(RouterTransaction.with(new SettingsCreateAccountController())
+		SettingsCreateAccountController settingsCreateAccountController = new SettingsCreateAccountController();
+		settingsCreateAccountController.setTargetController(this);
+		getRouter().pushController(RouterTransaction.with(settingsCreateAccountController)
 			.pushChangeHandler(new FadeChangeHandler())
 			.popChangeHandler(new FadeChangeHandler()));
 	}

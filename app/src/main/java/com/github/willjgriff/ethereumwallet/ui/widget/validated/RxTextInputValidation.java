@@ -15,21 +15,26 @@ import io.reactivex.Observable;
 public class RxTextInputValidation {
 
 	private ValidTextInputListener mValidTextInputListener;
-
 	private Observable<String> mTextChanged;
+	private Observable<Object> mValidateTrigger;
 	private Observable<Boolean> mTextValid;
 	private List<Validator> mValidators;
 
-	public RxTextInputValidation(@NonNull ValidTextInputListener validTextInputListener, @NonNull List<Validator> validators) {
+	public RxTextInputValidation(@NonNull ValidTextInputListener validTextInputListener,
+	                             @NonNull List<Validator> validators,
+	                             @NonNull Observable<CharSequence> textChangedObservable) {
+
 		mValidTextInputListener = validTextInputListener;
 		mValidators = validators;
-	}
-
-	public void setTextChangedObservable(Observable<String> textChangedObservable) {
-		// TODO: Debug these Observables and check they behave as expected (they may be firing to often)
 		mTextChanged = textChangedObservable
+			.map(String::valueOf)
 			.distinctUntilChanged();
 
+		setupTextChangedObservable();
+	}
+
+	public void setupTextChangedObservable() {
+		// TODO: Debug these Observables and check they behave as expected (they may be firing to often)
 		mTextValid = mTextChanged
 			.map((inputText) -> isTextValid(inputText))
 			.distinctUntilChanged();
@@ -71,8 +76,8 @@ public class RxTextInputValidation {
 //		return mTextChanged.filter(textInput -> isValidObservable.blockingGet());
 	}
 
-	public void setCheckValidationTrigger(Observable<Object> validationTrigger) {
-		validationTrigger
+	public void setValidateTrigger(Observable<Object> validateTrigger) {
+		validateTrigger
 			.flatMap(anyEmission -> mTextValid)
 			.filter(isValid -> !isValid)
 			.subscribe(isNotValid -> mValidTextInputListener.showError());

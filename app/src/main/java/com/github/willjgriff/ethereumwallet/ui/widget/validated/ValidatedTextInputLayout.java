@@ -2,7 +2,6 @@ package com.github.willjgriff.ethereumwallet.ui.widget.validated;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -36,14 +35,13 @@ public class ValidatedTextInputLayout extends TextInputLayout implements ValidTe
 		setupObservables();
 	}
 
-	public ValidatedTextInputLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setupAttributes(attrs);
-		setupObservables();
+	private void setupObservables() {
+		Observable<CharSequence> textChanged = RxTextView.textChanges(getEditText());
+		mRxTextInputValidation = new RxTextInputValidation(this, mValidators, textChanged);
 	}
 
-	public ValidatedTextInputLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
+	public ValidatedTextInputLayout(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		setupAttributes(attrs);
 		setupObservables();
 	}
@@ -64,14 +62,14 @@ public class ValidatedTextInputLayout extends TextInputLayout implements ValidTe
 		}
 	}
 
-	private void setupObservables() {
-		mRxTextInputValidation = new RxTextInputValidation(this, mValidators);
-		mRxTextInputValidation.setTextChangedObservable(RxTextView.textChanges(getEditText())
-			.map(charSequence -> String.valueOf(charSequence)));
+	public ValidatedTextInputLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		setupAttributes(attrs);
+		setupObservables();
 	}
 
-	public void setCheckValidationTrigger(Observable<Object> validationTrigger) {
-		mRxTextInputValidation.setCheckValidationTrigger(validationTrigger);
+	public void setCheckValidationTrigger(Observable<Object> validateTrigger) {
+		mRxTextInputValidation.setValidateTrigger(validateTrigger);
 	}
 
 	public Observable<String> getTextChangedObservable() {
