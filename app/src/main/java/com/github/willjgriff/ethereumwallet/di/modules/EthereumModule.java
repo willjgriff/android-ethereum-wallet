@@ -1,7 +1,9 @@
 package com.github.willjgriff.ethereumwallet.di.modules;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.github.wiljgriff.ethereumwallet.data.ethereum.ActiveAccountAddress;
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate;
 
@@ -20,13 +22,6 @@ import dagger.Provides;
 
 @Module
 public class EthereumModule {
-
-	@Provides
-	@Singleton
-	@Named("account_position")
-	int activeAccountPosition() {
-		return 0;
-	}
 
 	@Provides
 	@Singleton
@@ -49,8 +44,14 @@ public class EthereumModule {
 
 	@Provides
 	@Singleton
+	ActiveAccountAddress providesActiveAccountPosition(SharedPreferences sharedPreferences) {
+		return new ActiveAccountAddress(sharedPreferences);
+	}
+
+	@Provides
+	@Singleton
 	EthereumAccountManagerKotlin providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
-	                                                            @Named("account_position") int activeAccountPosition) {
-		return new EthereumAccountManagerKotlin(accountManagerDelegate, activeAccountPosition);
+	                                                            ActiveAccountAddress activeAccountAddress) {
+		return new EthereumAccountManagerKotlin(accountManagerDelegate, activeAccountAddress);
 	}
 }

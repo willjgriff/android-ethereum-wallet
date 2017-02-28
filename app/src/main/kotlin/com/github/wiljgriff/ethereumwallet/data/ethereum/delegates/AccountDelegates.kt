@@ -12,6 +12,7 @@ class AccountManagerDelegate(private val accountManager: AccountManager) {
 
     fun getAccounts() = AccountsDelegate(accountManager.accounts)
     fun newAccount(password: String) = AccountDelegate(accountManager.newAccount(password))
+    fun deleteAccount(account: AccountDelegate, password: String) = accountManager.deleteAccount(account.getAccount(), password)
 }
 
 class AccountsDelegate(private val accounts: Accounts) {
@@ -24,6 +25,7 @@ class AccountDelegate(private val account: Account) {
 
     fun getAddress() = AddressDelegate(account.address)
     fun getFile() = account.file
+    fun getAccount() = account
 }
 
 class AddressDelegate(private val address: Address) {

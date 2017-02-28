@@ -72,7 +72,13 @@ class GethDelegatesAndroidTestKotlin {
     }
 
     @Test
-    fun blah() {
-//        subject.newAccount(PASSWORD).getAddress().
+    fun accountsSize_isCorrectAfterAddingAndDeletingAccounts() {
+        val account1 = subject.newAccount(PASSWORD)
+        subject.newAccount(PASSWORD)
+        subject.deleteAccount(account1, PASSWORD)
+
+        val actualSize = subject.getAccounts().size()
+
+        assertEquals(1, actualSize)
     }
 }

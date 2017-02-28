@@ -10,34 +10,39 @@ import java.util.*
  *
  * TODO: Consider putting everything in Try Catch block (why doesn't Kotlin need this but Java does?)
  */
-class EthereumAccountManagerKotlin(var accountManager: AccountManagerDelegate, var activeAccountPosition: Long) {
+class EthereumAccountManagerKotlin(var accountManager: AccountManagerDelegate, var activeAccountAddress: ActiveAccountAddress) {
 
     fun createAccount(password: String): AccountDelegate {
-        activeAccountPosition = accountManager.getAccounts().size()
-        return accountManager.newAccount(password)
+        val newAccount = accountManager.newAccount(password)
+        activeAccountAddress.set(newAccount.getAddress().getHex())
+        return newAccount
     }
 
+    // TODO: make more efficient.
     fun getActiveAccount(): AccountDelegate? {
         var account: AccountDelegate? = null
-        if (accountAvailableAtPosition(activeAccountPosition)) {
-            account = accountManager.getAccounts().get(activeAccountPosition)
+        if (accountAvailableWithAddress(activeAccountAddress.get())) {
+            return getAllAccounts().filter { it.getAddress().getHex() == activeAccountAddress.get() }
+                    .single()
         }
         return account
     }
 
-    // Instr test
-    fun hasAccount(): Boolean = accountAvailableAtPosition(0)
+    fun hasAccount(): Boolean = getAllAccounts().isNotEmpty()
 
-    private fun accountAvailableAtPosition(position: Long) =
-            (accountManager.getAccounts().size() >= position + 1
-                    && accountManager.getAccounts().get(position) != null)
+    private fun accountAvailableWithAddress(position: String): Boolean {
+        return getAllAccounts()
+                .filter { it.getAccount().address.hex == position }
+                .map { true }
+                .single()
+    }
 
     fun getAllAccounts(): List<AccountDelegate> {
         val accountsList: List<AccountDelegate> = ArrayList()
         val accounts = accountManager.getAccounts()
 
         for (position in 0..accounts.size() - 1) {
-            accountsList.plus(accounts.size())
+            accountsList.plus(accounts.get(position))
         }
 
         return accountsList
