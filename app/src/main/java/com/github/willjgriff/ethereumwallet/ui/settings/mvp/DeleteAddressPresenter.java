@@ -15,7 +15,7 @@ import io.reactivex.Observable;
  * View containing objects or dispose of Observable Subscriptions.
  */
 @AutoFactory
-public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView> {
+public class DeleteAddressPresenter extends BaseMvpPresenter<DeleteAddressView> {
 
 	private EthereumAccountManagerKotlin mEthereumAccountManager;
 	private Observable<Object> mDeleteButton;
@@ -23,9 +23,9 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 	private Observable<Boolean> mPasswordValid;
 	private Observable<String> mPasswordChanged;
 
-	SettingsDeletePresenter(@Provided EthereumAccountManagerKotlin ethereumAccountManager,
-	                        Observable<Object> deleteButton, Observable<Object> cancelButton,
-	                        Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
+	DeleteAddressPresenter(@Provided EthereumAccountManagerKotlin ethereumAccountManager,
+	                       Observable<Object> deleteButton, Observable<Object> cancelButton,
+	                       Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
 		mEthereumAccountManager = ethereumAccountManager;
 		mDeleteButton = deleteButton;
 		mCancelButton = cancelButton;
@@ -39,9 +39,6 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 
 		mCancelButton
 			.subscribe(cancelClicked -> getView().closeDialog());
-
-		mPasswordChanged
-			.subscribe(password -> mEthereumAccountManager.deleteActiveAccount(password));
 	}
 
 	private void setupDeleteButton(Observable<Object> deleteButton, Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
@@ -49,22 +46,25 @@ public class SettingsDeletePresenter extends BaseMvpPresenter<SettingsDeleteView
 			.replay(1)
 			.autoConnect();
 
-		Observable<String> deleteObservable = deleteButton
+		Observable<Boolean> deleteObservable = deleteButton
 			.withLatestFrom(passwordValid, (buttonClick, passwordIsValid) -> passwordIsValid)
 			.filter(passwordIsValid -> passwordIsValid)
-			.flatMap(passwordIsValid -> enteredPasswordObservable);
+			.flatMap(passwordIsValid -> enteredPasswordObservable)
+			.map(validPassword -> mEthereumAccountManager.deleteActiveAccount(validPassword))
+			.share();
 
 		// Show incorrect password error if the password is incorrect
 		deleteObservable
-			.map(validPassword -> mEthereumAccountManager.verifyPassword(validPassword))
-			.filter(correctPassword -> !correctPassword)
-			.subscribe(incorrectPassword -> getView().incorrectPasswordEntered());
+			.filter(accountDeleted -> !accountDeleted)
+			.subscribe(incorrectPassword -> {
+				getView().incorrectPasswordEntered();
+				getView().closeDialog();
+			});
 
 		// Delete active account if the password is correct
 		deleteObservable
-			.filter(enteredPassword -> mEthereumAccountManager.verifyPassword(enteredPassword))
+			.filter(accountDeleted -> accountDeleted)
 			.subscribe(enteredPassword -> {
-				mEthereumAccountManager.deleteActiveAccount(enteredPassword);
 				getView().addressDeleted();
 				getView().closeDialog();
 			});

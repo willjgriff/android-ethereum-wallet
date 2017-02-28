@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings;
 
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.SettingsCreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.SettingsCreateAccountController.SettingsToolbarListener;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
-import com.github.willjgriff.ethereumwallet.ui.settings.SettingsDeleteAlertDialog.SettingsDeleteAlertDialogListener;
+import com.github.willjgriff.ethereumwallet.ui.settings.DeleteAddressAlertDialog.SettingsDeleteAlertDialogListener;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsView;
@@ -71,8 +72,16 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 
 	private void setObservablesOnPresenter() {
 		Observable<Object> newAddressButton = RxView.clicks(mNewAddress);
+		Observable<Object> changeAddressButton = RxView.clicks(mChangeAddress);
 		Observable<Object> deleteAddressButton = RxView.clicks(mDeleteAddress);
-		mSettingsPresenter.setObservables(newAddressButton, deleteAddressButton);
+		mSettingsPresenter.setObservables(newAddressButton, changeAddressButton, deleteAddressButton);
+	}
+
+	@Override
+	public void setToolbarTitle(CharSequence title) {
+		if (getTargetController() instanceof NavigationToolbarListener) {
+			((NavigationToolbarListener) getTargetController()).setToolbarTitle(title);
+		}
 	}
 
 	@Override
@@ -86,7 +95,7 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 
 	@Override
 	public void showDeleteAddressDialog() {
-		new SettingsDeleteAlertDialog(getActivity(), this).show();
+		new DeleteAddressAlertDialog(getActivity(), this).show();
 	}
 
 	@Override
@@ -95,19 +104,28 @@ public class SettingsController extends BaseMvpController<SettingsView, Settings
 	}
 
 	@Override
-	public void showIncorrectPasswordDialog() {
+	public void setAddressDeleted() {
+		mActiveAddress.setText(R.string.controller_settings_address_deleted);
+	}
 
+	@Override
+	public void openChangeAddressScreen() {
+		getRouter().pushController(RouterTransaction.with(new ChangeAddressController())
+			.pushChangeHandler(new FadeChangeHandler())
+			.popChangeHandler(new FadeChangeHandler()));
+	}
+
+	@Override
+	public void showIncorrectPasswordDialog() {
+		new AlertDialog.Builder(getActivity())
+			.setTitle(R.string.controller_settings_incorrect_password)
+			.setMessage(R.string.controller_settings_incorrect_password_message)
+			.setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
+			.show();
 	}
 
 	@Override
 	public void addressSuccessfullyDeleted() {
 		mActiveAddress.setText(R.string.controller_settings_address_deleted);
-	}
-
-	@Override
-	public void setToolbarTitle(CharSequence title) {
-		if (getTargetController() instanceof NavigationToolbarListener) {
-			((NavigationToolbarListener) getTargetController()).setToolbarTitle(title);
-		}
 	}
 }

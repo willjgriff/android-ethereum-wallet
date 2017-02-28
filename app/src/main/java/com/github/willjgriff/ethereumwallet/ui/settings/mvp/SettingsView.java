@@ -11,4 +11,8 @@ public interface SettingsView {
 	void showDeleteAddressDialog();
 
 	void setActiveAddress(String address);
+
+	void setAddressDeleted();
+
+	void openChangeAddressScreen();
 }

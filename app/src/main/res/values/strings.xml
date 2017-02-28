@@ -10,6 +10,7 @@
 
     <!--Common-->
     <string name="common_password">Password</string>
+    <string name="common_ok">OK</string>
 
     <!--Create Account-->
     <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be reactivated from the settings.</string>
@@ -33,7 +34,9 @@
     <string name="controller_settings_delete_address_dialog_title">Delete active address</string>
     <string name="controller_settings_delete_address_dialog_message">This action cannot be undone. Any Ether in this wallet will be lost. To delete this address, enter its password:</string>
     <string name="controller_settings_delete_address_cancel">Cancel</string>
-    <string name="controller_settings_address_deleted">Address deleted</string>
+    <string name="controller_settings_address_deleted">Address deleted, create a new one or change address</string>
+    <string name="controller_settings_incorrect_password">Incorrect Password</string>
+    <string name="controller_settings_incorrect_password_message">The active address was not deleted, please try again</string>
 
     <!--Error messages-->
     <string name="error_storage">Error loading from storage, content may not be as expected</string>

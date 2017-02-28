@@ -9,9 +9,9 @@ import android.widget.FrameLayout;
 
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
-import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenter;
+import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenter;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenterFactory;
-import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeleteView;
+import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressView;
 import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -23,16 +23,16 @@ import io.reactivex.Observable;
  * Created by Will on 19/02/2017.
  */
 
-public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDeleteView {
+public class DeleteAddressAlertDialog extends AlertDialog implements DeleteAddressView {
 
-	private SettingsDeletePresenter mPresenter;
+	private DeleteAddressPresenter mPresenter;
 	private ValidatedTextInputLayout mValidatedTextInputLayout;
 	private SettingsDeleteAlertDialogListener mDialogListener;
 
 	@Inject
 	SettingsDeletePresenterFactory mPresenterFactory;
 
-	protected SettingsDeleteAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
+	protected DeleteAddressAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
 		super(context);
 		SettingsInjector.INSTANCE.injectNewSettingsDeletePresenter(this);
 		setupAppearance();
@@ -87,7 +87,6 @@ public class SettingsDeleteAlertDialog extends AlertDialog implements SettingsDe
 
 	@Override
 	public void incorrectPasswordEntered() {
-		dismiss();
 		mDialogListener.showIncorrectPasswordDialog();
 	}
 

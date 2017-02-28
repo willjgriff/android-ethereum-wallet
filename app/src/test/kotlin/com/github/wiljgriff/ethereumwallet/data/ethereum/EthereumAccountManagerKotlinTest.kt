@@ -14,7 +14,6 @@ import org.junit.Test
  */
 class EthereumAccountManagerKotlinTest {
 
-    private val MOCK_ACTIVE_ACCOUNT_POSITION = 0L
     private val MOCK_ACCOUNTS_SIZE = 1L
 
     private lateinit var subject: EthereumAccountManagerKotlin;
@@ -26,10 +25,11 @@ class EthereumAccountManagerKotlinTest {
     private var mockAccountManager: AccountManagerDelegate = mock {
         on { getAccounts() } doReturn mockAccounts
     }
+    private var mockActiveAddress: ActiveAccountAddress = mock()
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        subject = EthereumAccountManagerKotlin(mockAccountManager, MOCK_ACTIVE_ACCOUNT_POSITION)
+        subject = EthereumAccountManagerKotlin(mockAccountManager, mockActiveAddress)
     }
 
     @Test
@@ -39,6 +39,7 @@ class EthereumAccountManagerKotlinTest {
         subject.createAccount(MOCK_PASSWORD)
 
         verify(mockAccountManager).newAccount(MOCK_PASSWORD)
+        verify(mockActiveAddress).set(any())
     }
 
     @Test

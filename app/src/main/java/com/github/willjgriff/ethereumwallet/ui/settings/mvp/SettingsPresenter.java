@@ -30,13 +30,19 @@ public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 		getAndSetActiveAddress();
 	}
 
-	public void setObservables(Observable<Object> newAccountButton, Observable<Object> deleteAddressButton) {
+	public void setObservables(Observable<Object> newAccountButton, Observable<Object> changeAddressButton, Observable<Object> deleteAddressButton) {
 		addDisposable(newAccountButton.subscribe(clicked -> getView().openCreateAccountScreen()));
+		addDisposable(changeAddressButton.subscribe(clicked -> getView().openChangeAddressScreen()));
 		addDisposable(deleteAddressButton.subscribe(clicked -> getView().showDeleteAddressDialog()));
 	}
 
 	private void getAndSetActiveAddress() {
-		String address = mEthereumAccountManager.getActiveAccount().getAddress().getHex();
-		getView().setActiveAddress(address);
+		String address;
+		if (mEthereumAccountManager.getActiveAccount() != null) {
+			address = mEthereumAccountManager.getActiveAccount().getAddress().getHex();
+			getView().setActiveAddress(address);
+		} else {
+			getView().setAddressDeleted();
+		}
 	}
 }

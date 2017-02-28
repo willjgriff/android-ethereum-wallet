@@ -1,9 +1,13 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
+import android.util.SparseArray;
+
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
+
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -29,20 +33,12 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 		mEthereumAccountManager = ethereumAccountManager;
 		mPassword = passwordObservable;
 		mValidPassword = passwordValid;
-		mSubmitButtonShare = submitButtonObservable
-			.share();
+		mSubmitButtonShare = submitButtonObservable;
 	}
 
 	@Override
 	public void viewReady() {
-		setupPasswordObservable();
 		setupSubmitObservable();
-	}
-
-	private void setupPasswordObservable() {
-		Observable<Boolean> validSubmitFlatMap = mSubmitButtonShare
-			// Output the valid field observable when the send button is clicked
-			.flatMap(aVoid -> mValidPassword);
 	}
 
 	private void setupSubmitObservable() {
