@@ -45,4 +45,8 @@ class EthereumAccountManagerKotlin(val accountManager: AccountManagerDelegate, v
         return getActiveAccount() == null
     }
 
+    fun setActiveAccount(account: AccountDelegate) {
+        activeAccountAddress.set(account.getAddress().getHex())
+    }
+
 }

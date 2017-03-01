@@ -11,4 +11,6 @@ import java.util.List;
 public interface ChangeAddressView {
 
 	void setAddresses(List<AccountDelegate> allAccounts);
+
+	void closeScreen();
 }

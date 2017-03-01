@@ -70,7 +70,12 @@ public class ChangeAddressController extends BaseMvpController<ChangeAddressView
 	}
 
 	@Override
-	public void addressItemClicked() {
+	public void closeScreen() {
+		getRouter().popCurrentController();
+	}
 
+	@Override
+	public void addressItemClicked(AccountDelegate accountDelegate) {
+		getPresenter().onAddressItemClicked(accountDelegate);
 	}
 }

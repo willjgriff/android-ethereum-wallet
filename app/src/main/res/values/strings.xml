@@ -37,6 +37,7 @@
     <string name="controller_settings_address_deleted">Address deleted, create a new one or change address</string>
     <string name="controller_settings_incorrect_password">Incorrect Password</string>
     <string name="controller_settings_incorrect_password_message">The active address was not deleted, please try again</string>
+    <string name="controller_settings_select_new_address">Select New Address</string>
 
     <!--Error messages-->
     <string name="error_storage">Error loading from storage, content may not be as expected</string>

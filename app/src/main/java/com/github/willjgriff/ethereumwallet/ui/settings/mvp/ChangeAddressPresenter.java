@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
 import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
@@ -21,5 +22,10 @@ public class ChangeAddressPresenter extends BaseMvpPresenter<ChangeAddressView> 
 	@Override
 	public void viewReady() {
 		getView().setAddresses(mEthereumAccountManagerKotlin.getAllAccounts());
+	}
+
+	public void onAddressItemClicked(AccountDelegate accountDelegate) {
+		mEthereumAccountManagerKotlin.setActiveAccount(accountDelegate);
+		getView().closeScreen();
 	}
 }

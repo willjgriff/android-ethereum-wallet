@@ -29,9 +29,10 @@ public class ChangeAddressItemViewHolder extends RecyclerView.ViewHolder {
 
 	public void bind(AccountDelegate accountDelegate) {
 		mAddress.setText(accountDelegate.getAddress().getHex());
+		itemView.setOnClickListener(view -> mChangeAddressItemListener.addressItemClicked(accountDelegate));
 	}
 
 	public interface ChangeAddressItemListener {
-		void addressItemClicked();
+		void addressItemClicked(AccountDelegate accountDelegate);
 	}
 }
