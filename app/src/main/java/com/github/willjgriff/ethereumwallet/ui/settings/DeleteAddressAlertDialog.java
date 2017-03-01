@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -32,6 +33,8 @@ public class DeleteAddressAlertDialog extends AlertDialog implements DeleteAddre
 	private SettingsDeleteAlertDialogListener mDialogListener;
 
 	protected DeleteAddressAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
+		// TODO: Remove if left unused.
+//		super(context, R.style.Theme_AppCompat_Light_Dialog_Alert);
 		super(context);
 		SettingsInjector.INSTANCE.injectNewSettingsDeletePresenter(this);
 		setupAppearance();

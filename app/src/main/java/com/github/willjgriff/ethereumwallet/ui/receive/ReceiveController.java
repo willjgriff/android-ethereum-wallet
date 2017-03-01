@@ -4,30 +4,53 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.bluelinelabs.conductor.Controller;
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.rxlifecycle2.RxController;
 import com.github.willjgriff.ethereumwallet.R;
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener;
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
+import com.github.willjgriff.ethereumwallet.ui.receive.di.ReceiveInjector;
+import com.github.willjgriff.ethereumwallet.ui.receive.mvp.ReceivePresenter;
+import com.github.willjgriff.ethereumwallet.ui.receive.mvp.ReceiveView;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Will on 29/01/2017.
  */
 
-public class ReceiveController extends Controller {
+public class ReceiveController extends BaseMvpController<ReceiveView, ReceivePresenter>
+	implements ReceiveView {
+
+	@BindView(R.id.controller_receive_ethereum_address)
+	TextView mReceiveAddress;
+
+	@Inject
+	ReceivePresenter mReceivePresenter;
+
+	public ReceiveController() {
+		ReceiveInjector.INSTANCE.injectNewReceivePresenter(this);
+	}
+
+	@Override
+	protected ReceiveView getMvpView() {
+		return this;
+	}
+
+	@Override
+	protected ReceivePresenter createPresenter() {
+		return mReceivePresenter;
+	}
 
 	@NonNull
 	@Override
 	protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
 		View view = inflater.inflate(R.layout.controller_receive, container, false);
-
+		ButterKnife.bind(this, view);
 		setupToolbarTitle();
-
-//		view.findViewById(R.id.controller_receive_detail_button)
-//			.setOnClickListener(buttonView -> getRouter()
-//				.pushController(RouterTransaction.with(new TransactionsController())));
 		return view;
 	}
 
@@ -36,5 +59,9 @@ public class ReceiveController extends Controller {
 			((NavigationToolbarListener) getTargetController())
 				.setToolbarTitle(getApplicationContext().getString(R.string.controller_receive_title));
 		}
+	}
+
+	public void setReceiveAddress(String address) {
+		mReceiveAddress.setText(address);
 	}
 }

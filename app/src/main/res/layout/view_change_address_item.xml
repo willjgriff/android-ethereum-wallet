@@ -10,8 +10,8 @@
     android:foreground="?android:attr/selectableItemBackground"
     app:cardElevation="3dp"
     android:layout_marginBottom="@dimen/xsmall"
-    android:layout_marginLeft="@dimen/xsmall"
-    android:layout_marginRight="@dimen/xsmall">
+    android:layout_marginLeft="@dimen/xxsmall"
+    android:layout_marginRight="@dimen/xxsmall">
 
     <TextView
         android:id="@+id/view_change_address_item_address"
