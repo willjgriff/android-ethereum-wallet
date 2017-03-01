@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenter;
-import com.github.willjgriff.ethereumwallet.ui.settings.mvp.SettingsDeletePresenterFactory;
+import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressView;
 import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -25,12 +25,11 @@ import io.reactivex.Observable;
 
 public class DeleteAddressAlertDialog extends AlertDialog implements DeleteAddressView {
 
+	@Inject
+	DeleteAddressPresenterFactory mPresenterFactory;
 	private DeleteAddressPresenter mPresenter;
 	private ValidatedTextInputLayout mValidatedTextInputLayout;
 	private SettingsDeleteAlertDialogListener mDialogListener;
-
-	@Inject
-	SettingsDeletePresenterFactory mPresenterFactory;
 
 	protected DeleteAddressAlertDialog(@NonNull Context context, SettingsDeleteAlertDialogListener listener) {
 		super(context);
