@@ -36,7 +36,7 @@ android {
 }
 
 ext {
-    supportLib  = '25.1.1'
+    supportLib  = '25.2.0'
     constraint  = '1.0.0-beta4'
     timber      = '4.5.1'
     conductor   = '2.0.7'
@@ -55,7 +55,7 @@ ext {
     mockito     = '2.7.0'
     robolectric = '3.2.2'
     kotMockito  = '1.1.0'
-    kotJunit    = '1.0.6'
+    kotJunit    = '1.1.0'
     kluent      = '1.14'
 
     dexmaker    = '2.2.0'
@@ -76,7 +76,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxandroid:${rxAndroid2}"
     // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
     compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.ethereum:geth:${geth}"
     debugCompile "nl.littlerobots.rxlint:rxlint:1.2"
 
