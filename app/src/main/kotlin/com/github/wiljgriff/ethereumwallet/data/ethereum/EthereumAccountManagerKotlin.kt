@@ -6,8 +6,6 @@ import timber.log.Timber
 
 /**
  * Created by Will on 06/02/2017.
- *
- * TODO: Consider putting everything in Try Catch block (why doesn't Kotlin need this but Java does?)
  */
 class EthereumAccountManagerKotlin(val accountManager: AccountManagerDelegate, val activeAccountAddress: ActiveAccountAddress) {
 
@@ -27,7 +25,7 @@ class EthereumAccountManagerKotlin(val accountManager: AccountManagerDelegate, v
             .isNotEmpty()
 
     fun getAllAccounts(): List<AccountDelegate> {
-        val accountsList: MutableList<AccountDelegate> = mutableListOf()
+        val accountsList = mutableListOf<AccountDelegate>()
         val accounts = accountManager.getAccounts()
         for (position in 0..accounts.size() - 1) {
             accountsList.add(accounts.get(position))

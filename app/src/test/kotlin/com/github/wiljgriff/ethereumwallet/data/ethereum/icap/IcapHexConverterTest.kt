@@ -1,10 +1,7 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum
+package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
 
-import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Created by Will on 01/03/2017.
@@ -12,6 +9,14 @@ import org.junit.Assert.*
 class IcapHexConverterTest {
 
     val subject = IcapHexConverter()
+
+    @Test
+    fun standardUsage() {
+//        subject.createIcapFromAddress("0x13948j3d8")
+//
+//        subject.createIcapWithAmount("0x87wq0f93", 0.023)
+
+    }
 
     @Test
     fun base16ToBase36_returnsExpectedValue() {
@@ -42,27 +47,8 @@ class IcapHexConverterTest {
     }
 
     @Test
-    fun createChecksum_returnsCorrectChecksum() {
-        val expectedChecksum = 8;
-        val actualChecksum = subject.createChecksum("P2J0C65CFU410SM2IXXO687WQO2HMJV")
-        expectedChecksum shouldEqual actualChecksum
-    }
-
-    @Test
-    fun verifyChecksum_withCorrectInputReturnsTrue() {
-        val addressIsValid = subject.verifyChecksum("P2J0C65CFU410SM2IXXO687WQO2HMJV", 8)
-        addressIsValid shouldBe true
-    }
-
-    @Test
-    fun verifyChecksum_withIncorrectInputReturnsFalse() {
-        val addressIsValid = subject.verifyChecksum("P2J0C65CFU410SM2IXXO687WQO2HMJW", 8)
-        addressIsValid shouldBe false
-    }
-
-    @Test
     fun formatAsIban_createsCorrectString() {
-        
+
     }
 
     // 0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B should convert to
