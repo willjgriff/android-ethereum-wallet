@@ -54,10 +54,4 @@ class IbanGeneratorTest {
         whenever(mockIbanChecksumUtils.convertChecksumToDoubleDigitString(8))
                 .then { "08" }
     }
-
-    // 0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B should convert to
-    // iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV
-
-    // XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS should convert to
-    // 00c5496aee77c1ba1f0854206a26dda82a81d6d8
 }
