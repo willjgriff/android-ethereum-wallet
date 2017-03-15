@@ -6,7 +6,7 @@ enum class IbanParam(paramString: String) {
     UKNOWN("unknown");
 
     private object Static {
-        internal var params: MutableMap<String, IbanParam> = HashMap()
+        val params: MutableMap<String, IbanParam> = HashMap()
     }
 
     init {

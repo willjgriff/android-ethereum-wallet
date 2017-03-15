@@ -7,27 +7,29 @@ import com.github.wiljgriff.ethereumwallet.data.ethereum.SendPayment
  */
 class SendPaymentGenerator(val baseConverter: BaseConverter) {
 
-    val IBAN_PREFIX_LOWERCASE = "iban:xe"
+    val IBAN_PREFIX_LOWERCASE = "iban:"
+    val IBAN_PREFIX_XE_LOWERCASE = "xe"
     val IBAN_PREFIX_LENGTH_INCLUDING_CHECKSUM = 9
+    val IBAN_MAX_LENGTH = 35
     val IBAN_PARAMS_START_DELIMITER = "?"
     val IBAN_PARAM_DELIMITER = "&"
     val IBAN_PARAM_KEY_VALUE_DELIMITER = "="
     val HEX_PREFIX = "0x"
 
     fun getSendPaymentFromIban(iban: String): SendPayment {
-        if (validEthereumIban(iban)) {
+        return if (validEthereumIban(iban)) {
             val hexAddress = getHexAddressFromIban(iban)
             val params = getParamsFromIban(iban)
-            return SendPayment(hexAddress,
+            SendPayment(hexAddress,
                     params.get(IbanParam.AMOUNT)?.toDouble() ?: 0.0,
                     params.get(IbanParam.LABEL) ?: "")
         } else {
-            return SendPayment()
+            SendPayment()
         }
     }
 
-    private fun validEthereumIban(iban: String) = iban.length >= 35
-            && iban.substring(0, 7).toLowerCase() == IBAN_PREFIX_LOWERCASE
+    private fun validEthereumIban(iban: String) = iban.length >= IBAN_MAX_LENGTH + IBAN_PREFIX_LOWERCASE.length
+            && iban.substring(0, 7).toLowerCase() == IBAN_PREFIX_LOWERCASE + IBAN_PREFIX_XE_LOWERCASE
 
     // TODO: Add some extra checks, eg there could be "=" in the params
     private fun getParamsFromIban(iban: String): HashMap<IbanParam, String> {
@@ -38,7 +40,7 @@ class SendPaymentGenerator(val baseConverter: BaseConverter) {
                 .map { it.split(IBAN_PARAM_KEY_VALUE_DELIMITER, limit = 2) }
                 .fold(HashMap<IbanParam, String>()) { acc, next ->
                     acc.put(IbanParam.fromString(next.get(0)), next.get(1))
-                    return acc
+                    acc
                 }
     }
 
