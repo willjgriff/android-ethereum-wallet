@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.receive.mvp;
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;

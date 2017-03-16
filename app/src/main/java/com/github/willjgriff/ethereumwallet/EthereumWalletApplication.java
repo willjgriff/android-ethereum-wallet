@@ -1,6 +1,7 @@
 package com.github.willjgriff.ethereumwallet;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
 import com.squareup.leakcanary.LeakCanary;
@@ -15,9 +16,17 @@ import timber.log.Timber;
 
 public class EthereumWalletApplication extends Application {
 
+	// TODO: Remove for production, just for testing purposes.
+	private static EthereumWalletApplication mEthereumWalletApplication;
+	
+	public static Context getApp() {
+		return mEthereumWalletApplication;
+	}
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		mEthereumWalletApplication = this;
 		setupLeakCanary();
 		setupTimber();
 		setupRealm();

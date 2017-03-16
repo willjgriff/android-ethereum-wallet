@@ -1,13 +1,15 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum
+package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
 import timber.log.Timber
 
 /**
  * Created by Will on 06/02/2017.
  */
-class EthereumAccountManagerKotlin(val accountManager: AccountManagerDelegate, val activeAccountAddress: ActiveAccountAddress) {
+class EthereumAccountManagerKotlin(private val accountManager: AccountManagerDelegate,
+                                   private val activeAccountAddress: ActiveAccountAddress) {
 
     fun createAccount(password: String): AccountDelegate {
         val newAccount = accountManager.newAccount(password)

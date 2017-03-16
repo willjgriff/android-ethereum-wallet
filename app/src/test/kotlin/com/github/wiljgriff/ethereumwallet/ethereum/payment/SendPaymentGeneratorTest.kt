@@ -1,9 +1,9 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.payment
 
 import com.github.wiljgriff.ethereumwallet.data.ethereum.SendPayment
+import com.github.wiljgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 

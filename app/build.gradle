@@ -77,6 +77,7 @@ dependencies {
     // Update this once RxJava2 bindings are finalised. Remove maven { url "https://jitpack.io" } from top level build.gradle
     compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.ethereum:geth:${geth}"
     debugCompile "nl.littlerobots.rxlint:rxlint:1.2"
 

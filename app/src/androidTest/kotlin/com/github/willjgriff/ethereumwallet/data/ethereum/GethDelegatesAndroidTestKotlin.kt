@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.data.ethereum
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
 import org.ethereum.geth.AccountManager
 import org.ethereum.geth.Geth
 import org.junit.After

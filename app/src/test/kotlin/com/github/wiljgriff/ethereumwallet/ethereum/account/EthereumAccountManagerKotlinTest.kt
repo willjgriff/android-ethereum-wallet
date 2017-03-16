@@ -1,8 +1,10 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum
+package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountsDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
+import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountsDelegate
 import com.nhaarman.mockito_kotlin.*
 import org.amshove.kluent.shouldEqual
 import org.junit.Assert
