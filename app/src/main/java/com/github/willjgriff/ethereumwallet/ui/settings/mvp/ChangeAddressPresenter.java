@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
 import org.amshove.kluent.shouldEqual
 import org.junit.Test

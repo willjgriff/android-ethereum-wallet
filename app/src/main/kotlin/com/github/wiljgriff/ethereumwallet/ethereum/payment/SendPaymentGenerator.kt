@@ -1,11 +1,13 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.payment
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.SendPayment
+import com.github.wiljgriff.ethereumwallet.ethereum.icap.BaseConverter
+import com.github.wiljgriff.ethereumwallet.ethereum.icap.IbanParam
+import com.github.wiljgriff.ethereumwallet.ethereum.payment.SendPayment
 
 /**
  * Created by Will on 12/03/2017.
  */
-class SendPaymentGenerator(val baseConverter: BaseConverter) {
+class SendPaymentGenerator(private val baseConverter: BaseConverter) {
 
     val IBAN_PREFIX_LOWERCASE = "iban:xe"
     val IBAN_PREFIX_LENGTH_INCLUDING_CHECKSUM = 9

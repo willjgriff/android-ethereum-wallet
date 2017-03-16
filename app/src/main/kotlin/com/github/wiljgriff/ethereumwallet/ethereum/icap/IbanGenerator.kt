@@ -1,9 +1,10 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
 /**
  * Created by Will on 12/03/2017.
  */
-class IbanGenerator(val baseConverter: BaseConverter, val ibanChecksumUtils: IbanChecksumUtils) {
+class IbanGenerator(private val baseConverter: BaseConverter,
+                    private val ibanChecksumUtils: IbanChecksumUtils) {
 
     // TODO: Consider adding validation
     fun createIbanFromHexAddress(address: String): String {

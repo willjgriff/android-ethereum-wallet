@@ -1,17 +1,11 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import android.util.SparseArray;
-
-import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 
-import java.util.HashMap;
-
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.internal.disposables.ObserverFullArbiter;
 
 /**
  * Created by Will on 03/02/2017.

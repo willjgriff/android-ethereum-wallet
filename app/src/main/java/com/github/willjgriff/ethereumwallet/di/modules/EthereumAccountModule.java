@@ -3,9 +3,9 @@ package com.github.willjgriff.ethereumwallet.di.modules;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.ActiveAccountAddress;
-import com.github.wiljgriff.ethereumwallet.data.ethereum.EthereumAccountManagerKotlin;
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountManagerDelegate;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate;
 
 import org.ethereum.geth.AccountManager;
 import org.ethereum.geth.Geth;
@@ -21,7 +21,7 @@ import dagger.Provides;
  */
 
 @Module
-public class EthereumModule {
+public class EthereumAccountModule {
 
 	@Provides
 	@Singleton

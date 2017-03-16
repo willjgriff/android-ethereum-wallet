@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
 import java.math.BigInteger
 
@@ -10,7 +10,7 @@ import java.math.BigInteger
  *
  * TODO: Consider adding validation
  */
-class IbanChecksumUtils(val baseConverter: BaseConverter) {
+class IbanChecksumUtils(private val baseConverter: BaseConverter) {
 
     val ICAP_XE_PREFIX = "XE"
     val IBAN_MUTIPLIER = "00"

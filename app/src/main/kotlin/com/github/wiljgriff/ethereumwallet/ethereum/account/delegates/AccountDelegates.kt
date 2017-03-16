@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.delegates
+package com.github.wiljgriff.ethereumwallet.ethereum.account.delegates
 
 import org.ethereum.geth.Account
 import org.ethereum.geth.AccountManager
@@ -7,6 +7,8 @@ import org.ethereum.geth.Address
 
 /**
  * Created by Will on 07/02/2017.
+ *
+ * // TODO: Split up into individual files once finalised.
  */
 class AccountManagerDelegate(private val accountManager: AccountManager) {
 

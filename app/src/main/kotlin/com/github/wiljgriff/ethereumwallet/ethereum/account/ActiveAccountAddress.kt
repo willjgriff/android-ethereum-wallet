@@ -1,11 +1,11 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum
+package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import android.content.SharedPreferences
 
 /**
  * Created by williamgriffiths on 28/02/2017.
  */
-class ActiveAccountAddress(val sharedPreferences: SharedPreferences) {
+class ActiveAccountAddress(private val sharedPreferences: SharedPreferences) {
 
     val KEY_ACTIVE_ACCOUNT = javaClass.canonicalName + ";KEY_ACTIVE_ACCOUNT";
 

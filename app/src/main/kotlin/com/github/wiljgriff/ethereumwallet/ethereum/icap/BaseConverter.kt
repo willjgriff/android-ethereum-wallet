@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.data.ethereum.icap
+package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
 import java.math.BigInteger
 

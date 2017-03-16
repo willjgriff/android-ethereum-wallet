@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.delegates.AccountDelegate;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.adapter.ChangeAddressItemViewHolder.ChangeAddressItemListener;
 
