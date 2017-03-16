@@ -16,8 +16,9 @@ import timber.log.Timber;
 
 public class EthereumWalletApplication extends Application {
 
+	// TODO: Remove for production, just for testing purposes.
 	private static EthereumWalletApplication mEthereumWalletApplication;
-
+	
 	public static Context getApp() {
 		return mEthereumWalletApplication;
 	}
