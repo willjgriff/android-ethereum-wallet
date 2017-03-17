@@ -44,7 +44,7 @@ public class EthereumAccountModule {
 
 	@Provides
 	@Singleton
-	ActiveAccountAddress providesActiveAccountPosition(SharedPreferences sharedPreferences) {
+	ActiveAccountAddress providesActiveAccountAddress(SharedPreferences sharedPreferences) {
 		return new ActiveAccountAddress(sharedPreferences);
 	}
 
