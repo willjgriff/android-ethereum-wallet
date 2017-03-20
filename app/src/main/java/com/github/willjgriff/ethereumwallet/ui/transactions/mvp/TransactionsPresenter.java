@@ -22,12 +22,6 @@ public class TransactionsPresenter extends BaseMvpPresenter<TransactionsView> {
 
 	@Override
 	public void viewReady() {
-		addDisposable(mEthereum.getBlockHeaderObservable()
-			.subscribe(header -> getView().newHeader(header),
-				throwable -> Timber.e(throwable)));
 
-		addDisposable(mEthereum.getPeersInfo()
-			.subscribe(peerInfos -> getView().updatePeerInfos(peerInfos),
-				throwable -> Timber.e(throwable)));
 	}
 }

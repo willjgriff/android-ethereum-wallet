@@ -9,7 +9,4 @@ import org.ethereum.geth.PeerInfos;
 
 public interface TransactionsView {
 
-	void newHeader(Header header);
-
-	void updatePeerInfos(PeerInfos peerInfos);
 }

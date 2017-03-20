@@ -3,6 +3,7 @@ package com.github.willjgriff.ethereumwallet.ui.navigation;
 import android.view.MenuItem;
 
 import com.bluelinelabs.conductor.Controller;
+import com.github.wiljgriff.ethereumwallet.ui.nodestatus.NodeStatusController;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
@@ -23,6 +24,8 @@ public class NavigationControllerFactory {
 				return new SendController();
 			case R.id.navigation_receive:
 				return new ReceiveController();
+			case R.id.navigation_status:
+				return new NodeStatusController();
 			case R.id.navigation_settings:
 				return new SettingsController();
 		}

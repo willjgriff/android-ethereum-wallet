@@ -65,14 +65,4 @@ public class TransactionsController extends BaseMvpController<TransactionsView, 
 	protected TransactionsPresenter createPresenter() {
 		return mPresenter;
 	}
-
-	@Override
-	public void newHeader(Header header) {
-		mHeaders.append("\n#" + header.getNumber() + ": " + header.getHash().getHex().substring(0, 10) + "…");
-	}
-
-	@Override
-	public void updatePeerInfos(PeerInfos peerInfos) {
-		mPeers.append(peerInfos.size() + " ");
-	}
 }

@@ -6,6 +6,7 @@
     <string name="controller_send_title">Send</string>
     <string name="controller_receive_title">Receive</string>
     <string name="controller_create_account_title">Create Account</string>
+    <string name="controller_node_status_title">Node Status</string>
     <string name="controller_settings_title">Settings</string>
 
     <!--Common-->

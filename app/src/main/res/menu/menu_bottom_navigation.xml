@@ -20,6 +20,12 @@
         android:title="@string/controller_receive_title"
         app:showAsAction="always" />
     <item
+        android:id="@+id/navigation_status"
+        android:enabled="true"
+        android:icon="@drawable/ic_receive_24dp"
+        android:title="@string/controller_node_status_title"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/navigation_settings"
         android:enabled="true"
         android:icon="@drawable/ic_settings_black_24dp"
