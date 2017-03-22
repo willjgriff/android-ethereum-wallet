@@ -20,13 +20,12 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     private var peers: TextView? = null
     private var headers: TextView? = null
 
-    @Inject
+
     lateinit var presenter: NodeStatusPresenter
 
-    constructor() : super() {
-        
-    }
+    init {
 
+    }
 
     override fun createPresenter(): NodeStatusPresenter {
         return presenter

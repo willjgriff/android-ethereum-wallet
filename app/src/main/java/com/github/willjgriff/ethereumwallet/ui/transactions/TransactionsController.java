@@ -13,9 +13,6 @@ import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsInje
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter;
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView;
 
-import org.ethereum.geth.Header;
-import org.ethereum.geth.PeerInfos;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;

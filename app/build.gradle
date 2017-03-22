@@ -88,19 +88,20 @@ dependencies {
 
     compile "com.google.dagger:dagger:${dagger}"
     provided "javax.annotation:jsr250-api:${javax}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
+//    annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
     kapt "com.google.dagger:dagger-compiler:${dagger}"
     compile "com.jakewharton:butterknife:${butterknife}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
+    kapt "com.jakewharton:butterknife-compiler:${butterknife}"
 
     // AutoValue (currently only use AutoFactory, potentially remove others)
+    // TODO: These are where we get Gson from at the moment...
     provided "com.google.auto.value:auto-value:${autovalue}"
     annotationProcessor "com.google.auto.value:auto-value:${autovalue}"
     annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoparcel}"
     provided "com.ryanharter.auto.value:auto-value-gson:${autogson}"
     annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autogson}"
     provided "com.google.auto.factory:auto-factory:${autofactory}"
-    annotationProcessor "com.google.auto.factory:auto-factory:${autofactory}"
+    kapt "com.google.auto.factory:auto-factory:${autofactory}"
 
     // Leak Canary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
