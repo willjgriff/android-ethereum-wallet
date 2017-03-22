@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.di;
 
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
+import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentInvalidator;
 import com.github.willjgriff.ethereumwallet.ui.settings.ChangeAddressController;
 import com.github.willjgriff.ethereumwallet.ui.settings.SettingsController;
@@ -35,7 +35,7 @@ public enum SettingsInjector implements ComponentInvalidator {
 		if (mSettingsComponent == null) {
 			mSettingsComponent = DaggerSettingsComponent
 				.builder()
-				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
+				.appComponent(AppInjector.INSTANCE.getAppComponent())
 				.build();
 		}
 		return mSettingsComponent;

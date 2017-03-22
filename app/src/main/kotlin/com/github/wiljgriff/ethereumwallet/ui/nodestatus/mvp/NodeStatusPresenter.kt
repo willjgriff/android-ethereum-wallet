@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by Will on 20/03/2017.
  */
-class NodeStatusPresenter constructor(val ethereum: Ethereum) : BaseMvpPresenter<NodeStatusView>() {
+class NodeStatusPresenter @Inject constructor(private val ethereum: Ethereum) : BaseMvpPresenter<NodeStatusView>() {
 
     override fun viewReady() {
         addDisposable(ethereum.getBlockHeaderObservable()
@@ -18,5 +18,6 @@ class NodeStatusPresenter constructor(val ethereum: Ethereum) : BaseMvpPresenter
         addDisposable(ethereum.getPeersInfo()
                 .subscribe({ peerInfos -> view.updatePeerInfos(peerInfos) },
                         { throwable -> Timber.e(throwable) }))
+
     }
 }

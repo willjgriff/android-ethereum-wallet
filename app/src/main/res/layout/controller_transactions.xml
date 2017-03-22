@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:gravity="center">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingBottom="@dimen/xsmall">
+        android:text="Transactwa"/>
 
-        <TextView
-            android:id="@+id/controller_transactions_peers"
-            style="@style/Text.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peers: "
-            tools:text="Peers: 0 0 1"/>
-
-        <TextView
-            android:id="@+id/controller_transactions_text"
-            style="@style/Text.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Where is Ether!?"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.di;
 
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
+import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 
 /**
@@ -14,7 +14,7 @@ public enum CreateAccountInjector {
 	public void injectPresenterFactory(CreateAccountController createAccountController) {
 		DaggerCreateAccountComponent
 			.builder()
-			.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
+			.appComponent(AppInjector.INSTANCE.getAppComponent())
 			.build()
 			.inject(createAccountController);
 	}

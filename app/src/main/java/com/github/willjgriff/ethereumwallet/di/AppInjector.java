@@ -8,7 +8,7 @@ import com.github.willjgriff.ethereumwallet.di.modules.AppModule;
  * Created by Will on 29/01/2017.
  */
 
-public enum ApplicationInjector {
+public enum AppInjector {
 
 	INSTANCE;
 
