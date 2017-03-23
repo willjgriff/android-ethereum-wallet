@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.send.di;
 
-import com.github.willjgriff.ethereumwallet.di.ApplicationInjector;
+import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentInvalidator;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
 
@@ -18,7 +18,7 @@ public enum SendInjector implements ComponentInvalidator {
 		if (mSendComponent == null) {
 			mSendComponent = DaggerSendComponent
 				.builder()
-				.appComponent(ApplicationInjector.INSTANCE.getAppComponent())
+				.appComponent(AppInjector.INSTANCE.getAppComponent())
 				.build();
 		}
 		mSendComponent.inject(sendController);
