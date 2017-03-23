@@ -9,7 +9,7 @@ class ActiveAccountAddress(private val sharedPreferences: SharedPreferences) {
 
     val KEY_ACTIVE_ACCOUNT = javaClass.canonicalName + ";KEY_ACTIVE_ACCOUNT";
 
-    fun get(): String = sharedPreferences
+    fun get() = sharedPreferences
             .getString(KEY_ACTIVE_ACCOUNT, "")
 
     fun set(address: String) = sharedPreferences

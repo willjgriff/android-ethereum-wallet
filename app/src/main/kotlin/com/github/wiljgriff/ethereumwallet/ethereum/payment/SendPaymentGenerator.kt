@@ -9,14 +9,14 @@ import com.github.wiljgriff.ethereumwallet.ethereum.icap.IbanParam
  */
 class SendPaymentGenerator(private val baseConverter: BaseConverter) {
 
-    val IBAN_PREFIX_LOWERCASE = "iban:"
-    val IBAN_PREFIX_XE_LOWERCASE = "xe"
-    val IBAN_PREFIX_LENGTH_INCLUDING_CHECKSUM = 9
-    val IBAN_MAX_LENGTH = 35
-    val IBAN_PARAMS_START_DELIMITER = "?"
-    val IBAN_PARAM_DELIMITER = "&"
-    val IBAN_PARAM_KEY_VALUE_DELIMITER = "="
-    val HEX_PREFIX = "0x"
+    private val IBAN_PREFIX_LOWERCASE = "iban:"
+    private val IBAN_PREFIX_XE_LOWERCASE = "xe"
+    private val IBAN_PREFIX_LENGTH_INCLUDING_CHECKSUM = 9
+    private val IBAN_MAX_LENGTH = 35
+    private val IBAN_PARAMS_START_DELIMITER = "?"
+    private val IBAN_PARAM_DELIMITER = "&"
+    private val IBAN_PARAM_KEY_VALUE_DELIMITER = "="
+    private val HEX_PREFIX = "0x"
 
     fun getSendPaymentFromIban(iban: String): SendPayment {
         return if (validEthereumIban(iban)) {

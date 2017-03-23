@@ -1,6 +1,5 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
 import timber.log.Timber
