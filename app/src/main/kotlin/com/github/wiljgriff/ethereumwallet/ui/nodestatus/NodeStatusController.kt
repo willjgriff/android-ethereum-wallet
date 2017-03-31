@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
+import com.github.wiljgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
@@ -14,8 +15,6 @@ import kotlinx.android.synthetic.main.controller_node_status.view.*
 import org.ethereum.geth.Header
 import org.ethereum.geth.PeerInfos
 import javax.inject.Inject
-
-import kotlinx.android.synthetic.main.controller_node_status.view.controller_transactions_peers
 
 /**
  * Created by Will on 20/03/2017.
@@ -39,17 +38,18 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     override fun getMvpView() = this
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val view = inflater.inflate(R.layout.controller_node_status, container, false)
+        val view = container.inflate(R.layout.controller_node_status)
         peers = view.controller_transactions_peers
         headers = view.controller_transactions_text
         return view
     }
 
     override fun newHeader(header: Header) {
-        headers.append("\n#" + header.number + ": " + header.hash.hex.substring(0, 10) + "…")
+        val hexSubstring = header.hash.hex.substring(0, 10)
+        headers.append("\n#${header.number}: ${hexSubstring}…")
     }
 
     override fun updatePeerInfos(peerInfos: PeerInfos) {
-        peers.append(peerInfos.size().toString() + " ")
+        peers.setText(peerInfos.size().toString())
     }
 }
