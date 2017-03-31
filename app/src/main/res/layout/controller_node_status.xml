@@ -13,7 +13,7 @@
         android:paddingBottom="@dimen/xsmall">
 
         <TextView
-            android:id="@+id/controller_transactions_peers"
+            android:id="@+id/controller_node_status_peers"
             style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,11 +21,18 @@
             tools:text="Connected Peers: 0"/>
 
         <TextView
-            android:id="@+id/controller_transactions_text"
+            android:id="@+id/controller_node_status_text"
             style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Where is Ether!?"/>
+            android:text="Latest 3 block headers: "/>
+
+        <TextView
+            android:id="@+id/controller_node_status_node_details"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Node Details"/>
 
     </LinearLayout>
 </ScrollView>

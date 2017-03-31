@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.github.wiljgriff.ethereumwallet.ethereum.node.Ethereum
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
@@ -23,8 +24,10 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     private lateinit var peers: TextView
     private lateinit var headers: TextView
+    private lateinit var nodeDetails: TextView
 
     @Inject lateinit var presenter: NodeStatusPresenter
+    @Inject lateinit var ethereum: Ethereum
 
     init {
         DaggerNodeStatusComponent.builder()
@@ -39,9 +42,24 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_node_status)
-        peers = view.controller_transactions_peers
-        headers = view.controller_transactions_text
+        peers = view.controller_node_status_peers
+        headers = view.controller_node_status_text
+        nodeDetails = view.controller_node_status_node_details
+
+        showNodeDetails()
+
         return view
+    }
+
+    private fun showNodeDetails() {
+        nodeDetails.text = "Name: ${ethereum.node.nodeInfo.name}\n" +
+                "Protocols: ${ethereum.node.nodeInfo.protocols}\n" +
+                "Ip: ${ethereum.node.nodeInfo.ip}\n" +
+                "Id: ${ethereum.node.nodeInfo.id}\n" +
+                "Enode: ${ethereum.node.nodeInfo.enode}\n" +
+                "Discovery Port: ${ethereum.node.nodeInfo.discoveryPort}\n" +
+                "Listener Address: ${ethereum.node.nodeInfo.listenerAddress}\n" +
+                "Listener Port: ${ethereum.node.nodeInfo.listenerPort}"
     }
 
     override fun newHeader(header: Header) {
@@ -50,6 +68,6 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     }
 
     override fun updatePeerInfos(peerInfos: PeerInfos) {
-        peers.setText(peerInfos.size().toString())
+        peers.setText("Peers: ${peerInfos.size()}")
     }
 }

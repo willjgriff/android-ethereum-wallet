@@ -15,9 +15,9 @@ class Ethereum(ethereumFilePath: String) {
     // TODO: Find out what this number means.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
 
-    private val node = Node(ethereumFilePath, NodeConfig())
+    val node = Node(ethereumFilePath, NodeConfig())
     private val context = Context()
-    private var ethereumClient: EthereumClient
+    private val ethereumClient: EthereumClient
 
     init {
         node.start()
