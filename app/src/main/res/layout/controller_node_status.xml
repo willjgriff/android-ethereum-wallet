@@ -21,11 +21,18 @@
             tools:text="Connected Peers: 0"/>
 
         <TextView
+            android:id="@+id/controller_node_status_peers_info"
+            style="@style/Text.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Peers Infos"/>
+
+        <TextView
             android:id="@+id/controller_node_status_text"
             style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Latest 3 block headers: "/>
+            android:text="Latest block headers: "/>
 
         <TextView
             android:id="@+id/controller_node_status_node_details"
@@ -33,6 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Node Details"/>
+
+        <TextView
+            android:id="@+id/controller_node_status_sync_progress"
+            style="@style/Text.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sync Progress"/>
 
     </LinearLayout>
 </ScrollView>

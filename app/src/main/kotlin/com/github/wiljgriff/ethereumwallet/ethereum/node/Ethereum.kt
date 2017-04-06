@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit
 class Ethereum(ethereumFilePath: String) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
-    // TODO: Find out what this number means.
+    // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
 
-    val node = Node(ethereumFilePath, NodeConfig())
+    private val node = Node(ethereumFilePath, NodeConfig())
     private val context = Context()
     private val ethereumClient: EthereumClient
 
@@ -42,9 +42,43 @@ class Ethereum(ethereumFilePath: String) {
     }
 
     fun getPeersInfo(): Observable<PeerInfos> {
+        return getFuncOnIntervalObservable({ node.peersInfo })
+    }
+
+    fun getNodePeersInfoString(): Observable<String> {
+        return getFuncOnIntervalObservable({ node.getPeersInfoString() })
+    }
+
+    fun getNodeInfoString(): String {
+        return node.getNodeInfoString()
+    }
+
+    private fun <T> getFuncOnIntervalObservable(function: () -> T): Observable<T> {
         return Observable
                 .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
-                .map { node.peersInfo }
+                .map{function.invoke()}
                 .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getSyncProgressString(): String {
+        return ethereumClient.getSyncProgressString(context)
+    }
+
+    fun getBalanceAtAddress() {
+//        ethereumClient.getBalanceAt(context, )
+    }
+
+    fun potentiallyUsefulMethods() {
+
+//        ethereumClient.sendTransaction()
+//
+//        ethereumClient.callContract()
+//
+//        ethereumClient.getPendingBalanceAt()
+//
+//        ethereumClient.getPendingTransactionCount()
+//
+//        ethereumClient.estimateGas()
+    }
+
 }

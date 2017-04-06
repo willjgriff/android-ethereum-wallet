@@ -23,8 +23,10 @@ import javax.inject.Inject
 class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(), NodeStatusView {
 
     private lateinit var peers: TextView
+    private lateinit var peersInfo: TextView
     private lateinit var headers: TextView
     private lateinit var nodeDetails: TextView
+    private lateinit var syncProgress: TextView
 
     @Inject lateinit var presenter: NodeStatusPresenter
     @Inject lateinit var ethereum: Ethereum
@@ -42,24 +44,28 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_node_status)
-        peers = view.controller_node_status_peers
-        headers = view.controller_node_status_text
-        nodeDetails = view.controller_node_status_node_details
-
+        bindViews(view)
         showNodeDetails()
-
+        showPeerDetails()
         return view
     }
 
+    private fun bindViews(view: View) {
+        peers = view.controller_node_status_peers
+        peersInfo = view.controller_node_status_peers_info
+        headers = view.controller_node_status_text
+        nodeDetails = view.controller_node_status_node_details
+        syncProgress = view.controller_node_status_sync_progress
+    }
+
+    private fun showPeerDetails() {
+        ethereum.getNodePeersInfoString()
+                .subscribe({ peersInfo.setText(it) })
+    }
+
     private fun showNodeDetails() {
-        nodeDetails.text = "Name: ${ethereum.node.nodeInfo.name}\n" +
-                "Protocols: ${ethereum.node.nodeInfo.protocols}\n" +
-                "Ip: ${ethereum.node.nodeInfo.ip}\n" +
-                "Id: ${ethereum.node.nodeInfo.id}\n" +
-                "Enode: ${ethereum.node.nodeInfo.enode}\n" +
-                "Discovery Port: ${ethereum.node.nodeInfo.discoveryPort}\n" +
-                "Listener Address: ${ethereum.node.nodeInfo.listenerAddress}\n" +
-                "Listener Port: ${ethereum.node.nodeInfo.listenerPort}"
+        nodeDetails.text = ethereum.getNodeInfoString()
+        syncProgress.text = ethereum.getSyncProgressString()
     }
 
     override fun newHeader(header: Header) {
