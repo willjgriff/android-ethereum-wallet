@@ -11,7 +11,7 @@ import javax.inject.Inject
 class NodeStatusPresenter @Inject constructor(private val ethereum: Ethereum) : BaseMvpPresenter<NodeStatusView>() {
 
     override fun viewReady() {
-        addDisposable(ethereum.getBlockHeaderObservable()
+        addDisposable(ethereum.getCachedBlockHeaderObservable()
                 .subscribe({ header -> view.newHeader(header) },
                         { throwable -> Timber.e(throwable) }))
 

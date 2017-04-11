@@ -3,6 +3,7 @@ package com.github.wiljgriff.ethereumwallet.ethereum.node
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.internal.operators.observable.ObservableRange
 import org.ethereum.geth.*
 import java.util.concurrent.TimeUnit
 
@@ -18,13 +19,16 @@ class Ethereum(ethereumFilePath: String) {
     private val node = Node(ethereumFilePath, NodeConfig())
     private val context = Context()
     private val ethereumClient: EthereumClient
+    private val blockHeaderObservableo: Observable<Header> by lazy { getBlockHeaderObservable() }
 
     init {
         node.start()
         ethereumClient = node.ethereumClient
     }
 
-    fun getBlockHeaderObservable(): Observable<Header> {
+    fun getCachedBlockHeaderObservable(): Observable<Header> = blockHeaderObservableo
+
+    private fun getBlockHeaderObservable(): Observable<Header> {
         return Observable.create<Header> {
             ethereumClient.subscribeNewHead(context, object : NewHeadHandler {
 
@@ -41,33 +45,22 @@ class Ethereum(ethereumFilePath: String) {
                 .compose(AndroidIoTransformer<Header>())
     }
 
-    fun getPeersInfo(): Observable<PeerInfos> {
-        return getFuncOnIntervalObservable { node.peersInfo }
-    }
+    fun getNodeInfoString() = node.getNodeInfoString()
 
-    fun getNodePeersInfoString(): Observable<String> {
-        return getFuncOnIntervalObservable { node.getPeersInfoString() }
-    }
+    fun getPeersInfo(): Observable<PeerInfos> = getFuncOnIntervalObservable { node.peersInfo }
 
-    fun getNodeInfoString(): String {
-        return node.getNodeInfoString()
-    }
+    fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { node.getPeersInfoStrings() }
+            .distinctUntilChanged()
 
-    fun getSyncProgressString(): Observable<String> {
-        return getFuncOnIntervalObservable { ethereumClient.getSyncProgressString(context) }
-    }
+    fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { ethereumClient.getSyncProgressString(context) }
 
-    private fun <T> getFuncOnIntervalObservable(function: () -> T): Observable<T> {
-        return Observable
-                .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
-                .startWith(0)
-                .map { function.invoke() }
-                .observeOn(AndroidSchedulers.mainThread())
-    }
+    private fun <T> getFuncOnIntervalObservable(function: () -> T) = Observable
+            .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
+            .startWith(0)
+            .map { function.invoke() }
+            .observeOn(AndroidSchedulers.mainThread())
 
-    fun getBalanceAtAddress() {
-        ethereumClient.getBalanceAt(context, null, -1) // -1 should be null but can't be as it expects a primitive...
-    }
+    fun getBalanceAtAddress() = ethereumClient.getBalanceAt(context, null, -1) // -1 should be null but can't be as it expects a primitive...
 
     fun potentiallyUsefulMethods() {
 

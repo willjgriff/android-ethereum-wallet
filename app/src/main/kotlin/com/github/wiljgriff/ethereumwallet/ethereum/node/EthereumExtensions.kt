@@ -11,12 +11,12 @@ fun Node.getNodeInfoString(): String {
             "Ip: ${nodeInfo.ip}\n" +
             "Discovery Port: ${nodeInfo.discoveryPort}\n" +
             "Listener Address: ${nodeInfo.listenerAddress}\n" +
-            "Listener Port: ${nodeInfo.listenerPort}\n"
+            "Listener Port: ${nodeInfo.listenerPort}"
 //            "Id: ${nodeInfo.id}\n" +
 //            "Enode: ${nodeInfo.enode}\n"
 }
 
-fun Node.getPeersInfoString(): String {
+fun Node.getPeersInfoStrings(): List<String> {
     return 0L.rangeTo(peersInfo.size() - 1)
             .map { peersInfo.get(it) }
             .map {
@@ -26,7 +26,7 @@ fun Node.getPeersInfoString(): String {
                         "Local Address:${it.localAddress}\n" +
                         "Caps: ${it.caps}\n"
             }
-            .joinToString { it }
+            .toList()
 }
 
 fun EthereumClient.getSyncProgressString(context: Context): String {
