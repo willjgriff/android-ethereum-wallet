@@ -19,14 +19,12 @@ class Ethereum(ethereumFilePath: String) {
     private val node = Node(ethereumFilePath, NodeConfig())
     private val context = Context()
     private val ethereumClient: EthereumClient
-    private val blockHeaderObservableo: Observable<Header> by lazy { getBlockHeaderObservable() }
+    val cachedBlockHeaderObservable: Observable<Header> by lazy { getBlockHeaderObservable() }
 
     init {
         node.start()
         ethereumClient = node.ethereumClient
     }
-
-    fun getCachedBlockHeaderObservable(): Observable<Header> = blockHeaderObservableo
 
     private fun getBlockHeaderObservable(): Observable<Header> {
         return Observable.create<Header> {
@@ -41,8 +39,10 @@ class Ethereum(ethereumFilePath: String) {
                 }
             }, SOME_RANDOM_SAMPLING_SIZE)
         }
-                .throttleFirst(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
                 .compose(AndroidIoTransformer<Header>())
+                .throttleFirst(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
+                .replay(10)
+                .autoConnect()
     }
 
     fun getNodeInfoString() = node.getNodeInfoString()

@@ -11,21 +11,21 @@
         android:text="Node Details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/controller_node_status_node_details"
+        android:id="@+id/controller_node_status_node_details_title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_peers"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_node_details"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:text="Peers: 123"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/controller_node_status_peers"
-        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_node_details"
         app:layout_constraintBottom_toTopOf="@+id/controller_node_status_peers_list"
+        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_node_details"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,22 +36,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView7"
-        app:layout_constraintLeft_toLeftOf="@+id/controller_node_status_headers_list"
-        android:layout_marginLeft="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_headers_list"/>
+        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_headers_list"
+        app:layout_constraintLeft_toLeftOf="@+id/controller_node_status_headers_list"/>
 
     <TextView
         android:text="Sync Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_peers_list"
-        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_sync_progress"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="16dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/controller_node_status_sync_progress"/>
 
     <TextView
         android:text="Sync Deets"
@@ -59,8 +54,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/controller_node_status_sync_progress"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintLeft_toLeftOf="@+id/textView7"
+        android:layout_marginLeft="0dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/controller_node_status_peers_list"
+        app:layout_constraintRight_toLeftOf="@+id/controller_node_status_headers_list"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_peers"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:text="Node Deets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/controller_node_status_node_details"
+        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_node_details_title"
+        app:layout_constraintBottom_toTopOf="@+id/controller_node_status_peers"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"/>
@@ -77,21 +94,5 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintTop_toTopOf="@+id/controller_node_status_peers_list"
         app:layout_constraintBottom_toBottomOf="@+id/controller_node_status_peers_list"
-        android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="0.0"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/controller_node_status_peers_list"
-        app:layout_constraintRight_toLeftOf="@+id/controller_node_status_headers_list"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/controller_node_status_peers"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        android:layout_marginTop="8dp"
-        />
 </android.support.constraint.ConstraintLayout>

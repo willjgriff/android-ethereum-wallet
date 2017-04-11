@@ -4,11 +4,11 @@ import android.view.MenuItem;
 
 import com.bluelinelabs.conductor.Controller;
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.NodeStatusController;
+import com.github.wiljgriff.ethereumwallet.ui.transactions.TransactionsController;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
 import com.github.willjgriff.ethereumwallet.ui.settings.SettingsController;
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 
 /**
  * Created by Will on 29/01/2017.
