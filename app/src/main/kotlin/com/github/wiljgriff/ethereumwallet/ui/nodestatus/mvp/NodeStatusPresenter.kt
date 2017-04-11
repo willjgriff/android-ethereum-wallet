@@ -19,5 +19,14 @@ class NodeStatusPresenter @Inject constructor(private val ethereum: Ethereum) : 
                 .subscribe({ peerInfos -> view.updatePeerInfos(peerInfos) },
                         { throwable -> Timber.e(throwable) }))
 
+        addDisposable(ethereum.getSyncProgressString()
+                .subscribe({ view.setSyncProgress(it) },
+                        { throwable -> Timber.e(throwable) }))
+
+        addDisposable(ethereum.getNodePeerInfoStrings()
+                .subscribe({ view.setPeerStrings(it) },
+                        { throwable -> Timber.e(throwable) }))
+
+        view.setNodeDetails(ethereum.getNodeInfoString())
     }
 }

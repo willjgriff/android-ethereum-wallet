@@ -50,7 +50,6 @@ class Ethereum(ethereumFilePath: String) {
     fun getPeersInfo(): Observable<PeerInfos> = getFuncOnIntervalObservable { node.peersInfo }
 
     fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { node.getPeersInfoStrings() }
-            .distinctUntilChanged()
 
     fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { ethereumClient.getSyncProgressString(context) }
 
@@ -58,6 +57,7 @@ class Ethereum(ethereumFilePath: String) {
             .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
             .startWith(0)
             .map { function.invoke() }
+            .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
 
     fun getBalanceAtAddress() = ethereumClient.getBalanceAt(context, null, -1) // -1 should be null but can't be as it expects a primitive...

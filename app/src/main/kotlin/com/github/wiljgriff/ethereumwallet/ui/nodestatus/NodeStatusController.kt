@@ -26,16 +26,16 @@ import javax.inject.Inject
  */
 class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(), NodeStatusView {
 
+    private lateinit var nodeDetails: TextView
+    private lateinit var syncProgress: TextView
     private lateinit var peers: TextView
     private lateinit var peersInfo: RecyclerView
     private lateinit var headers: RecyclerView
-    private lateinit var nodeDetails: TextView
-    private lateinit var syncProgress: TextView
+
     private val peersAdapter: NodeStatusPeersAdapter = NodeStatusPeersAdapter()
     private val headersAdapter: NodeStatusHeadersAdapter = NodeStatusHeadersAdapter()
 
     @Inject lateinit var presenter: NodeStatusPresenter
-    @Inject lateinit var ethereum: Ethereum
 
     init {
         DaggerNodeStatusComponent.builder()
@@ -51,9 +51,7 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_node_status)
         bindViews(view)
-        setupNodeDetails()
-        setupPeerDetails()
-        setupHeadersList()
+        setupRecyclerViews()
         return view
     }
 
@@ -65,22 +63,11 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
         syncProgress = view.controller_node_status_sync_progress
     }
 
-    private fun setupNodeDetails() {
-        nodeDetails.text = ethereum.getNodeInfoString()
-        ethereum.getSyncProgressString()
-                .subscribe { syncProgress.text = it }
-    }
-
-    private fun setupPeerDetails() {
-        peersInfo.adapter = peersAdapter
-        peersInfo.layoutManager = LinearLayoutManager(applicationContext)
-        ethereum.getNodePeerInfoStrings()
-                .subscribe { peersAdapter.setPeerStrings(it) }
-    }
-
-    private fun setupHeadersList() {
+    private fun setupRecyclerViews() {
         headers.layoutManager = LinearLayoutManager(applicationContext)
         headers.adapter = headersAdapter
+        peersInfo.layoutManager = LinearLayoutManager(applicationContext)
+        peersInfo.adapter = peersAdapter
     }
 
     override fun newHeader(header: Header) {
@@ -89,5 +76,17 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     override fun updatePeerInfos(peerInfos: PeerInfos) {
         peers.text = "Peers: ${peerInfos.size()}"
+    }
+
+    override fun setNodeDetails(nodeInfoString: String) {
+        nodeDetails.text = nodeInfoString
+    }
+
+    override fun setSyncProgress(syncProgress: String) {
+        this.syncProgress.text = syncProgress
+    }
+
+    override fun setPeerStrings(peers: List<String>) {
+        peersAdapter.setPeerStrings(peers)
     }
 }

@@ -11,4 +11,10 @@ interface NodeStatusView {
     fun newHeader(header: Header)
 
     fun updatePeerInfos(peerInfos: PeerInfos)
+
+    fun setNodeDetails(nodeInfoString: String)
+
+    fun setSyncProgress(syncProgress: String)
+
+    fun setPeerStrings(peers: List<String>)
 }
