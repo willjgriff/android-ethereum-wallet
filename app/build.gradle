@@ -42,7 +42,7 @@ kapt {
 
 ext {
     supportLib  = '25.3.0'
-    constraint  = '1.0.0-beta4'
+    constraint  = '1.0.2'
     timber      = '4.5.1'
     conductor   = '2.0.7'
     rxJava2     = '2.0.4'
@@ -60,7 +60,7 @@ ext {
     mockito     = '2.7.0'
     robolectric = '3.2.2'
     kotMockito  = '1.1.0'
-    kotJunit    = '1.1.0'
+    kotJunit    = '1.1.1'
     kluent      = '1.14'
 
     dexmaker    = '2.2.0'

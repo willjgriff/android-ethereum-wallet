@@ -37,35 +37,36 @@ class Ethereum(ethereumFilePath: String) {
                 }
             }, SOME_RANDOM_SAMPLING_SIZE)
         }
-                .sample(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
+                .throttleFirst(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
                 .compose(AndroidIoTransformer<Header>())
     }
 
     fun getPeersInfo(): Observable<PeerInfos> {
-        return getFuncOnIntervalObservable({ node.peersInfo })
+        return getFuncOnIntervalObservable { node.peersInfo }
     }
 
     fun getNodePeersInfoString(): Observable<String> {
-        return getFuncOnIntervalObservable({ node.getPeersInfoString() })
+        return getFuncOnIntervalObservable { node.getPeersInfoString() }
     }
 
     fun getNodeInfoString(): String {
         return node.getNodeInfoString()
     }
 
+    fun getSyncProgressString(): Observable<String> {
+        return getFuncOnIntervalObservable { ethereumClient.getSyncProgressString(context) }
+    }
+
     private fun <T> getFuncOnIntervalObservable(function: () -> T): Observable<T> {
         return Observable
                 .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
-                .map{function.invoke()}
+                .startWith(0)
+                .map { function.invoke() }
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getSyncProgressString(): String {
-        return ethereumClient.getSyncProgressString(context)
-    }
-
     fun getBalanceAtAddress() {
-//        ethereumClient.getBalanceAt(context, )
+        ethereumClient.getBalanceAt(context, null, -1) // -1 should be null but can't be as it expects a primitive...
     }
 
     fun potentiallyUsefulMethods() {

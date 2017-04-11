@@ -1,5 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ui.nodestatus
 
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import kotlinx.android.synthetic.main.controller_node_status.view.*
+import kotlinx.android.synthetic.main.controller_node_status_2.view.*
 import org.ethereum.geth.Header
 import org.ethereum.geth.PeerInfos
 import javax.inject.Inject
@@ -23,8 +25,8 @@ import javax.inject.Inject
 class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(), NodeStatusView {
 
     private lateinit var peers: TextView
-    private lateinit var peersInfo: TextView
-    private lateinit var headers: TextView
+    private lateinit var peersInfo: RecyclerView
+    private lateinit var headers: RecyclerView
     private lateinit var nodeDetails: TextView
     private lateinit var syncProgress: TextView
 
@@ -43,7 +45,7 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     override fun getMvpView() = this
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val view = container.inflate(R.layout.controller_node_status)
+        val view = container.inflate(R.layout.controller_node_status_2)
         bindViews(view)
         showNodeDetails()
         showPeerDetails()
@@ -52,25 +54,27 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     private fun bindViews(view: View) {
         peers = view.controller_node_status_peers
-        peersInfo = view.controller_node_status_peers_info
-        headers = view.controller_node_status_text
+        peersInfo = view.controller_node_status_peers_list
+        headers = view.controller_node_status_headers_list
         nodeDetails = view.controller_node_status_node_details
         syncProgress = view.controller_node_status_sync_progress
     }
 
     private fun showPeerDetails() {
         ethereum.getNodePeersInfoString()
-                .subscribe({ peersInfo.setText(it) })
+//                .subscribe { peersInfo.text = it }
     }
 
     private fun showNodeDetails() {
         nodeDetails.text = ethereum.getNodeInfoString()
-        syncProgress.text = ethereum.getSyncProgressString()
+
+        ethereum.getSyncProgressString()
+                .subscribe { syncProgress.text = it }
     }
 
     override fun newHeader(header: Header) {
         val hexSubstring = header.hash.hex.substring(0, 10)
-        headers.append("\n#${header.number}: ${hexSubstring}…")
+//        headers.append("\n#${header.number}: ${hexSubstring}…")
     }
 
     override fun updatePeerInfos(peerInfos: PeerInfos) {
