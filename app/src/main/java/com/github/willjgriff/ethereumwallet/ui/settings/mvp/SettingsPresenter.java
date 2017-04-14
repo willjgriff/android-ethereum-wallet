@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountManager;
 import com.github.willjgriff.ethereumwallet.di.FunctionScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
@@ -18,11 +18,11 @@ import io.reactivex.Observable;
 @FunctionScope
 public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 
-	private EthereumAccountManagerKotlin mEthereumAccountManager;
+	private AccountManager mAccountManager;
 
 	@Inject
-	SettingsPresenter(EthereumAccountManagerKotlin ethereumAccountManagerKotlin) {
-		mEthereumAccountManager = ethereumAccountManagerKotlin;
+	SettingsPresenter(AccountManager accountManager) {
+		mAccountManager = accountManager;
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class SettingsPresenter extends BaseMvpPresenter<SettingsView> {
 
 	private void getAndSetActiveAddress() {
 		String address;
-		if (mEthereumAccountManager.getActiveAccount() != null) {
-			address = mEthereumAccountManager.getActiveAccount().getAddress().getHex();
+		if (mAccountManager.getActiveAccount() != null) {
+			address = mAccountManager.getActiveAccount().getAddress().getHex();
 			getView().setActiveAddress(address);
 		} else {
 			getView().setAddressDeleted();

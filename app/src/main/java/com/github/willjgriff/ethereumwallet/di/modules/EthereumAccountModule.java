@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress;
-import com.github.wiljgriff.ethereumwallet.ethereum.account.EthereumAccountManagerKotlin;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate;
 
-import org.ethereum.geth.AccountManager;
 import org.ethereum.geth.Geth;
 
 import javax.inject.Named;
@@ -50,8 +48,8 @@ public class EthereumAccountModule {
 
 	@Provides
 	@Singleton
-	EthereumAccountManagerKotlin providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
+	AccountManager providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
 	                                                            ActiveAccountAddress activeAccountAddress) {
-		return new EthereumAccountManagerKotlin(accountManagerDelegate, activeAccountAddress);
+		return new AccountManager(accountManagerDelegate, activeAccountAddress);
 	}
 }

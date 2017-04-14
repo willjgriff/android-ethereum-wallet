@@ -83,7 +83,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintRight_toLeftOf="@+id/controller_node_status_sync_progress"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        android:textIsSelectable="true"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"

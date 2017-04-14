@@ -7,8 +7,8 @@ import timber.log.Timber
 /**
  * Created by Will on 06/02/2017.
  */
-class EthereumAccountManagerKotlin(private val accountManager: AccountManagerDelegate,
-                                   private val activeAccountAddress: ActiveAccountAddress) {
+class AccountManager(private val accountManager: AccountManagerDelegate,
+                     private val activeAccountAddress: ActiveAccountAddress) {
 
     fun createAccount(password: String): AccountDelegate {
         val newAccount = accountManager.newAccount(password)

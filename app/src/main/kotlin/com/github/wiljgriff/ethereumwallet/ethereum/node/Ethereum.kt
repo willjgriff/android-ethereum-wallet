@@ -8,10 +8,13 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Created by Will on 16/03/2017.
+ *
+ * TODO: Create an interface for this, this is likely to be swapped out in the future, parity...
  */
 class Ethereum(ethereumFilePath: String) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
+    private val DEFAULT_TO_CURRENT_BLOCK_VALUE = -1L
     // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
 
@@ -47,9 +50,8 @@ class Ethereum(ethereumFilePath: String) {
     }
 
     fun getBalanceAtAddress(): Observable<String> {
-        val blockToSearch = node.ethereumClient.syncProgress(context)?.currentBlock ?: 3500000
-        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
-        return getBigIntReplayObservableForFunc { ethereumClient.getBalanceAt(context, address, blockToSearch) }
+        val address: Address? = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
+        return getBigIntReplayObservableForFunc { ethereumClient.getBalanceAt(context, address, DEFAULT_TO_CURRENT_BLOCK_VALUE) }
     }
 
     fun getPendingBalanceAtAddress(): Observable<String> {
@@ -57,8 +59,8 @@ class Ethereum(ethereumFilePath: String) {
         return getBigIntReplayObservableForFunc { ethereumClient.getPendingBalanceAt(context, address) }
     }
 
-    fun getBigIntReplayObservableForFunc(function: Function<BigInt>): Observable<String> = Observable
-            .just { function }
+    private fun <T> getBigIntReplayObservableForFunc(function: () -> T) = Observable
+            .just(function)
             .map { it.invoke() }
             .map { it.toString() }
             .replay(1)
