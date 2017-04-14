@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.wiljgriff.ethereumwallet.ethereum.node.Ethereum
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
@@ -64,10 +63,14 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     }
 
     private fun setupRecyclerViews() {
-        headers.layoutManager = LinearLayoutManager(applicationContext)
-        headers.adapter = headersAdapter
-        peersInfo.layoutManager = LinearLayoutManager(applicationContext)
-        peersInfo.adapter = peersAdapter
+        headers.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            adapter = headersAdapter
+        }
+        peersInfo.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            adapter = peersAdapter
+        }
     }
 
     override fun newHeader(header: Header) {
@@ -82,8 +85,8 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
         nodeDetails.text = nodeInfoString
     }
 
-    override fun setSyncProgress(syncProgress: String) {
-        this.syncProgress.text = syncProgress
+    override fun setSyncProgress(syncProgressString: String) {
+        syncProgress.text = syncProgressString
     }
 
     override fun setPeerStrings(peers: List<String>) {

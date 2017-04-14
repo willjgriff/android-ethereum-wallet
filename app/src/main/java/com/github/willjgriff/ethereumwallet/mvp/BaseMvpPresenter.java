@@ -35,7 +35,7 @@ public abstract class BaseMvpPresenter<VIEW> implements MvpPresenter<VIEW> {
 	 */
 	public void releaseViewReferences() {
 
-	};
+	}
 
 	public void addDisposable(Disposable disposable) {
 		mCompositeDisposable.add(disposable);

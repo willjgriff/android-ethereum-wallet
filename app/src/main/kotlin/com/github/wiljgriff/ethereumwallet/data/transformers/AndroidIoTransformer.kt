@@ -11,10 +11,9 @@ import io.reactivex.schedulers.Schedulers
  */
 class AndroidIoTransformer<TYPE> : ObservableTransformer<TYPE, TYPE> {
 
-    override fun apply(observable: Observable<TYPE>?): ObservableSource<TYPE> {
+    override fun apply(observable: Observable<TYPE>): ObservableSource<TYPE> {
         return observable
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribeOn(Schedulers.io())
-                ?: ObservableSource { }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 }

@@ -9,6 +9,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transactwa"/>
+        android:text="Transactwa"
+        android:id="@+id/controller_transactions_balance"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/controller_transactions_pending_balance"
+        android:text="Pending Balance"/>
 
 </LinearLayout>

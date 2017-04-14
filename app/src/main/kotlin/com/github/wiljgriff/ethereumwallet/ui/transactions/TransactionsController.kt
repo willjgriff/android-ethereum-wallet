@@ -49,4 +49,8 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
     override fun setBalance(balanceAtAddress: String) {
         view?.controller_transactions_balance?.text = balanceAtAddress
     }
+
+    override fun setPendingBalance(pendingBalanceAtAddress: String) {
+        view?.controller_transactions_pending_balance?.text = pendingBalanceAtAddress
+    }
 }

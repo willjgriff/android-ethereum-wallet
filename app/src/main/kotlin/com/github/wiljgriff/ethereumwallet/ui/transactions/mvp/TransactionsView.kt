@@ -6,4 +6,6 @@ package com.github.wiljgriff.ethereumwallet.ui.transactions.mvp
 interface TransactionsView {
 
     fun setBalance(balanceAtAddress: String)
+
+    fun setPendingBalance(pendingBalanceAtAddress: String)
 }

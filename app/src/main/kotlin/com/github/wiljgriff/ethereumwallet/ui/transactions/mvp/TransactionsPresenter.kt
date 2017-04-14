@@ -10,6 +10,8 @@ import javax.inject.Inject
 class TransactionsPresenter @Inject constructor(private val ethereum: Ethereum) : BaseMvpPresenter<TransactionsView>() {
 
     override fun viewReady() {
-        view.setBalance(ethereum.getBalanceAtAddress())
+        addDisposable(ethereum.cachedBalanceAtAddress.subscribe { view.setBalance(it) })
+
+        addDisposable(ethereum.getPendingBalanceAtAddress().subscribe { view.setPendingBalance(it) })
     }
 }

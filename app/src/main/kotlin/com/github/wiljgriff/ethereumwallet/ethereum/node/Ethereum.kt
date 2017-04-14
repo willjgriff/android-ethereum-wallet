@@ -19,6 +19,8 @@ class Ethereum(ethereumFilePath: String) {
     private val context = Context()
     private val ethereumClient: EthereumClient
     val cachedBlockHeaderObservable: Observable<Header> by lazy { getBlockHeaderObservable() }
+    // This will have to change as we will want to pass in the address
+    val cachedBalanceAtAddress: Observable<String> by lazy { getBalanceAtAddress() }
 
     init {
         node.start()
@@ -44,6 +46,25 @@ class Ethereum(ethereumFilePath: String) {
                 .autoConnect()
     }
 
+    fun getBalanceAtAddress(): Observable<String> {
+        val blockToSearch = node.ethereumClient.syncProgress(context)?.currentBlock ?: 3500000
+        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
+        return getBigIntReplayObservableForFunc { ethereumClient.getBalanceAt(context, address, blockToSearch) }
+    }
+
+    fun getPendingBalanceAtAddress(): Observable<String> {
+        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
+        return getBigIntReplayObservableForFunc { ethereumClient.getPendingBalanceAt(context, address) }
+    }
+
+    fun getBigIntReplayObservableForFunc(function: Function<BigInt>): Observable<String> = Observable
+            .just { function }
+            .map { it.invoke() }
+            .map { it.toString() }
+            .replay(1)
+            .autoConnect()
+            .compose(AndroidIoTransformer())
+
     fun getNodeInfoString() = node.getNodeInfoString()
 
     fun getPeersInfo(): Observable<PeerInfos> = getFuncOnIntervalObservable { node.peersInfo }
@@ -58,13 +79,6 @@ class Ethereum(ethereumFilePath: String) {
             .map { function.invoke() }
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-
-    fun getBalanceAtAddress(): String {
-        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
-        val blockToSearch = node.ethereumClient.syncProgress(context)?.currentBlock ?: 3500000
-        val balanceInt = ethereumClient.getBalanceAt(context, address, blockToSearch)
-        return balanceInt.toString()
-    }
 
     fun potentiallyUsefulMethods() {
 
