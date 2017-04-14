@@ -10,6 +10,6 @@ import javax.inject.Inject
 class TransactionsPresenter @Inject constructor(private val ethereum: Ethereum) : BaseMvpPresenter<TransactionsView>() {
 
     override fun viewReady() {
-
+        view.setBalance(ethereum.getBalanceAtAddress())
     }
 }

@@ -11,17 +11,18 @@ import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
+import kotlinx.android.synthetic.main.controller_transactions.view.*
 import javax.inject.Inject
 
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
-class TransactionsController : BaseMvpController<TransactionsView, TransactionsPresenter>(), TransactionsView{
+class TransactionsController : BaseMvpController<TransactionsView, TransactionsPresenter>(), TransactionsView {
 
     @Inject
     lateinit var presenter: TransactionsPresenter
 
-    init{
+    init {
         DaggerTransactionsComponent.builder()
                 .appComponent(AppInjector.INSTANCE.appComponent)
                 .build()
@@ -39,9 +40,13 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
     }
 
     private fun setupToolbarTitle() {
+        val targetController = targetController
         if (targetController is NavigationToolbarListener) {
-            (targetController as NavigationToolbarListener)
-                    .setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
+            targetController.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
         }
+    }
+
+    override fun setBalance(balanceAtAddress: String) {
+        view?.controller_transactions_balance?.text = balanceAtAddress
     }
 }

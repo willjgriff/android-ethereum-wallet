@@ -3,7 +3,6 @@ package com.github.wiljgriff.ethereumwallet.ethereum.node
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.internal.operators.observable.ObservableRange
 import org.ethereum.geth.*
 import java.util.concurrent.TimeUnit
 
@@ -60,7 +59,12 @@ class Ethereum(ethereumFilePath: String) {
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getBalanceAtAddress() = ethereumClient.getBalanceAt(context, null, -1) // -1 should be null but can't be as it expects a primitive...
+    fun getBalanceAtAddress(): String {
+        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
+        val blockToSearch = node.ethereumClient.syncProgress(context)?.currentBlock ?: 3500000
+        val balanceInt = ethereumClient.getBalanceAt(context, address, blockToSearch)
+        return balanceInt.toString()
+    }
 
     fun potentiallyUsefulMethods() {
 

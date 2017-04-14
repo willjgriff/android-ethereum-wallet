@@ -14,7 +14,7 @@ interface NodeStatusView {
 
     fun setNodeDetails(nodeInfoString: String)
 
-    fun setSyncProgress(syncProgress: String)
+    fun setSyncProgress(syncProgressString: String)
 
     fun setPeerStrings(peers: List<String>)
 }
