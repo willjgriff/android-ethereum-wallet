@@ -35,7 +35,7 @@ class WalletAccountManagerTest {
     fun createAccount_callsNewAccountOnAccountManager() {
         val MOCK_PASSWORD = "password"
 
-        subject.createAccount(MOCK_PASSWORD)
+        subject.createActiveAccount(MOCK_PASSWORD)
 
         verify(mockAccountManager).newAccount(MOCK_PASSWORD)
         verify(mockActiveAddress).set(any())

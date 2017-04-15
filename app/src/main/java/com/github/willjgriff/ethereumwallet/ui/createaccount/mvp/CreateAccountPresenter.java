@@ -50,7 +50,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 
 	private void validPasswordSubmitted() {
 		mPassword.subscribe(password -> {
-			mWalletAccountManager.createAccount(password.toString());
+			mWalletAccountManager.createActiveAccount(password.toString());
 			getView().openWallet();
 		});
 	}

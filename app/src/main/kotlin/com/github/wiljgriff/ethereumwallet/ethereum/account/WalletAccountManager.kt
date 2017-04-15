@@ -2,6 +2,8 @@ package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AddressDelegate
+import org.ethereum.geth.Address
 import timber.log.Timber
 
 /**
@@ -10,42 +12,42 @@ import timber.log.Timber
 class WalletAccountManager(private val accountManager: AccountManagerDelegate,
                            private val activeAccountAddress: ActiveAccountAddress) {
 
-    fun createAccount(password: String): AccountDelegate {
+    private val DEFAULT_UNKNOWN_ADDRESS = "0x0000000000000000000000000000000000000000"
+
+    fun createActiveAccount(password: String): AccountDelegate {
         val newAccount = accountManager.newAccount(password)
         activeAccountAddress.set(newAccount.getAddress().getHex())
         return newAccount
     }
 
-    fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex()
+    // TODO: Note this renders the address delegate structure useless
+    fun getActiveAccountAddress() = getActiveAccount()?.getAddress() ?: AddressDelegate(Address(DEFAULT_UNKNOWN_ADDRESS))
+
+    fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex() ?: ""
 
     fun getActiveAccount() = getAllAccounts()
             .filter { it.getAddress().getHex() == activeAccountAddress.get() }
-            .first()
+            .singleOrNull()
 
-    fun getActiveAccountAddress() = getActiveAccount().getAddress()
-
-    fun hasAccount() = getAllAccounts()
-            .isNotEmpty()
+    fun hasAccount() = getAllAccounts().isNotEmpty()
 
     fun getAllAccounts(): List<AccountDelegate> {
-        val accountsList = mutableListOf<AccountDelegate>()
         val accounts = accountManager.getAccounts()
-        for (position in 0..accounts.size() - 1) {
-            accountsList.add(accounts.get(position))
-        }
-        return accountsList
+        return 0L.rangeTo(accounts.size() - 1)
+                .map { accounts.get(it) }
+                .toList()
     }
 
     fun deleteActiveAccount(password: String): Boolean {
         try {
-            if (getActiveAccount() != null) {
+            if (activeAccountAddress.hasActiveAddress()) {
                 accountManager.deleteAccount(getActiveAccount(), password)
-                activeAccountAddress.set("")
+                activeAccountAddress.deleteActiveAddress()
             }
         } catch (exception: Exception) {
             Timber.i(exception, "Account not deleted, password probably incorrect")
         }
-        return getActiveAccount() == null
+        return !activeAccountAddress.hasActiveAddress()
     }
 
     fun setActiveAccount(account: AccountDelegate) {

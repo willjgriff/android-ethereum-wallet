@@ -35,5 +35,5 @@ class AddressDelegate(private val address: Address) {
 
     fun getHex() = address.hex
     fun getBytes() = address.bytes
-    fun getAddress() = address;
+    fun getAddress() = address
 }

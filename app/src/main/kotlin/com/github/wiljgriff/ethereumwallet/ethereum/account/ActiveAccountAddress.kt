@@ -7,13 +7,22 @@ import android.content.SharedPreferences
  */
 class ActiveAccountAddress(private val sharedPreferences: SharedPreferences) {
 
-    val KEY_ACTIVE_ACCOUNT = javaClass.canonicalName + ";KEY_ACTIVE_ACCOUNT";
+    private val KEY_ACTIVE_ACCOUNT = javaClass.canonicalName + ";KEY_ACTIVE_ACCOUNT";
+    private val DEFAULT_ADDRESS_VALUE = ""
 
     fun get() = sharedPreferences
-            .getString(KEY_ACTIVE_ACCOUNT, "")
+            .getString(KEY_ACTIVE_ACCOUNT, DEFAULT_ADDRESS_VALUE)
 
     fun set(address: String) = sharedPreferences
             .edit()
             .putString(KEY_ACTIVE_ACCOUNT, address)
             .apply()
+
+    fun deleteActiveAddress() {
+        set(DEFAULT_ADDRESS_VALUE)
+    }
+
+    fun hasActiveAddress(): Boolean {
+        return get() != DEFAULT_ADDRESS_VALUE
+    }
 }
