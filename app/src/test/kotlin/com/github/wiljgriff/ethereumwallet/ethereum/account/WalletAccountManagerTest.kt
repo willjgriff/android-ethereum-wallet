@@ -11,11 +11,11 @@ import org.junit.Test
 /**
  * Created by Will on 07/02/2017.
  */
-class AccountManagerTest {
+class WalletAccountManagerTest {
 
     private val MOCK_ACCOUNTS_SIZE = 1L
 
-    private lateinit var subject: AccountManager;
+    private lateinit var subject: WalletAccountManager;
 
     private var mockAccount: AccountDelegate = mock()
     private var mockAccounts: AccountsDelegate = mock {
@@ -28,7 +28,7 @@ class AccountManagerTest {
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        subject = AccountManager(mockAccountManager, mockActiveAddress)
+        subject = WalletAccountManager(mockAccountManager, mockActiveAddress)
     }
 
     @Test

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate;
 
+import org.ethereum.geth.AccountManager;
 import org.ethereum.geth.Geth;
 
 import javax.inject.Named;
@@ -19,7 +21,7 @@ import dagger.Provides;
  */
 
 @Module
-public class EthereumAccountModule {
+public class WalletAccountModule {
 
 	@Provides
 	@Singleton
@@ -48,8 +50,8 @@ public class EthereumAccountModule {
 
 	@Provides
 	@Singleton
-	AccountManager providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
+	WalletAccountManager providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
 	                                                            ActiveAccountAddress activeAccountAddress) {
-		return new AccountManager(accountManagerDelegate, activeAccountAddress);
+		return new WalletAccountManager(accountManagerDelegate, activeAccountAddress);
 	}
 }

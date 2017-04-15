@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  *
  * TODO: Create an interface for this, this is likely to be swapped out in the future, parity...
  */
-class Ethereum(ethereumFilePath: String) {
+class EthereumNode(ethereumFilePath: String) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
     private val DEFAULT_TO_CURRENT_BLOCK_VALUE = -1L
@@ -19,15 +19,12 @@ class Ethereum(ethereumFilePath: String) {
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
 
     private val node = Node(ethereumFilePath, NodeConfig())
-    private val context = Context()
-    private val ethereumClient: EthereumClient
+    val context = Context()
+    val ethereumClient: EthereumClient by lazy { node.ethereumClient }
     val cachedBlockHeaderObservable: Observable<Header> by lazy { getBlockHeaderObservable() }
-    // This will have to change as we will want to pass in the address
-    val cachedBalanceAtAddress: Observable<String> by lazy { getBalanceAtAddress() }
 
     init {
         node.start()
-        ethereumClient = node.ethereumClient
     }
 
     private fun getBlockHeaderObservable(): Observable<Header> {
@@ -49,25 +46,11 @@ class Ethereum(ethereumFilePath: String) {
                 .autoConnect()
     }
 
-    fun getBalanceAtAddress(): Observable<String> {
-        val address: Address? = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
-        return getBigIntReplayObservableForFunc { ethereumClient.getBalanceAt(context, address, DEFAULT_TO_CURRENT_BLOCK_VALUE) }
-    }
-
-    fun getPendingBalanceAtAddress(): Observable<String> {
-        val address = Address("0xfb1081ec00a46246d5bdc166e1cae6938723252c")
-        return getBigIntReplayObservableForFunc { ethereumClient.getPendingBalanceAt(context, address) }
-    }
-
-    private fun <T> getBigIntReplayObservableForFunc(function: () -> T) = Observable
-            .just(function)
-            .map { it.invoke() }
-            .map { it.toString() }
-            .replay(1)
-            .autoConnect()
-            .compose(AndroidIoTransformer())
-
     fun getNodeInfoString() = node.getNodeInfoString()
+
+    fun getBalanceAt(address: Address): BigInt = ethereumClient.getBalanceAt(context, address, DEFAULT_TO_CURRENT_BLOCK_VALUE)
+
+    fun getPendingBalanceAt(address: Address) = ethereumClient.getPendingBalanceAt(context, address)
 
     fun getPeersInfo(): Observable<PeerInfos> = getFuncOnIntervalObservable { node.peersInfo }
 

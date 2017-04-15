@@ -7,8 +7,8 @@ import timber.log.Timber
 /**
  * Created by Will on 06/02/2017.
  */
-class AccountManager(private val accountManager: AccountManagerDelegate,
-                     private val activeAccountAddress: ActiveAccountAddress) {
+class WalletAccountManager(private val accountManager: AccountManagerDelegate,
+                           private val activeAccountAddress: ActiveAccountAddress) {
 
     fun createAccount(password: String): AccountDelegate {
         val newAccount = accountManager.newAccount(password)
@@ -20,7 +20,9 @@ class AccountManager(private val accountManager: AccountManagerDelegate,
 
     fun getActiveAccount() = getAllAccounts()
             .filter { it.getAddress().getHex() == activeAccountAddress.get() }
-            .singleOrNull()
+            .first()
+
+    fun getActiveAccountAddress() = getActiveAccount().getAddress()
 
     fun hasAccount() = getAllAccounts()
             .isNotEmpty()

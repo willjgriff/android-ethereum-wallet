@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.receive.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
@@ -11,15 +11,15 @@ import javax.inject.Inject;
 
 public class ReceivePresenter extends BaseMvpPresenter<ReceiveView> {
 
-	private AccountManager mAccountManager;
+	private WalletAccountManager mWalletAccountManager;
 
 	@Inject
-	public ReceivePresenter(AccountManager accountManager) {
-		mAccountManager = accountManager;
+	public ReceivePresenter(WalletAccountManager walletAccountManager) {
+		mWalletAccountManager = walletAccountManager;
 	}
 
 	@Override
 	public void viewReady() {
-		getView().setReceiveAddress(mAccountManager.getActiveAccountAddressHex());
+		getView().setReceiveAddress(mWalletAccountManager.getActiveAccountAddressHex());
 	}
 }

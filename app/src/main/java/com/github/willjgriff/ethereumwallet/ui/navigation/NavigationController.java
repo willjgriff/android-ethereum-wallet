@@ -119,7 +119,7 @@ public class NavigationController extends Controller
 	}
 
 	@Override
-	public void setBalance(double balance) {
-		mBalance.setText(String.valueOf(balance));
+	public void setBalance(String balance) {
+		mBalance.setText(balance);
 	}
 }

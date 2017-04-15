@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.send.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
 import com.github.willjgriff.ethereumwallet.di.FunctionScope;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
@@ -15,12 +15,12 @@ import io.reactivex.Observable;
 @FunctionScope
 public class SendPresenter extends BaseMvpPresenter<SendView> {
 
-	private AccountManager mAccountManager;
+	private WalletAccountManager mWalletAccountManager;
 	private Observable<Object> mSendEther;
 
 	@Inject
-	public SendPresenter(AccountManager accountManager) {
-		mAccountManager = accountManager;
+	public SendPresenter(WalletAccountManager walletAccountManager) {
+		mWalletAccountManager = walletAccountManager;
 	}
 
 	@Override

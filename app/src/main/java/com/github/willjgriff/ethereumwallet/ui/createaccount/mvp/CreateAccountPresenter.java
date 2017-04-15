@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
@@ -14,17 +14,17 @@ import io.reactivex.Observable;
 @AutoFactory
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
-	private AccountManager mAccountManager;
+	private WalletAccountManager mWalletAccountManager;
 	private Observable<String> mPassword;
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
-	CreateAccountPresenter(@Provided AccountManager accountManager,
+	CreateAccountPresenter(@Provided WalletAccountManager walletAccountManager,
 	                       Observable<String> passwordObservable,
 	                       Observable<Boolean> passwordValid,
 	                       Observable<Object> submitButtonObservable) {
 
-		mAccountManager = accountManager;
+		mWalletAccountManager = walletAccountManager;
 		mPassword = passwordObservable;
 		mValidPassword = passwordValid;
 		mSubmitButtonShare = submitButtonObservable;
@@ -50,7 +50,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 
 	private void validPasswordSubmitted() {
 		mPassword.subscribe(password -> {
-			mAccountManager.createAccount(password.toString());
+			mWalletAccountManager.createAccount(password.toString());
 			getView().openWallet();
 		});
 	}

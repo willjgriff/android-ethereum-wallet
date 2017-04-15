@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.di.modules;
 
 import android.content.Context;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.node.Ethereum;
+import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumNode;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -26,7 +26,7 @@ public class EthereumNodeModule {
 
 	@Provides
 	@Singleton
-	Ethereum provideEthereum(@Named("ethereum_path") String ethereumPath) {
-		return new Ethereum(ethereumPath);
+	EthereumNode provideEthereum(@Named("ethereum_path") String ethereumPath) {
+		return new EthereumNode(ethereumPath);
 	}
 }

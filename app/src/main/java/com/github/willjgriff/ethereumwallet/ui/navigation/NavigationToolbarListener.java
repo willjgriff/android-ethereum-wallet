@@ -8,5 +8,5 @@ public interface NavigationToolbarListener {
 
 	void setToolbarTitle(CharSequence toolbarTitle);
 
-	void setBalance(double balance);
+	void setBalance(String balance);
 }

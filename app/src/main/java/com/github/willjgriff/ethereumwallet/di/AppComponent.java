@@ -1,9 +1,11 @@
 package com.github.willjgriff.ethereumwallet.di;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountManager;
-import com.github.wiljgriff.ethereumwallet.ethereum.node.Ethereum;
+import com.github.wiljgriff.ethereumwallet.di.AccountBalanceModule;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountBalance;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumNode;
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule;
-import com.github.willjgriff.ethereumwallet.di.modules.EthereumAccountModule;
+import com.github.willjgriff.ethereumwallet.di.modules.WalletAccountModule;
 import com.github.willjgriff.ethereumwallet.di.modules.EthereumNodeModule;
 import com.github.willjgriff.ethereumwallet.ui.MainActivity;
 
@@ -16,13 +18,16 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {AppModule.class,
-	EthereumAccountModule.class,
-	EthereumNodeModule.class})
+	WalletAccountModule.class,
+	EthereumNodeModule.class,
+	AccountBalanceModule.class})
 public interface AppComponent {
 
-	Ethereum provideEthereum();
+	EthereumNode provideEthereum();
 
-	AccountManager provideEthereumManager();
+	WalletAccountManager provideAccountManager();
+
+	AccountBalance provideAccountBalance();
 
 	void inject(MainActivity mainActivity);
 }

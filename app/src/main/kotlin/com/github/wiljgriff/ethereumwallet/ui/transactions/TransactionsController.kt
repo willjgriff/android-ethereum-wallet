@@ -19,8 +19,8 @@ import javax.inject.Inject
  */
 class TransactionsController : BaseMvpController<TransactionsView, TransactionsPresenter>(), TransactionsView {
 
-    @Inject
-    lateinit var presenter: TransactionsPresenter
+    private lateinit var navigationToolbarListener: NavigationToolbarListener
+    @Inject lateinit var presenter: TransactionsPresenter
 
     init {
         DaggerTransactionsComponent.builder()
@@ -35,19 +35,24 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_transactions)
+        setNavigationToolbarListener()
         setupToolbarTitle()
         return view
     }
 
-    private fun setupToolbarTitle() {
-        val targetController = targetController
+    private fun setNavigationToolbarListener() {
         if (targetController is NavigationToolbarListener) {
-            targetController.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
+            navigationToolbarListener = targetController as NavigationToolbarListener
         }
+    }
+
+    private fun setupToolbarTitle() {
+        navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
     }
 
     override fun setBalance(balanceAtAddress: String) {
         view?.controller_transactions_balance?.text = balanceAtAddress
+        navigationToolbarListener.setBalance("ETH: $balanceAtAddress")
     }
 
     override fun setPendingBalance(pendingBalanceAtAddress: String) {
