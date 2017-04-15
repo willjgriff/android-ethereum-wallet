@@ -11,8 +11,10 @@ class TransactionsPresenter @Inject constructor(private val accountBalance: Acco
 
     override fun viewReady() {
 
-        addDisposable(accountBalance.getBalanceAtActiveAddress().subscribe { view.setBalance(it) })
+        addDisposable(accountBalance.getBalanceAtActiveAddress()
+                .subscribe { view.setBalance(it) })
 
-        addDisposable(accountBalance.getPendingBalanceAtActiveAddress().subscribe { view.setPendingBalance(it) })
+        addDisposable(accountBalance.getPendingBalanceAtActiveAddress()
+                .subscribe { view.setPendingBalance(it) })
     }
 }

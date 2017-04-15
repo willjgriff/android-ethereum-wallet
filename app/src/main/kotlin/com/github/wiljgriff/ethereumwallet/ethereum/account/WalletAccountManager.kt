@@ -13,6 +13,7 @@ class WalletAccountManager(private val accountManager: AccountManagerDelegate,
                            private val activeAccountAddress: ActiveAccountAddress) {
 
     private val DEFAULT_UNKNOWN_ADDRESS = "0x0000000000000000000000000000000000000000"
+    private val DEFAULT_BLANK_HEX = ""
 
     fun createActiveAccount(password: String): AccountDelegate {
         val newAccount = accountManager.newAccount(password)
@@ -20,10 +21,10 @@ class WalletAccountManager(private val accountManager: AccountManagerDelegate,
         return newAccount
     }
 
-    // TODO: Note this renders the address delegate structure useless
+    // TODO: Note this currently renders the address delegate structure useless
     fun getActiveAccountAddress() = getActiveAccount()?.getAddress() ?: AddressDelegate(Address(DEFAULT_UNKNOWN_ADDRESS))
 
-    fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex() ?: ""
+    fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex() ?: DEFAULT_BLANK_HEX
 
     fun getActiveAccount() = getAllAccounts()
             .filter { it.getAddress().getHex() == activeAccountAddress.get() }
@@ -47,6 +48,7 @@ class WalletAccountManager(private val accountManager: AccountManagerDelegate,
         } catch (exception: Exception) {
             Timber.i(exception, "Account not deleted, password probably incorrect")
         }
+
         return !activeAccountAddress.hasActiveAddress()
     }
 

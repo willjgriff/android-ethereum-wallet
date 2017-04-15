@@ -1,8 +1,8 @@
-package com.github.wiljgriff.ethereumwallet.di
+package com.github.wiljgriff.ethereumwallet.di.modules
 
 import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountBalance
 import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager
-import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumNode
+import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumDelegate
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,7 +15,7 @@ class AccountBalanceModule {
 
     @Provides
     @Singleton
-    fun providesAccountBalance(ethereumNode: EthereumNode, walletAccountManager: WalletAccountManager): AccountBalance {
-        return AccountBalance(ethereumNode, walletAccountManager)
+    fun providesAccountBalance(ethereumDelegate: EthereumDelegate, walletAccountManager: WalletAccountManager): AccountBalance {
+        return AccountBalance(ethereumDelegate, walletAccountManager)
     }
 }
