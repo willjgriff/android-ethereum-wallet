@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate;
+import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ChangeAddressView {
 
-	void setAddresses(List<AccountDelegate> allAccounts);
+	void setAddresses(List<DomainAccount> allAccounts);
 
 	void closeScreen();
 }

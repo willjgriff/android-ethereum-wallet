@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
+import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;
@@ -24,8 +24,8 @@ public class ChangeAddressPresenter extends BaseMvpPresenter<ChangeAddressView> 
 		getView().setAddresses(mWalletAccountManager.getAllAccounts());
 	}
 
-	public void onAddressItemClicked(AccountDelegate accountDelegate) {
-		mWalletAccountManager.setActiveAccount(accountDelegate);
+	public void onAddressItemClicked(DomainAccount domainAccount) {
+		mWalletAccountManager.setActiveAccount(domainAccount);
 		getView().closeScreen();
 	}
 }

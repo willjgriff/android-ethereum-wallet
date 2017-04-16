@@ -3,9 +3,9 @@ package com.github.willjgriff.ethereumwallet.di.modules;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsBridge;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate;
 
 import org.ethereum.geth.AccountManager;
 import org.ethereum.geth.Geth;
@@ -35,11 +35,11 @@ public class WalletAccountModule {
 	AccountManager providesAccountManager(@Named("keystore_location") String keystoreLocation) {
 		return new AccountManager(keystoreLocation, Geth.LightScryptN, Geth.LightScryptP);
 	}
-
+	
 	@Provides
 	@Singleton
-	AccountManagerDelegate providesEthereumAccountManagerDelegate(AccountManager accountManager) {
-		return new AccountManagerDelegate(accountManager);
+	AccountsBridge providesAccountsBridge(AccountManager accountManager) {
+		return new AccountsBridge(accountManager);
 	}
 
 	@Provides
@@ -50,8 +50,8 @@ public class WalletAccountModule {
 
 	@Provides
 	@Singleton
-	WalletAccountManager providesEthereumAccountManager(AccountManagerDelegate accountManagerDelegate,
+	WalletAccountManager providesEthereumAccountManager(AccountsBridge accountsBridge,
 	                                                            ActiveAccountAddress activeAccountAddress) {
-		return new WalletAccountManager(accountManagerDelegate, activeAccountAddress);
+		return new WalletAccountManager(accountsBridge, activeAccountAddress);
 	}
 }

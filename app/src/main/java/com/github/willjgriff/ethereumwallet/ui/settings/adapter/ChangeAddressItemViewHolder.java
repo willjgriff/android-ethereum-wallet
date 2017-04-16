@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate;
+import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount;
 import com.github.willjgriff.ethereumwallet.R;
 
 import butterknife.BindView;
@@ -27,12 +27,12 @@ public class ChangeAddressItemViewHolder extends RecyclerView.ViewHolder {
 		mChangeAddressItemListener = changeAddressItemListener;
 	}
 
-	public void bind(AccountDelegate accountDelegate) {
-		mAddress.setText(accountDelegate.getAddress().getHex());
-		itemView.setOnClickListener(view -> mChangeAddressItemListener.addressItemClicked(accountDelegate));
+	public void bind(DomainAccount domainAccount) {
+		mAddress.setText(domainAccount.getAddress().getHex());
+		itemView.setOnClickListener(view -> mChangeAddressItemListener.addressItemClicked(domainAccount));
 	}
 
 	public interface ChangeAddressItemListener {
-		void addressItemClicked(AccountDelegate accountDelegate);
+		void addressItemClicked(DomainAccount domainAccount);
 	}
 }

@@ -1,41 +1,33 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
+import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount
 import timber.log.Timber
 
 /**
  * Created by Will on 06/02/2017.
  */
-class WalletAccountManager(private val accountManager: AccountManagerDelegate,
+class WalletAccountManager(private val accountsBridge: AccountsBridge,
                            private val activeAccountAddress: ActiveAccountAddress) {
 
-    private val DEFAULT_BLANK_HEX = ""
-
     fun createActiveAccount(password: String) {
-        val newAccount = accountManager.newAccount(password)
-        activeAccountAddress.set(newAccount.getAddress().getHex())
+        val newAccount = accountsBridge.newAccount(password)
+        activeAccountAddress.set(newAccount.address.hex)
     }
 
-    fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex() ?: DEFAULT_BLANK_HEX
+    fun getActiveAccountAddressHex() = getActiveAccount().address.hex
 
     fun getActiveAccount() = getAllAccounts()
-            .filter { it.getAddress().getHex() == activeAccountAddress.get() }
-            .singleOrNull()
+            .filter { it.address.hex == activeAccountAddress.get() }
+            .singleOrNull() ?: DomainAccount()
 
     fun hasAccount() = getAllAccounts().isNotEmpty()
 
-    fun getAllAccounts(): List<AccountDelegate> {
-        val accounts = accountManager.getAccounts()
-        return 0L.rangeTo(accounts.size() - 1)
-                .map { accounts.get(it) }
-                .toList()
-    }
+    fun getAllAccounts(): List<DomainAccount> = accountsBridge.getAccounts()
 
     fun deleteActiveAccount(password: String): Boolean {
         try {
             if (activeAccountAddress.hasActiveAddress()) {
-                accountManager.deleteAccount(getActiveAccount(), password)
+                accountsBridge.deleteAccount(getActiveAccount(), password)
                 activeAccountAddress.deleteActiveAddress()
             }
         } catch (exception: Exception) {
@@ -45,8 +37,8 @@ class WalletAccountManager(private val accountManager: AccountManagerDelegate,
         return !activeAccountAddress.hasActiveAddress()
     }
 
-    fun setActiveAccount(account: AccountDelegate) {
-        activeAccountAddress.set(account.getAddress().getHex())
+    fun setActiveAccount(account: DomainAccount) {
+        activeAccountAddress.set(account.address.hex)
     }
 
 }

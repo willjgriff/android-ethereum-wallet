@@ -10,7 +10,7 @@ import java.math.BigInteger
  * This is a likely candidate for being replaced in the future, eg for Parity or similar.
  * This should only return primitive objects, not those found in the Ethereum library.
  */
-class EthereumDelegate(ethereumFilePath: String) {
+class EthereumBridge(ethereumFilePath: String) {
 
     // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
