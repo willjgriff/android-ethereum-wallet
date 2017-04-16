@@ -47,7 +47,7 @@ ext {
     conductor   = '2.0.7'
     rxJava2     = '2.0.4'
     rxAndroid2  = '2.0.1'
-    geth        = '1.5.2'
+    geth        = '1.6.0'
     dagger      = '2.7'
     javax       = '1.0'
     butterknife = '8.4.0'

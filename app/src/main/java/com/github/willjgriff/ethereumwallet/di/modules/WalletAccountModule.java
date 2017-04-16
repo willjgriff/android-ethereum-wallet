@@ -7,8 +7,8 @@ import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsBridge;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress;
 import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
 
-import org.ethereum.geth.AccountManager;
 import org.ethereum.geth.Geth;
+import org.ethereum.geth.KeyStore;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -25,21 +25,21 @@ public class WalletAccountModule {
 
 	@Provides
 	@Singleton
-	@Named("keystore_location")
-	String keystoreLocation(Context context) {
-		return context.getFilesDir().toString() + "/keystore_location/";
+	@Named("key_store_location")
+	String providesKeyStoreLocation(Context context) {
+		return context.getFilesDir().toString() + "/key_store_location/";
 	}
 
 	@Provides
 	@Singleton
-	AccountManager providesAccountManager(@Named("keystore_location") String keystoreLocation) {
-		return new AccountManager(keystoreLocation, Geth.LightScryptN, Geth.LightScryptP);
+	KeyStore providesKeyStore(@Named("key_store_location") String keyStoreLocation) {
+		return new KeyStore(keyStoreLocation, Geth.LightScryptN, Geth.LightScryptP);
 	}
 	
 	@Provides
 	@Singleton
-	AccountsBridge providesAccountsBridge(AccountManager accountManager) {
-		return new AccountsBridge(accountManager);
+	AccountsBridge providesAccountsBridge(KeyStore keyStore) {
+		return new AccountsBridge(keyStore);
 	}
 
 	@Provides
