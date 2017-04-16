@@ -8,9 +8,9 @@ import org.ethereum.geth.PeerInfos
  */
 interface NodeStatusView {
 
-    fun newHeader(header: Header)
+    fun newHeaderHash(headerHash: String)
 
-    fun updatePeerInfos(peerInfos: PeerInfos)
+    fun updateNumberOfPeers(numberOfPeers: Long)
 
     fun setNodeDetails(nodeInfoString: String)
 

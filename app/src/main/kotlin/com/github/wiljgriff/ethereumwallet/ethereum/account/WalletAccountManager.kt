@@ -2,8 +2,6 @@ package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountDelegate
 import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AccountManagerDelegate
-import com.github.wiljgriff.ethereumwallet.ethereum.account.delegates.AddressDelegate
-import org.ethereum.geth.Address
 import timber.log.Timber
 
 /**
@@ -12,17 +10,12 @@ import timber.log.Timber
 class WalletAccountManager(private val accountManager: AccountManagerDelegate,
                            private val activeAccountAddress: ActiveAccountAddress) {
 
-    private val DEFAULT_UNKNOWN_ADDRESS = "0x0000000000000000000000000000000000000000"
     private val DEFAULT_BLANK_HEX = ""
 
-    fun createActiveAccount(password: String): AccountDelegate {
+    fun createActiveAccount(password: String) {
         val newAccount = accountManager.newAccount(password)
         activeAccountAddress.set(newAccount.getAddress().getHex())
-        return newAccount
     }
-
-    // TODO: Note this currently renders the address delegate structure useless
-    fun getActiveAccountAddress() = getActiveAccount()?.getAddress() ?: AddressDelegate(Address(DEFAULT_UNKNOWN_ADDRESS))
 
     fun getActiveAccountAddressHex() = getActiveAccount()?.getAddress()?.getHex() ?: DEFAULT_BLANK_HEX
 

@@ -1,37 +1,32 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.node
 
+import com.github.wiljgriff.ethereumwallet.data.model.DomainHeader
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import org.ethereum.geth.Header
-import org.ethereum.geth.NewHeadHandler
-import org.ethereum.geth.PeerInfos
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by williamgriffiths on 15/04/2017.
- *
- * TODO: Potentially make this class independant of the Ethereum implementation used so the only
- * thing that needs changing would be the ethereumDelegate
  */
 class NodeDetails(private val ethereumDelegate: EthereumDelegate) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
-    val cachedBlockHeaderObservable: Observable<Header> by lazy { getBlockHeaderObservable() }
+    val cachedBlockHeaderObservable: Observable<DomainHeader> by lazy { getBlockHeaderObservable() }
 
-    private fun getBlockHeaderObservable(): Observable<Header> {
+    private fun getBlockHeaderObservable(): Observable<DomainHeader> {
         return Observable
-                .create<Header> {
-                    ethereumDelegate.subscribeNewHeaderHandler(object : NewHeadHandler {
-                        override fun onNewHead(header: Header?) {
-                            it.onNext(header)
+                .create<DomainHeader> {
+                    ethereumDelegate.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
+                        override fun onNewDomainHeader(headHex: DomainHeader) {
+                            it.onNext(headHex)
                         }
-                        override fun onError(error: String?) {
+                        override fun onError(error: String) {
                             it.onError(Throwable(error))
                         }
                     })
                 }
-                .compose(AndroidIoTransformer<Header>())
+                .compose(AndroidIoTransformer<DomainHeader>())
                 .throttleFirst(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)
                 .replay(10)
                 .autoConnect()
@@ -39,7 +34,7 @@ class NodeDetails(private val ethereumDelegate: EthereumDelegate) {
 
     fun getNodeInfoString() = ethereumDelegate.getNodeInfoString()
 
-    fun getPeersInfo(): Observable<PeerInfos> = getFuncOnIntervalObservable { ethereumDelegate.getPeersInfo() }
+    fun getPeersInfo(): Observable<Long> = getFuncOnIntervalObservable { ethereumDelegate.getPeersInfoSize() }
 
     fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { ethereumDelegate.getPeersInfoStrings() }
 
@@ -51,5 +46,10 @@ class NodeDetails(private val ethereumDelegate: EthereumDelegate) {
             .map { function.invoke() }
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
+
+    interface NewDomainHeaderListener {
+        fun onNewDomainHeader(headHex: DomainHeader)
+        fun onError(error: String)
+    }
 
 }

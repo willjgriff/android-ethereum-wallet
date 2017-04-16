@@ -1,11 +1,14 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.node
 
+import com.github.wiljgriff.ethereumwallet.data.model.DomainHeader
 import org.ethereum.geth.*
+import java.math.BigInteger
 
 /**
  * Created by Will on 16/03/2017.
  *
  * This is a likely candidate for being replaced in the future, eg for Parity or similar.
+ * This should only return primitive objects, not those found in the Ethereum library.
  */
 class EthereumDelegate(ethereumFilePath: String) {
 
@@ -21,20 +24,32 @@ class EthereumDelegate(ethereumFilePath: String) {
         node.start()
     }
 
-    fun subscribeNewHeaderHandler(newHeadHandler: NewHeadHandler): Subscription =
-            ethereumClient.subscribeNewHead(context, newHeadHandler, SOME_RANDOM_SAMPLING_SIZE)
+    fun subscribeNewHeaderHandler(newDomainHeaderListener: NodeDetails.NewDomainHeaderListener): Subscription =
+            ethereumClient
+                    .subscribeNewHead(context, object : NewHeadHandler {
+                        override fun onNewHead(header: Header) {
+                            newDomainHeaderListener.onNewDomainHeader(DomainHeader.fromHeader(header))
+                        }
 
-    fun getNodeInfoString() = node.getNodeInfoString()
+                        override fun onError(error: String) {
+                            newDomainHeaderListener.onError(error)
+                        }
 
-    fun getBalanceAt(address: Address): BigInt = ethereumClient.getBalanceAt(context, address, DEFAULT_TO_CURRENT_BLOCK_VALUE)
+                    }, SOME_RANDOM_SAMPLING_SIZE)
 
-    fun getPendingBalanceAt(address: Address) = ethereumClient.getPendingBalanceAt(context, address)
+    fun getNodeInfoString(): String = node.getNodeInfoString()
 
-    fun getPeersInfo() = node.peersInfo
+    fun getBalanceAt(addressString: String): BigInteger =
+            BigInteger(ethereumClient.getBalanceAt(context, Address(addressString), DEFAULT_TO_CURRENT_BLOCK_VALUE).string())
 
-    fun getPeersInfoStrings() = node.getPeersInfoStrings()
+    fun getPendingBalanceAt(addressString: String): BigInteger =
+            BigInteger(ethereumClient.getPendingBalanceAt(context, Address(addressString)).string())
 
-    fun getSyncProgressString() = ethereumClient.getSyncProgressString(context)
+    fun getPeersInfoSize(): Long = node.peersInfo.size()
+
+    fun getPeersInfoStrings(): List<String> = node.getPeersInfoStrings()
+
+    fun getSyncProgressString(): String = ethereumClient.getSyncProgressString(context)
 
     fun potentiallyUsefulMethods() {
 

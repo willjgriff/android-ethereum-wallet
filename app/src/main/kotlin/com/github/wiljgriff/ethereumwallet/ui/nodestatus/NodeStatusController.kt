@@ -16,8 +16,6 @@ import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import kotlinx.android.synthetic.main.controller_node_status.view.*
-import org.ethereum.geth.Header
-import org.ethereum.geth.PeerInfos
 import javax.inject.Inject
 
 /**
@@ -73,12 +71,12 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
         }
     }
 
-    override fun newHeader(header: Header) {
-        headersAdapter.addHeaderHash(header.hash.hex)
+    override fun newHeaderHash(headerHash: String) {
+        headersAdapter.addHeaderHash(headerHash)
     }
 
-    override fun updatePeerInfos(peerInfos: PeerInfos) {
-        peers.text = "Peers: ${peerInfos.size()}"
+    override fun updateNumberOfPeers(numberOfPeers: Long) {
+        peers.text = "Peers: $numberOfPeers"
     }
 
     override fun setNodeDetails(nodeInfoString: String) {

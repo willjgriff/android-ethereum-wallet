@@ -3,7 +3,6 @@ package com.github.wiljgriff.ethereumwallet.ethereum.account
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
 import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumDelegate
 import io.reactivex.Observable
-import org.ethereum.geth.BigInt
 import java.math.BigInteger
 
 /**
@@ -15,20 +14,19 @@ class AccountBalance(private val ethereumDelegate: EthereumDelegate, private val
     private val storedAddressBalances: MutableMap<String, Observable<String>> = mutableMapOf()
 
     fun getBalanceAtActiveAddress(): Observable<String> {
-        val activeAddress = walletAccountManager.getActiveAccountAddress().getAddress()
-        return storedAddressBalances.getOrPut(activeAddress.hex,
+        val activeAddress = walletAccountManager.getActiveAccountAddressHex()
+        return storedAddressBalances.getOrPut(activeAddress,
                 { getBigIntReplayObservableForFunc { ethereumDelegate.getBalanceAt(activeAddress) } })
     }
 
     fun getPendingBalanceAtActiveAddress(): Observable<String> {
-        val activeAddress = walletAccountManager.getActiveAccountAddress().getAddress()
+        val activeAddress = walletAccountManager.getActiveAccountAddressHex()
         return getBigIntReplayObservableForFunc { ethereumDelegate.getPendingBalanceAt(activeAddress) }
     }
 
-    private fun getBigIntReplayObservableForFunc(function: () -> BigInt): Observable<String> = Observable
+    private fun getBigIntReplayObservableForFunc(function: () -> BigInteger): Observable<String> = Observable
             .just(function)
             .map { it.invoke() }
-            .map { BigInteger(it.string()) }
             .map { it.div(BigInteger(WEI_TO_ETHER_DIVISOR)) }
             .map { it.toString() }
             .replay(1)

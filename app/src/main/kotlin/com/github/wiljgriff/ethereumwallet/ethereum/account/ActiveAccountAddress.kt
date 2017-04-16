@@ -7,7 +7,7 @@ import android.content.SharedPreferences
  */
 class ActiveAccountAddress(private val sharedPreferences: SharedPreferences) {
 
-    private val KEY_ACTIVE_ACCOUNT = javaClass.canonicalName + ";KEY_ACTIVE_ACCOUNT";
+    private val KEY_ACTIVE_ACCOUNT = ActiveAccountAddress::class.qualifiedName + ";KEY_ACTIVE_ACCOUNT";
     private val DEFAULT_ADDRESS_VALUE = ""
 
     fun get() = sharedPreferences

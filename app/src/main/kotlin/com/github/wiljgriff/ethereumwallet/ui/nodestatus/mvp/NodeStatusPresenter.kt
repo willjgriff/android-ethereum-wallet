@@ -12,11 +12,11 @@ class NodeStatusPresenter @Inject constructor(private val nodeDetails: NodeDetai
 
     override fun viewReady() {
         addDisposable(nodeDetails.cachedBlockHeaderObservable
-                .subscribe({ header -> view.newHeader(header) },
+                .subscribe({ header -> view.newHeaderHash(header.hashHex) },
                         { throwable -> Timber.e(throwable) }))
 
         addDisposable(nodeDetails.getPeersInfo()
-                .subscribe({ peerInfos -> view.updatePeerInfos(peerInfos) },
+                .subscribe({ peerInfos -> view.updateNumberOfPeers(peerInfos) },
                         { throwable -> Timber.e(throwable) }))
 
         addDisposable(nodeDetails.getSyncProgressString()

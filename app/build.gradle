@@ -84,6 +84,7 @@ dependencies {
     compile "com.github.JakeWharton.RxBinding:rxbinding:31e02dcaca"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.ethereum:geth:${geth}"
     debugCompile "nl.littlerobots.rxlint:rxlint:1.2"
 
@@ -112,7 +113,9 @@ dependencies {
     testCompile "junit:junit:${junit}"
     testCompile "org.mockito:mockito-core:${mockito}"
     testCompile "org.robolectric:robolectric:${robolectric}"
-    testCompile "com.nhaarman:mockito-kotlin:${kotMockito}"
+    testCompile("com.nhaarman:mockito-kotlin:${kotMockito}", {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
+    })
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotJunit}"
     testCompile "org.amshove.kluent:kluent:${kluent}"
 
