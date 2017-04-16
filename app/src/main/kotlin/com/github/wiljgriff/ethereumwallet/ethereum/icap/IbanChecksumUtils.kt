@@ -12,9 +12,9 @@ import java.math.BigInteger
  */
 class IbanChecksumUtils(private val baseConverter: BaseConverter) {
 
-    val ICAP_XE_PREFIX = "XE"
-    val IBAN_MUTIPLIER = "00"
-    val IBAN_CHECK_MOD_VALUE = "97"
+    private val ICAP_XE_PREFIX = "XE"
+    private val IBAN_MUTIPLIER = "00"
+    private val IBAN_CHECK_MOD_VALUE = "97"
 
     fun createChecksum(base36Value: String): Int {
         if (base36Value.isNullOrBlank()) {

@@ -86,7 +86,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.ethereum:geth:${geth}"
-    debugCompile "nl.littlerobots.rxlint:rxlint:1.2"
 
     compile "com.google.dagger:dagger:${dagger}"
     provided "javax.annotation:jsr250-api:${javax}"

@@ -45,13 +45,12 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 		mSubmitButtonShare
 			.withLatestFrom(mValidPassword, (buttonClick, areAllValid) -> areAllValid)
 			.filter(areAllValid -> areAllValid)
-			.subscribe(aBoolean -> validPasswordSubmitted());
-	}
-
-	private void validPasswordSubmitted() {
-		mPassword.subscribe(password -> {
-			mWalletAccountManager.createActiveAccount(password.toString());
-			getView().openWallet();
-		});
+			.flatMap(aBoolean -> mPassword)
+			// This is to prevent spamming and creating many accounts
+			.first("")
+			.subscribe(password -> {
+				mWalletAccountManager.createActiveAccount(password.toString());
+				getView().openWallet();
+			});
 	}
 }

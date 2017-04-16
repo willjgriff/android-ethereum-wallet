@@ -8,7 +8,7 @@ import java.math.BigInteger
  * Created by Will on 16/03/2017.
  *
  * This is a likely candidate for being replaced in the future, eg for Parity or similar.
- * This should only return primitive objects, not those found in the Ethereum library.
+ * This should not return objects from the Ethereum library but just domain objects.
  */
 class EthereumBridge(ethereumFilePath: String) {
 
