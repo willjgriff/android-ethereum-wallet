@@ -1,14 +1,14 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
-import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeBridge
+import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeAdapter
 import io.reactivex.Observable
 import java.math.BigInteger
 
 /**
  * Created by williamgriffiths on 15/04/2017.
  */
-class AccountBalance(private val nodeBridge: NodeBridge, private val walletAccountManager: WalletAccountManager) {
+class AccountBalance(private val nodeAdapter: NodeAdapter, private val walletAccountManager: WalletAccountManager) {
 
     private val WEI_TO_ETHER_DIVISOR = "1000000000000000000"
     private val storedAddressBalances: MutableMap<String, Observable<String>> = mutableMapOf()
@@ -16,12 +16,12 @@ class AccountBalance(private val nodeBridge: NodeBridge, private val walletAccou
     fun getBalanceAtActiveAddress(): Observable<String> {
         val activeAddress = walletAccountManager.getActiveAccountAddressHex()
         return storedAddressBalances.getOrPut(activeAddress,
-                { getBigIntReplayObservableForFunc { nodeBridge.getBalanceAt(activeAddress) } })
+                { getBigIntReplayObservableForFunc { nodeAdapter.getBalanceAt(activeAddress) } })
     }
 
     fun getPendingBalanceAtActiveAddress(): Observable<String> {
         val activeAddress = walletAccountManager.getActiveAccountAddressHex()
-        return getBigIntReplayObservableForFunc { nodeBridge.getPendingBalanceAt(activeAddress) }
+        return getBigIntReplayObservableForFunc { nodeAdapter.getPendingBalanceAt(activeAddress) }
     }
 
     private fun getBigIntReplayObservableForFunc(function: () -> BigInteger): Observable<String> = Observable

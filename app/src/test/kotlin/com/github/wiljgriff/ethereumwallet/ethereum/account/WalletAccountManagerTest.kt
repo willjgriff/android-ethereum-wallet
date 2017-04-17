@@ -25,7 +25,7 @@ class WalletAccountManagerTest {
         on { address } doReturn mockAddress
     }
     private var mockAccounts: List<DomainAccount> = listOf(mockAccount)
-    private var mockAccountsBridge: AccountsBridge = mock {
+    private var mMockAccountsAdapter: AccountsAdapter = mock {
         on { getAccounts() } doReturn mockAccounts
         on { newAccount(any()) } doReturn mockAccount
     }
@@ -35,7 +35,7 @@ class WalletAccountManagerTest {
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        subject = WalletAccountManager(mockAccountsBridge, mockActiveAddress)
+        subject = WalletAccountManager(mMockAccountsAdapter, mockActiveAddress)
     }
 
     @Test
@@ -44,7 +44,7 @@ class WalletAccountManagerTest {
 
         subject.createActiveAccount(MOCK_PASSWORD)
 
-        verify(mockAccountsBridge).newAccount(MOCK_PASSWORD)
+        verify(mMockAccountsAdapter).newAccount(MOCK_PASSWORD)
         verify(mockActiveAddress).set(any())
     }
 

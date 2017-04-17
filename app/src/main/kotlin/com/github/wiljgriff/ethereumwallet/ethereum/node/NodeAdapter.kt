@@ -10,19 +10,14 @@ import java.math.BigInteger
  * This is a likely candidate for being replaced in the future, eg for Parity or similar.
  * This should not return objects from the Ethereum library but just domain objects.
  */
-class NodeBridge(ethereumFilePath: String) {
+class NodeAdapter(private val node: Node) {
 
     // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
     private val DEFAULT_TO_CURRENT_BLOCK_VALUE = -1L
 
-    private val node = Node(ethereumFilePath, NodeConfig())
     private val ethereumClient: EthereumClient by lazy { node.ethereumClient }
     private val context = Context()
-
-    init {
-        node.start()
-    }
 
     fun subscribeNewHeaderHandler(newDomainHeaderListener: NodeDetails.NewDomainHeaderListener): Subscription =
             ethereumClient
@@ -39,11 +34,17 @@ class NodeBridge(ethereumFilePath: String) {
 
     fun getNodeInfoString(): String = node.getNodeInfoString()
 
-    fun getBalanceAt(addressString: String): BigInteger =
-            BigInteger(ethereumClient.getBalanceAt(context, Address(addressString), DEFAULT_TO_CURRENT_BLOCK_VALUE).string())
+    fun getBalanceAt(addressString: String): BigInteger = try {
+        BigInteger(ethereumClient.getBalanceAt(context, Address(addressString), DEFAULT_TO_CURRENT_BLOCK_VALUE).string())
+    } catch (exception: Exception) {
+        BigInteger("0")
+    }
 
-    fun getPendingBalanceAt(addressString: String): BigInteger =
-            BigInteger(ethereumClient.getPendingBalanceAt(context, Address(addressString)).string())
+    fun getPendingBalanceAt(addressString: String): BigInteger = try {
+        BigInteger(ethereumClient.getPendingBalanceAt(context, Address(addressString)).string())
+    } catch (exception: Exception) {
+        BigInteger("0")
+    }
 
     fun getPeersInfoSize(): Long = node.peersInfo.size()
 

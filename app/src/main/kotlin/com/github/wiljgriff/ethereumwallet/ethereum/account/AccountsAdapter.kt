@@ -7,7 +7,7 @@ import org.ethereum.geth.*
 /**
  * Created by williamgriffiths on 16/04/2017.
  */
-class AccountsBridge(val keyStore: KeyStore) {
+class AccountsAdapter(val keyStore: KeyStore) {
 
     fun newAccount(password: String): DomainAccount {
         val newAccount = keyStore.newAccount(password)

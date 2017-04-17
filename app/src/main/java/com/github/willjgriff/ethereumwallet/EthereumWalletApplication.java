@@ -3,8 +3,11 @@ package com.github.willjgriff.ethereumwallet;
 import android.app.Application;
 import android.content.Context;
 
-import com.github.willjgriff.ethereumwallet.di.AppInjector;
+import com.github.wiljgriff.ethereumwallet.di.AppInjector;
+import com.github.wiljgriff.ethereumwallet.ethereum.EthereumManager;
 import com.squareup.leakcanary.LeakCanary;
+
+import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -18,10 +21,12 @@ public class EthereumWalletApplication extends Application {
 
 	// TODO: Remove for production, just for testing purposes.
 	private static EthereumWalletApplication mEthereumWalletApplication;
-	
 	public static Context getApp() {
 		return mEthereumWalletApplication;
 	}
+
+	@Inject
+	EthereumManager mEthereumManager;
 
 	@Override
 	public void onCreate() {
@@ -61,6 +66,8 @@ public class EthereumWalletApplication extends Application {
 	}
 
 	private void setupDagger() {
-		AppInjector.INSTANCE.initAppComponent(this);
+		AppInjector.INSTANCE.init(this);
+		AppInjector.INSTANCE.getAppComponent().inject(this);
+		mEthereumManager.startEthereum();
 	}
 }

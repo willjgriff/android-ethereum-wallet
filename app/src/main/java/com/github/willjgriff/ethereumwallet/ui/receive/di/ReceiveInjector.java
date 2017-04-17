@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.receive.di;
 
-import com.github.willjgriff.ethereumwallet.di.AppInjector;
+import com.github.wiljgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 
 /**
@@ -13,7 +13,7 @@ public enum  ReceiveInjector {
 
 	public void injectNewReceivePresenter(ReceiveController receiveController) {
 		DaggerReceiveComponent.builder()
-			.appComponent(AppInjector.INSTANCE.getAppComponent())
+			.appComponent(AppInjector.appComponent)
 			.build()
 			.inject(receiveController);
 	}

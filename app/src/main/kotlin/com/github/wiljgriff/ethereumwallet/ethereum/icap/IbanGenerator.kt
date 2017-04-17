@@ -16,13 +16,11 @@ class IbanGenerator(private val baseConverter: BaseConverter,
         return iban.toLowerCase()
     }
 
-    private fun stripLeading0x(address: String): String {
-        if (address.substring(0, 2) == "0x") {
-            return address.substring(2)
-        } else {
-            return address
-        }
-    }
+    private fun stripLeading0x(address: String): String =
+            when (address.substring(0, 2)) {
+                "0x" -> address.substring(2)
+                else -> address
+            }
 
     // TODO: Extend functionality, perhaps with a builder to add params other than just amount.
     fun createIbanFromHexWithAmount(address: String, amount: Double): String {

@@ -1,12 +1,12 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.payment
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsBridge
-import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeBridge
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsAdapter
+import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeAdapter
 
 /**
  * Created by williamgriffiths on 16/04/2017.
  */
-class WalletPaymentManager(val nodeBridge: NodeBridge, val accountsBridge: AccountsBridge) {
+class WalletPaymentManager(val nodeAdapter: NodeAdapter, val accountsAdapter: AccountsAdapter) {
 
 
 }

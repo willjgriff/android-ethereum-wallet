@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.github.wiljgriff.ethereumwallet.di.AppInjector
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
@@ -13,7 +14,6 @@ import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
 import com.github.wiljgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import kotlinx.android.synthetic.main.controller_node_status.view.*
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
 
     init {
         DaggerNodeStatusComponent.builder()
-                .appComponent(AppInjector.INSTANCE.appComponent)
+                .appComponent(AppInjector.appComponent)
                 .build()
                 .inject(this)
     }

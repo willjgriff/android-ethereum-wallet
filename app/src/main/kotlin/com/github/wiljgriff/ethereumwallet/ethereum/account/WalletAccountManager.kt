@@ -6,11 +6,11 @@ import timber.log.Timber
 /**
  * Created by Will on 06/02/2017.
  */
-class WalletAccountManager(private val accountsBridge: AccountsBridge,
+class WalletAccountManager(private val accountsAdapter: AccountsAdapter,
                            private val activeAccountAddress: ActiveAccountAddress) {
 
     fun createActiveAccount(password: String) {
-        val newAccount = accountsBridge.newAccount(password)
+        val newAccount = accountsAdapter.newAccount(password)
         activeAccountAddress.set(newAccount.address.hex)
     }
 
@@ -22,12 +22,12 @@ class WalletAccountManager(private val accountsBridge: AccountsBridge,
 
     fun hasAccount() = getAllAccounts().isNotEmpty()
 
-    fun getAllAccounts(): List<DomainAccount> = accountsBridge.getAccounts()
+    fun getAllAccounts(): List<DomainAccount> = accountsAdapter.getAccounts()
 
     fun deleteActiveAccount(password: String): Boolean {
         try {
             if (activeAccountAddress.hasActiveAddress()) {
-                accountsBridge.deleteAccount(getActiveAccount(), password)
+                accountsAdapter.deleteAccount(getActiveAccount(), password)
                 activeAccountAddress.deleteActiveAddress()
             }
         } catch (exception: Exception) {
