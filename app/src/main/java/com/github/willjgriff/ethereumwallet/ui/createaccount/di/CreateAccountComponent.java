@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.di;
 
 import com.github.wiljgriff.ethereumwallet.di.AppComponent;
-import com.github.willjgriff.ethereumwallet.di.FunctionScope;
+import com.github.wiljgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.CreateAccountController;
 
 import dagger.Component;
@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @Component(dependencies = AppComponent.class)
-@FunctionScope
+@ControllerScope
 public interface CreateAccountComponent {
 
 	void inject(CreateAccountController createAccountController);

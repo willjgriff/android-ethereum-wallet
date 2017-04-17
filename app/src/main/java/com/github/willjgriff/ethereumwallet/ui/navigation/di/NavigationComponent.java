@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.navigation.di;
 
-import com.github.willjgriff.ethereumwallet.di.FunctionScope;
+import com.github.wiljgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 
 import dagger.Component;
@@ -10,7 +10,7 @@ import dagger.Component;
  */
 
 @Component(modules = ComponentsInvalidatorModule.class)
-@FunctionScope
+@ControllerScope
 public interface NavigationComponent {
 
 	void inject(NavigationController navigationController);
