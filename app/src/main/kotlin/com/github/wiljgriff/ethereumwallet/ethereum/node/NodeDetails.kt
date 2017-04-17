@@ -2,6 +2,8 @@ package com.github.wiljgriff.ethereumwallet.ethereum.node
 
 import com.github.wiljgriff.ethereumwallet.data.model.DomainHeader
 import com.github.wiljgriff.ethereumwallet.data.transformers.AndroidIoTransformer
+import com.github.wiljgriff.ethereumwallet.ethereum.account.balance.AccountBalanceAdapter
+import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeDetailsAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by williamgriffiths on 15/04/2017.
  */
-class NodeDetails(private val nodeAdapter: NodeAdapter) {
+class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
     val cachedBlockHeaderObservable: Observable<DomainHeader> by lazy { getBlockHeaderObservable() }
@@ -17,7 +19,7 @@ class NodeDetails(private val nodeAdapter: NodeAdapter) {
     private fun getBlockHeaderObservable(): Observable<DomainHeader> {
         return Observable
                 .create<DomainHeader> {
-                    nodeAdapter.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
+                    nodeDetailsAdapter.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
                         override fun onNewDomainHeader(headHex: DomainHeader) {
                             it.onNext(headHex)
                         }
@@ -32,13 +34,13 @@ class NodeDetails(private val nodeAdapter: NodeAdapter) {
                 .autoConnect()
     }
 
-    fun getNodeInfoString() = nodeAdapter.getNodeInfoString()
+    fun getNodeInfoString() = nodeDetailsAdapter.getNodeInfo()
 
-    fun getPeersInfo(): Observable<Long> = getFuncOnIntervalObservable { nodeAdapter.getPeersInfoSize() }
+    fun getNumberOfPeers(): Observable<Long> = getFuncOnIntervalObservable { nodeDetailsAdapter.getNumberOfPeers() }
 
-    fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { nodeAdapter.getPeersInfoStrings() }
+    fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { nodeDetailsAdapter.getPeersInfo() }
 
-    fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { nodeAdapter.getSyncProgressString() }
+    fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { nodeDetailsAdapter.getSyncProgressString() }
 
     private fun <T> getFuncOnIntervalObservable(function: () -> T) = Observable
             .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)

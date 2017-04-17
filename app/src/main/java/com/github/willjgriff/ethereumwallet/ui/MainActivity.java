@@ -10,7 +10,7 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.wiljgriff.ethereumwallet.di.AppInjector;
-import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsManager;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.PreNavigationCreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 	ViewGroup mControllerContainer;
 
 	@Inject
-	WalletAccountManager mWalletAccountManager;
+	AccountsManager mAccountsManager;
 
 	private Router mRouter;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void checkForAccountAndSetRoot() {
-		if (mWalletAccountManager.hasAccount()) {
+		if (mAccountsManager.hasAccount()) {
 			setConductorRoot(new NavigationController());
 		} else {
 			setConductorRoot(new PreNavigationCreateAccountController());

@@ -1,6 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ui.transactions.mvp
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountBalance
+import com.github.wiljgriff.ethereumwallet.ethereum.account.balance.AccountBalance
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter
 import javax.inject.Inject
 

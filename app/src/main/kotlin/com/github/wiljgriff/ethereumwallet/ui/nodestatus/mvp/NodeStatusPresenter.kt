@@ -15,7 +15,7 @@ class NodeStatusPresenter @Inject constructor(private val nodeDetails: NodeDetai
                 .subscribe({ header -> view.newHeaderHash(header.hashHex) },
                         { throwable -> Timber.e(throwable) }))
 
-        addDisposable(nodeDetails.getPeersInfo()
+        addDisposable(nodeDetails.getNumberOfPeers()
                 .subscribe({ peerInfos -> view.updateNumberOfPeers(peerInfos) },
                         { throwable -> Timber.e(throwable) }))
 

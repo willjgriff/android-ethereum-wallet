@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.WalletAccountManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
@@ -17,16 +17,16 @@ import io.reactivex.Observable;
 @AutoFactory
 public class DeleteAddressPresenter extends BaseMvpPresenter<DeleteAddressView> {
 
-	private WalletAccountManager mWalletAccountManager;
+	private AccountsManager mAccountsManager;
 	private Observable<Object> mDeleteButton;
 	private Observable<Object> mCancelButton;
 	private Observable<Boolean> mPasswordValid;
 	private Observable<String> mPasswordChanged;
 
-	DeleteAddressPresenter(@Provided WalletAccountManager walletAccountManager,
+	DeleteAddressPresenter(@Provided AccountsManager accountsManager,
 	                       Observable<Object> deleteButton, Observable<Object> cancelButton,
 	                       Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
-		mWalletAccountManager = walletAccountManager;
+		mAccountsManager = accountsManager;
 		mDeleteButton = deleteButton;
 		mCancelButton = cancelButton;
 		mPasswordValid = passwordValid;
@@ -50,7 +50,7 @@ public class DeleteAddressPresenter extends BaseMvpPresenter<DeleteAddressView> 
 			.withLatestFrom(passwordValid, (buttonClick, passwordIsValid) -> passwordIsValid)
 			.filter(passwordIsValid -> passwordIsValid)
 			.flatMap(passwordIsValid -> enteredPasswordObservable)
-			.map(validPassword -> mWalletAccountManager.deleteActiveAccount(validPassword))
+			.map(validPassword -> mAccountsManager.deleteActiveAccount(validPassword))
 			.share();
 
 		// Show incorrect password error if the password is incorrect

@@ -1,13 +1,13 @@
-package com.github.wiljgriff.ethereumwallet.ethereum.payment
+package com.github.wiljgriff.ethereumwallet.ethereum.transaction
 
-import com.github.wiljgriff.ethereumwallet.data.ethereum.SendPayment
+import com.github.wiljgriff.ethereumwallet.data.ethereum.DomainTransaction
 import com.github.wiljgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.wiljgriff.ethereumwallet.ethereum.icap.IbanParam
 
 /**
  * Created by Will on 12/03/2017.
  */
-class SendPaymentGenerator(private val baseConverter: BaseConverter) {
+class SendTransactionGenerator(private val baseConverter: BaseConverter) {
 
     private val IBAN_PREFIX_LOWERCASE = "iban:"
     private val IBAN_PREFIX_XE_LOWERCASE = "xe"
@@ -18,19 +18,19 @@ class SendPaymentGenerator(private val baseConverter: BaseConverter) {
     private val IBAN_PARAM_KEY_VALUE_DELIMITER = "="
     private val HEX_PREFIX = "0x"
 
-    fun getSendPaymentFromIban(iban: String): SendPayment {
+    fun getSendPaymentFromIban(iban: String): DomainTransaction {
         return if (validEthereumIban(iban)) {
             val hexAddress = getHexAddressFromIban(iban)
             val params = getParamsFromIban(iban)
-            SendPayment(hexAddress,
+            DomainTransaction(hexAddress,
                     params.get(IbanParam.AMOUNT)?.toDouble() ?: 0.0,
                     params.get(IbanParam.LABEL) ?: "")
         } else {
-            SendPayment()
+            DomainTransaction()
         }
     }
 
-    private fun validEthereumIban(iban: String) = iban.length >= IBAN_MAX_LENGTH + IBAN_PREFIX_LOWERCASE.length
+    private fun validEthereumIban(iban: String): Boolean = iban.length >= IBAN_MAX_LENGTH + IBAN_PREFIX_LOWERCASE.length
             && iban.substring(0, 7).toLowerCase() == IBAN_PREFIX_LOWERCASE + IBAN_PREFIX_XE_LOWERCASE
 
     // TODO: Add some extra checks, eg there could be "=" in the params

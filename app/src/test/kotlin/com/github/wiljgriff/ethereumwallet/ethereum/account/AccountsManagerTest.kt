@@ -2,6 +2,7 @@ package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount
 import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsAdapter
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -13,9 +14,9 @@ import org.junit.Test
 /**
  * Created by Will on 07/02/2017.
  */
-class WalletAccountManagerTest {
+class AccountsManagerTest {
 
-    private lateinit var subject: WalletAccountManager;
+    private lateinit var mSubject: AccountsManager;
 
     private var MOCK_HEX_ADDRESS = "0x349j8w983"
     private var mockAddress: DomainAddress = mock {
@@ -35,14 +36,14 @@ class WalletAccountManagerTest {
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        subject = WalletAccountManager(mMockAccountsAdapter, mockActiveAddress)
+        mSubject = AccountsManager(mMockAccountsAdapter, mockActiveAddress)
     }
 
     @Test
     fun createAccount_callsNewAccountOnAccountManager() {
         val MOCK_PASSWORD = "password"
 
-        subject.createActiveAccount(MOCK_PASSWORD)
+        mSubject.createActiveAccount(MOCK_PASSWORD)
 
         verify(mMockAccountsAdapter).newAccount(MOCK_PASSWORD)
         verify(mockActiveAddress).set(any())
@@ -50,7 +51,7 @@ class WalletAccountManagerTest {
 
     @Test
     fun getActiveAccount_returnsExpectedAccount() {
-        val actualAccount = subject.getActiveAccount()
+        val actualAccount = mSubject.getActiveAccount()
 
         mockAccount shouldEqual actualAccount
     }
