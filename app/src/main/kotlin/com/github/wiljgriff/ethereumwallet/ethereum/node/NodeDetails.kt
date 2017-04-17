@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by williamgriffiths on 15/04/2017.
  */
-class NodeDetails(private val ethereumBridge: EthereumBridge) {
+class NodeDetails(private val nodeBridge: NodeBridge) {
 
     private val UPDATE_INTERVAL_SECONDS = 1L
     val cachedBlockHeaderObservable: Observable<DomainHeader> by lazy { getBlockHeaderObservable() }
@@ -17,7 +17,7 @@ class NodeDetails(private val ethereumBridge: EthereumBridge) {
     private fun getBlockHeaderObservable(): Observable<DomainHeader> {
         return Observable
                 .create<DomainHeader> {
-                    ethereumBridge.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
+                    nodeBridge.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
                         override fun onNewDomainHeader(headHex: DomainHeader) {
                             it.onNext(headHex)
                         }
@@ -32,13 +32,13 @@ class NodeDetails(private val ethereumBridge: EthereumBridge) {
                 .autoConnect()
     }
 
-    fun getNodeInfoString() = ethereumBridge.getNodeInfoString()
+    fun getNodeInfoString() = nodeBridge.getNodeInfoString()
 
-    fun getPeersInfo(): Observable<Long> = getFuncOnIntervalObservable { ethereumBridge.getPeersInfoSize() }
+    fun getPeersInfo(): Observable<Long> = getFuncOnIntervalObservable { nodeBridge.getPeersInfoSize() }
 
-    fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { ethereumBridge.getPeersInfoStrings() }
+    fun getNodePeerInfoStrings(): Observable<List<String>> = getFuncOnIntervalObservable { nodeBridge.getPeersInfoStrings() }
 
-    fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { ethereumBridge.getSyncProgressString() }
+    fun getSyncProgressString(): Observable<String> = getFuncOnIntervalObservable { nodeBridge.getSyncProgressString() }
 
     private fun <T> getFuncOnIntervalObservable(function: () -> T) = Observable
             .interval(UPDATE_INTERVAL_SECONDS, TimeUnit.SECONDS)

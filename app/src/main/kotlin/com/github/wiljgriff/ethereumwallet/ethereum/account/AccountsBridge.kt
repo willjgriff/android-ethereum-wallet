@@ -41,9 +41,10 @@ class AccountsBridge(val keyStore: KeyStore) {
         // Should use EthereumClient.suggestGas/estimateGas
         val gasLimit = BigInt(2100) // More than is required to execute the transaction on the Blockchain, 2100 from MyEtherWallet.
         val gasPrice = BigInt(20000000000) // The cost in Ether for each unit of Gas, in Wei
+        val nonce = 1L // WHAT IS THIS, research
 
         // NewTransaction(nonce uint64, to common.Address, amount, gasLimit, gasPrice *big.Int, data []byte)
-        val unsignedTransaction = Transaction(1L, toAddress, amount, gasLimit, gasPrice, null)
+        val unsignedTransaction = Transaction(nonce, toAddress, amount, gasLimit, gasPrice, null)
 
         val gethAccount = getGethAccountFromDomainAccount(fromAccount)
         val mainNetChainIdentifier = BigInt(1)

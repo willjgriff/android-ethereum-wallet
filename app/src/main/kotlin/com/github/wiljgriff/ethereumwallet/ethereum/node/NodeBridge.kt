@@ -10,7 +10,7 @@ import java.math.BigInteger
  * This is a likely candidate for being replaced in the future, eg for Parity or similar.
  * This should not return objects from the Ethereum library but just domain objects.
  */
-class EthereumBridge(ethereumFilePath: String) {
+class NodeBridge(ethereumFilePath: String) {
 
     // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
     private val SOME_RANDOM_SAMPLING_SIZE = 16L
@@ -50,6 +50,8 @@ class EthereumBridge(ethereumFilePath: String) {
     fun getPeersInfoStrings(): List<String> = node.getPeersInfoStrings()
 
     fun getSyncProgressString(): String = ethereumClient.getSyncProgressString(context)
+
+    fun getSuggestedGasPrice() = BigInteger(ethereumClient.suggestGasPrice(context).string())
 
     fun potentiallyUsefulMethods() {
 

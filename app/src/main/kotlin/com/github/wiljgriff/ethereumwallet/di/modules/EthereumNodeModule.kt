@@ -1,7 +1,7 @@
 package com.github.wiljgriff.ethereumwallet.di.modules
 
 import android.content.Context
-import com.github.wiljgriff.ethereumwallet.ethereum.node.EthereumBridge
+import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeBridge
 import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeDetails
 import dagger.Module
 import dagger.Provides
@@ -23,13 +23,19 @@ class EthereumNodeModule {
 
     @Provides
     @Singleton
-    fun provideEthereumNode(@Named("ethereum_path") ethereumPath: String): EthereumBridge {
-        return EthereumBridge(ethereumPath)
+    fun provideEthereumNode(@Named("ethereum_path") ethereumPath: String): NodeBridge {
+        return NodeBridge(ethereumPath)
     }
 
     @Provides
     @Singleton
-    fun provideNodeDetails(ethereumBridge: EthereumBridge): NodeDetails {
-        return NodeDetails(ethereumBridge)
+    fun provideNodeDetails(nodeBridge: NodeBridge): NodeDetails {
+        return NodeDetails(nodeBridge)
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideNodeBridge() {
+//        return
+//    }
 }

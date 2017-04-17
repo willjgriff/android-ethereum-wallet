@@ -1,7 +1,7 @@
 package com.github.wiljgriff.ethereumwallet.ui.nodestatus.di
 
 import com.github.wiljgriff.ethereumwallet.ui.nodestatus.NodeStatusController
-import com.github.willjgriff.ethereumwallet.di.AppComponent
+import com.github.wiljgriff.ethereumwallet.di.AppComponent
 import com.github.willjgriff.ethereumwallet.di.FunctionScope
 import dagger.Component
 
