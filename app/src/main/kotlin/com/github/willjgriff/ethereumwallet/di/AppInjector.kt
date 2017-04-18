@@ -1,7 +1,6 @@
 package com.github.willjgriff.ethereumwallet.di
 
 import android.content.Context
-import com.github.wiljgriff.ethereumwallet.di.DaggerAppComponent
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule
 
 /**

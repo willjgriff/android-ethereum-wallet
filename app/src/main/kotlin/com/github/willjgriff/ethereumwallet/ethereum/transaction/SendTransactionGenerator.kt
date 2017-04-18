@@ -23,7 +23,7 @@ class SendTransactionGenerator(private val baseConverter: BaseConverter) {
             val hexAddress = getHexAddressFromIban(iban)
             val params = getParamsFromIban(iban)
             DomainTransaction(hexAddress,
-                    params.get(IbanParam.AMOUNT)?.toDouble() ?: 0.0,
+                    params.get(IbanParam.AMOUNT)?.toLong() ?: 0L,
                     params.get(IbanParam.LABEL) ?: "")
         } else {
             DomainTransaction()

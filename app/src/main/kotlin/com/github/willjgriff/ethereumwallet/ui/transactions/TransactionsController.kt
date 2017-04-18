@@ -3,12 +3,12 @@ package com.github.willjgriff.ethereumwallet.ui.transactions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.wiljgriff.ethereumwallet.ui.transactions.di.DaggerTransactionsComponent
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
+import com.github.willjgriff.ethereumwallet.ui.transactions.di.DaggerTransactionsComponent
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
 import kotlinx.android.synthetic.main.controller_transactions.view.*

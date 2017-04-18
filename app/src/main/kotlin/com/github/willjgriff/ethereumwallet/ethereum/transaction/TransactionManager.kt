@@ -11,7 +11,7 @@ class TransactionManager(private val addressManager: AddressManager,
 
     fun executeTransaction(domainTransaction: DomainTransaction, password: String) {
 
-        transactionAdapter.submitTransaction(domainTransaction, addressManager.getActiveAddress(),password)
+        transactionAdapter.submitTransaction(domainTransaction, addressManager.getActiveAddress(), password)
 
         // Store transaction somewhere
 

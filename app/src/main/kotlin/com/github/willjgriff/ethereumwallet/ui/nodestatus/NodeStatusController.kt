@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.wiljgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
 import kotlinx.android.synthetic.main.controller_node_status.view.*
