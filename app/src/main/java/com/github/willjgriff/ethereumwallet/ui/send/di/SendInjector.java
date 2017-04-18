@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.send.di;
 
-import com.github.wiljgriff.ethereumwallet.di.AppInjector;
+import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentInvalidator;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
 

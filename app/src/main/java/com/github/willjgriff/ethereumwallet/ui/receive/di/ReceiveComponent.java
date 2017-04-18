@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.receive.di;
 
-import com.github.wiljgriff.ethereumwallet.di.AppComponent;
-import com.github.wiljgriff.ethereumwallet.di.ControllerScope;
+import com.github.willjgriff.ethereumwallet.di.AppComponent;
+import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 
 import dagger.Component;

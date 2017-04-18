@@ -1,5 +1,7 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
+import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
+import com.github.willjgriff.ethereumwallet.ethereum.icap.IbanChecksumUtils
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.amshove.kluent.shouldBe

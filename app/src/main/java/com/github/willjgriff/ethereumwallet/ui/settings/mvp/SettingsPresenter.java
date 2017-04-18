@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.di.ControllerScope;
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AddressManager;
+import com.github.willjgriff.ethereumwallet.di.ControllerScope;
+import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 
 import javax.inject.Inject;

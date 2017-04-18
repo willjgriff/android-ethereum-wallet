@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AddressManager;
+import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;

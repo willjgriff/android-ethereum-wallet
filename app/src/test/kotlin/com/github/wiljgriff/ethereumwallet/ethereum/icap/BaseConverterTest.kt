@@ -1,5 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.icap
 
+import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 

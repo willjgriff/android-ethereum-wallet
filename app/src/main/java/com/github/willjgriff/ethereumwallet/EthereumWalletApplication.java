@@ -3,8 +3,8 @@ package com.github.willjgriff.ethereumwallet;
 import android.app.Application;
 import android.content.Context;
 
-import com.github.wiljgriff.ethereumwallet.di.AppInjector;
-import com.github.wiljgriff.ethereumwallet.ethereum.EthereumManager;
+import com.github.willjgriff.ethereumwallet.di.AppInjector;
+import com.github.willjgriff.ethereumwallet.ethereum.EthereumManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import javax.inject.Inject;

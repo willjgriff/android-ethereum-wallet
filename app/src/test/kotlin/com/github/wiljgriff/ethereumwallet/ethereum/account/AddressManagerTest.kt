@@ -1,6 +1,9 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
+import com.github.willjgriff.ethereumwallet.ethereum.account.AddressAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock

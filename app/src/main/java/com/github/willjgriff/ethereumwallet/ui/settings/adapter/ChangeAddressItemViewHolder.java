@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress;
+import com.github.willjgriff.ethereumwallet.data.model.DomainAddress;
 import com.github.willjgriff.ethereumwallet.R;
 
 import butterknife.BindView;

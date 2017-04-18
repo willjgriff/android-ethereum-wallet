@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
-import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress;
+import com.github.willjgriff.ethereumwallet.data.model.DomainAddress;
 
 import java.util.List;
 

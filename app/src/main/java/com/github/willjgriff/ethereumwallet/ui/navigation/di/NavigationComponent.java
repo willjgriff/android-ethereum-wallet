@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.navigation.di;
 
-import com.github.wiljgriff.ethereumwallet.di.ControllerScope;
+import com.github.willjgriff.ethereumwallet.di.ControllerScope;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 
 import dagger.Component;
