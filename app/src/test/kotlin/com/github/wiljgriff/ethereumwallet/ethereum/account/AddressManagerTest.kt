@@ -1,8 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount
 import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsAdapter
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -14,21 +12,18 @@ import org.junit.Test
 /**
  * Created by Will on 07/02/2017.
  */
-class AccountsManagerTest {
+class AddressManagerTest {
 
-    private lateinit var mSubject: AccountsManager;
+    private lateinit var mSubject: AddressManager;
 
     private var MOCK_HEX_ADDRESS = "0x349j8w983"
     private var mockAddress: DomainAddress = mock {
         on { hex } doReturn MOCK_HEX_ADDRESS
     }
-    private var mockAccount: DomainAccount = mock {
-        on { address } doReturn mockAddress
-    }
-    private var mockAccounts: List<DomainAccount> = listOf(mockAccount)
-    private var mMockAccountsAdapter: AccountsAdapter = mock {
-        on { getAccounts() } doReturn mockAccounts
-        on { newAccount(any()) } doReturn mockAccount
+    private var mockAccounts: List<DomainAddress> = listOf(mockAddress)
+    private var mMockAddressAdapter: AddressAdapter = mock {
+        on { getAddresses() } doReturn mockAccounts
+        on { newAddress(any()) } doReturn mockAddress
     }
     private var mockActiveAddress: ActiveAccountAddress = mock {
         on { get() } doReturn MOCK_HEX_ADDRESS
@@ -36,23 +31,23 @@ class AccountsManagerTest {
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        mSubject = AccountsManager(mMockAccountsAdapter, mockActiveAddress)
+        mSubject = AddressManager(mMockAddressAdapter, mockActiveAddress)
     }
 
     @Test
     fun createAccount_callsNewAccountOnAccountManager() {
         val MOCK_PASSWORD = "password"
 
-        mSubject.createActiveAccount(MOCK_PASSWORD)
+        mSubject.createActiveAddress(MOCK_PASSWORD)
 
-        verify(mMockAccountsAdapter).newAccount(MOCK_PASSWORD)
+        verify(mMockAddressAdapter).newAddress(MOCK_PASSWORD)
         verify(mockActiveAddress).set(any())
     }
 
     @Test
     fun getActiveAccount_returnsExpectedAccount() {
-        val actualAccount = mSubject.getActiveAccount()
+        val actualAddress = mSubject.getActiveAddress()
 
-        mockAccount shouldEqual actualAccount
+        mockAddress shouldEqual actualAddress
     }
 }

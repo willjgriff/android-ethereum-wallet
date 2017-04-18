@@ -67,7 +67,8 @@ public class EthereumWalletApplication extends Application {
 
 	private void setupDagger() {
 		AppInjector.INSTANCE.init(this);
+		// This currently starts the Ethereum node, consider adding a call for this
+		// (requires late init for ethereum client.
 		AppInjector.INSTANCE.getAppComponent().inject(this);
-		mEthereumManager.startEthereum();
 	}
 }

@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp;
 
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsManager;
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AddressManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
@@ -14,17 +14,17 @@ import io.reactivex.Observable;
 @AutoFactory
 public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> {
 
-	private AccountsManager mAccountsManager;
+	private AddressManager mAddressManager;
 	private Observable<String> mPassword;
 	private Observable<Boolean> mValidPassword;
 	private Observable<Object> mSubmitButtonShare;
 
-	CreateAccountPresenter(@Provided AccountsManager accountsManager,
+	CreateAccountPresenter(@Provided AddressManager addressManager,
 	                       Observable<String> passwordObservable,
 	                       Observable<Boolean> passwordValid,
 	                       Observable<Object> submitButtonObservable) {
 
-		mAccountsManager = accountsManager;
+		mAddressManager = addressManager;
 		mPassword = passwordObservable;
 		mValidPassword = passwordValid;
 		mSubmitButtonShare = submitButtonObservable;
@@ -49,7 +49,7 @@ public class CreateAccountPresenter extends BaseMvpPresenter<CreateAccountView> 
 			// This is to prevent spamming and creating many accounts
 			.first("")
 			.subscribe(password -> {
-				mAccountsManager.createActiveAccount(password.toString());
+				mAddressManager.createActiveAddress(password.toString());
 				getView().openWallet();
 			});
 	}

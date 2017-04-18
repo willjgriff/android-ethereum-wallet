@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.github.wiljgriff.ethereumwallet.data.model.DomainAccount;
+import com.github.wiljgriff.ethereumwallet.data.model.DomainAddress;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.adapter.ChangeAddressItemViewHolder.ChangeAddressItemListener;
 
@@ -20,14 +20,14 @@ import static com.github.willjgriff.ethereumwallet.ui.settings.adapter.ChangeAdd
 public class ChangeAddressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 	private static final int HEADER_OFFSET = 1;
-	private List<DomainAccount> mAccounts;
+	private List<DomainAddress> mAccounts;
 	private ChangeAddressItemListener mChangeAddressItemListener;
 
 	public ChangeAddressAdapter(ChangeAddressItemListener changeAddressItemListener) {
 		mChangeAddressItemListener = changeAddressItemListener;
 	}
 
-	public void setAccounts(List<DomainAccount> accounts) {
+	public void setAccounts(List<DomainAddress> accounts) {
 		mAccounts = accounts;
 	}
 

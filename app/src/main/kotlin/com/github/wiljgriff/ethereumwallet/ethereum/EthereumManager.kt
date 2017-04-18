@@ -2,10 +2,11 @@ package com.github.wiljgriff.ethereumwallet.ethereum
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.github.wiljgriff.ethereumwallet.ethereum.account.balance.AccountBalance
+import com.github.wiljgriff.ethereumwallet.ethereum.account.AddressManager
 import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsManager
+import com.github.wiljgriff.ethereumwallet.ethereum.account.balance.AccountBalance
 import com.github.wiljgriff.ethereumwallet.ethereum.adapters.GethAdapterFactory
+import com.github.wiljgriff.ethereumwallet.ethereum.node.DomainNode
 import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeDetails
 
 /**
@@ -20,14 +21,11 @@ class EthereumManager(context: Context) {
     private val nodeFilePath = context.filesDir.toString() + "/ethereum_node/"
     private val keyStoreFilePath = context.filesDir.toString() + "/ethereum_key_store/"
 
-    private val gethAdapterFactory = GethAdapterFactory(nodeFilePath, keyStoreFilePath)
+    private val domainNode = DomainNode(nodeFilePath)
+    private val gethAdapterFactory = GethAdapterFactory(domainNode, keyStoreFilePath)
     private val activeAccountAddress = ActiveAccountAddress(PreferenceManager.getDefaultSharedPreferences(context))
 
-    val nodeDetails = NodeDetails(gethAdapterFactory.nodeDetailsAdapter, gethAdapterFactory.accountBalanceAdapter)
-    val walletAccountManager = AccountsManager(gethAdapterFactory.accountsAdapter, activeAccountAddress)
+    val nodeDetails = NodeDetails(gethAdapterFactory.nodeDetailsAdapter)
+    val walletAccountManager = AddressManager(gethAdapterFactory.accountsAdapter, activeAccountAddress)
     val accountBalance = AccountBalance(gethAdapterFactory.accountBalanceAdapter, walletAccountManager)
-
-    fun startEthereum() {
-        gethAdapterFactory.startSync()
-    }
 }

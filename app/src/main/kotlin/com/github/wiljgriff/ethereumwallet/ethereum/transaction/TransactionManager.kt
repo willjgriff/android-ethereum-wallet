@@ -1,15 +1,19 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.transaction
 
 import com.github.wiljgriff.ethereumwallet.data.ethereum.DomainTransaction
-import com.github.wiljgriff.ethereumwallet.ethereum.account.AccountsAdapter
-import com.github.wiljgriff.ethereumwallet.ethereum.node.NodeDetailsAdapter
+import com.github.wiljgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
 
 /**
  * Created by williamgriffiths on 16/04/2017.
  */
-class TransactionManager(val t: NodeDetailsAdapter, val accountsAdapter: AccountsAdapter) {
+class TransactionManager(private val activeAccountAddress: ActiveAccountAddress,
+                         private val transactionAdapter: TransactionAdapter) {
 
     fun executeTransaction(domainTransaction: DomainTransaction) {
+
+        transactionAdapter.submitTransaction(domainTransaction)
+
+        // Store transaction somewhere
 
     }
 }

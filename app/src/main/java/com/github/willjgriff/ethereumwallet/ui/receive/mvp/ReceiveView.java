@@ -6,5 +6,5 @@ package com.github.willjgriff.ethereumwallet.ui.receive.mvp;
 
 public interface ReceiveView {
 
-	void setReceiveAddress(String addres);
+	void setReceiveAddress(String address);
 }
