@@ -2,8 +2,8 @@ package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
 import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
 import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
-import com.github.willjgriff.ethereumwallet.ethereum.account.asList
-import com.github.willjgriff.ethereumwallet.ethereum.account.getGethAccountFromAddress
+import com.github.willjgriff.ethereumwallet.ethereum.address.asList
+import com.github.willjgriff.ethereumwallet.ethereum.address.getGethAccountFromAddress
 import org.ethereum.geth.*
 
 /**
@@ -14,28 +14,32 @@ class TransactionAdapter(private val keyStore: KeyStore,
                          private val context: Context) {
 
     val STANDARD_TRANSACTION_GAS_LIMIT = 2100L
+    val MAIN_NET_CHAIN_ID_NUMBER = 1L
 
-    fun submitTransaction(domainTransaction: DomainTransaction) {
-        // Convert domainTransaction to ethereum Transaction
-        ethereumClient.sendTransaction(context, null)
+    fun submitTransaction(domainTransaction: DomainTransaction, fromAddress: DomainAddress, password: String) {
+        val unsignedTransaction = getUnsignedTransaction(domainTransaction.amount, fromAddress, domainTransaction.toAddress)
+        val signedTransaction = signTransaction(fromAddress, password, unsignedTransaction)
+
+        ethereumClient.sendTransaction(context, signedTransaction)
     }
 
-    fun createSignedTransaction(fromAccount: DomainAddress, toAddressString: String,
-                                password: String, amountLong: Long): Transaction {
-
-        val toAddress = Address(toAddressString)
-        val amount = BigInt(amountLong)
-        val gasLimit = BigInt(STANDARD_TRANSACTION_GAS_LIMIT) // More than is required to execute the transaction on the Blockchain, 2100 from MyEtherWallet.
-        val gasPrice = ethereumClient.suggestGasPrice(context) // The cost in Ether for each unit of Gas, in Wei, probably 20000000000
-        val nonce = 1L // WHAT IS THIS, research
-
-        // NewTransaction(nonce uint64, to common.Address, amount, gasLimit, gasPrice *big.Int, data []byte)
-        val unsignedTransaction = Transaction(nonce, toAddress, amount, gasLimit, gasPrice, null)
-
+    private fun signTransaction(fromAccount: DomainAddress, password: String, unsignedTransaction: Transaction): Transaction {
         val gethAccount = keyStore.accounts.asList().getGethAccountFromAddress(fromAccount)
-        val mainNetChainIdentifier = BigInt(1)
+        val mainNetChainIdentifier = BigInt(MAIN_NET_CHAIN_ID_NUMBER)
 
         return keyStore.signTxPassphrase(gethAccount, password, unsignedTransaction, mainNetChainIdentifier)
+    }
+
+    private fun getUnsignedTransaction(amountLong: Long, fromAddress: DomainAddress, toAddressString: String): Transaction {
+        val gethAccount = keyStore.accounts.asList().getGethAccountFromAddress(fromAddress)
+        val nonce = ethereumClient.getPendingNonceAt(context, gethAccount.address) // The nonce increases by one for each transaction
+        val toAddress = Address(toAddressString)
+        val amount = BigInt(amountLong)
+        val gasLimit = BigInt(STANDARD_TRANSACTION_GAS_LIMIT) // More than is required to execute the transaction on the Blockchain, 2100 from MyEtherWallet
+        val gasPrice = ethereumClient.suggestGasPrice(context) // The cost in Ether for each unit of Gas, in Wei, probably 20000000000
+
+        // Transaction(nonce uint64, to common.Address, amount, gasLimit, gasPrice *big.Int, data []byte)
+        return Transaction(nonce, toAddress, amount, gasLimit, gasPrice, null)
     }
 
 }

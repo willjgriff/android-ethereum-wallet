@@ -3,8 +3,8 @@ package com.github.willjgriff.ethereumwallet.ethereum.adapters
 import com.github.willjgriff.ethereumwallet.ethereum.node.DomainNode
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetailsAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionAdapter
-import com.github.willjgriff.ethereumwallet.ethereum.account.AddressAdapter
-import com.github.willjgriff.ethereumwallet.ethereum.account.balance.AccountBalanceAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.address.AddressAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalanceAdapter
 import org.ethereum.geth.Context
 import org.ethereum.geth.Geth
 import org.ethereum.geth.KeyStore

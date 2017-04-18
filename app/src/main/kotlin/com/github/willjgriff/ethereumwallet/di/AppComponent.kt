@@ -2,8 +2,8 @@ package com.github.willjgriff.ethereumwallet.di
 
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule
 import com.github.willjgriff.ethereumwallet.di.modules.EthereumModule
-import com.github.willjgriff.ethereumwallet.ethereum.account.balance.AccountBalance
-import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalance
+import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.EthereumWalletApplication
 import com.github.willjgriff.ethereumwallet.ui.MainActivity

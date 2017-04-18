@@ -4,5 +4,5 @@ package com.github.willjgriff.ethereumwallet.data.model
  * Created by Will on 12/03/2017.
  */
 data class DomainTransaction(val toAddress: String = "",
-                             val amount: Double = 0.0,
+                             val amount: Long = 0L,
                              val label: String = "")

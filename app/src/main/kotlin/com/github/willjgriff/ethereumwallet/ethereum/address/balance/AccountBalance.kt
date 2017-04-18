@@ -1,8 +1,8 @@
-package com.github.willjgriff.ethereumwallet.ethereum.account.balance
+package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 
 import com.github.willjgriff.ethereumwallet.data.transformers.AndroidIoTransformer
-import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager
-import com.github.willjgriff.ethereumwallet.ethereum.account.balance.AccountBalanceAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalanceAdapter
 import io.reactivex.Observable
 import java.math.BigInteger
 

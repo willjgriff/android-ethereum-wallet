@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ethereum.account.balance
+package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 
 import org.ethereum.geth.Address
 import org.ethereum.geth.Context

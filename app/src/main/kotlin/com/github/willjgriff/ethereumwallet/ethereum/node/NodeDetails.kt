@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.ethereum.node
 
 import com.github.willjgriff.ethereumwallet.data.model.DomainHeader
 import com.github.willjgriff.ethereumwallet.data.transformers.AndroidIoTransformer
-import com.github.willjgriff.ethereumwallet.ethereum.account.balance.AccountBalanceAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalanceAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetailsAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

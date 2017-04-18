@@ -1,9 +1,9 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
 import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.ethereum.account.ActiveAccountAddress
-import com.github.willjgriff.ethereumwallet.ethereum.account.AddressAdapter
-import com.github.willjgriff.ethereumwallet.ethereum.account.AddressManager
+import com.github.willjgriff.ethereumwallet.ethereum.address.ActiveAddress
+import com.github.willjgriff.ethereumwallet.ethereum.address.AddressAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -28,13 +28,13 @@ class AddressManagerTest {
         on { getAddresses() } doReturn mockAccounts
         on { newAddress(any()) } doReturn mockAddress
     }
-    private var mockActiveAddress: ActiveAccountAddress = mock {
-        on { get() } doReturn MOCK_HEX_ADDRESS
+    private var mMockActiveAddress: ActiveAddress = mock {
+        on { getHex() } doReturn MOCK_HEX_ADDRESS
     }
 
     @Before
     fun setupEthereumAccountManagerKotlinTest() {
-        mSubject = AddressManager(mMockAddressAdapter, mockActiveAddress)
+        mSubject = AddressManager(mMockAddressAdapter, mMockActiveAddress)
     }
 
     @Test
@@ -44,7 +44,7 @@ class AddressManagerTest {
         mSubject.createActiveAddress(MOCK_PASSWORD)
 
         verify(mMockAddressAdapter).newAddress(MOCK_PASSWORD)
-        verify(mockActiveAddress).set(any())
+        verify(mMockActiveAddress).setHex(any())
     }
 
     @Test

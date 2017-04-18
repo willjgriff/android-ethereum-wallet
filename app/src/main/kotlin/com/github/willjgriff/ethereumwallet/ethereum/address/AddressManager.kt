@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ethereum.account
+package com.github.willjgriff.ethereumwallet.ethereum.address
 
 import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
 import timber.log.Timber
@@ -7,15 +7,15 @@ import timber.log.Timber
  * Created by Will on 06/02/2017.
  */
 class AddressManager(private val addressAdapter: AddressAdapter,
-                     private val activeAccountAddress: ActiveAccountAddress) {
+                     private val activeAddress: ActiveAddress) {
 
     fun createActiveAddress(password: String) {
         val newAddress = addressAdapter.newAddress(password)
-        activeAccountAddress.set(newAddress.hex)
+        activeAddress.setHex(newAddress.hex)
     }
 
     fun getActiveAddress(): DomainAddress = getAllAddresses()
-            .filter { it.hex == activeAccountAddress.get() }
+            .filter { it.hex == activeAddress.getHex() }
             .singleOrNull() ?: DomainAddress()
 
     fun hasAddress() = getAllAddresses().isNotEmpty()
@@ -24,19 +24,19 @@ class AddressManager(private val addressAdapter: AddressAdapter,
 
     fun deleteActiveAddress(password: String): Boolean {
         try {
-            if (activeAccountAddress.hasActiveAddress()) {
+            if (activeAddress.hasActiveAddress()) {
                 addressAdapter.deleteAddress(getActiveAddress(), password)
-                activeAccountAddress.deleteActiveAddress()
+                activeAddress.deleteActiveAddress()
             }
         } catch (exception: Exception) {
             Timber.i(exception, "Account not deleted, password probably incorrect")
         }
 
-        return !activeAccountAddress.hasActiveAddress()
+        return !activeAddress.hasActiveAddress()
     }
 
     fun setActiveAccount(address: DomainAddress) {
-        activeAccountAddress.set(address.hex)
+        activeAddress.setHex(address.hex)
     }
 
 }

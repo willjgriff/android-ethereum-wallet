@@ -25,11 +25,16 @@ class EthereumModule {
     @Provides
     @Singleton
     fun provideWalletAccountManager(ethereumManager: EthereumManager) =
-            ethereumManager.walletAccountManager
+            ethereumManager.addressManager
 
     @Provides
     @Singleton
     fun provideAccountBalance(ethereumManager: EthereumManager) =
             ethereumManager.accountBalance
+
+    @Provides
+    @Singleton
+    fun provideTransactionManager(ethereumManager: EthereumManager) =
+            ethereumManager.transactionManager
 
 }
