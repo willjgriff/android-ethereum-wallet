@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.data.model
 
+import java.math.BigInteger
+
 /**
- * Created by Will on 12/03/2017.
+ * Created by williamgriffiths on 19/04/2017.
  */
-data class DomainTransaction(val toAddress: String = "",
-                             val amount: Long = 0L,
-                             val label: String = "")
+class DomainTransaction(val toAddress: DomainAddress, val value: BigInteger)

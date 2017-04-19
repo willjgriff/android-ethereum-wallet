@@ -1,6 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.payment
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.data.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.SendTransactionGenerator
 import com.nhaarman.mockito_kotlin.mock
@@ -12,7 +12,7 @@ import org.junit.Test
 /**
  * Created by Will on 12/03/2017.
  */
-class DomainTransactionGeneratorTest {
+class SendDomainTransactionGeneratorTest {
 
     private val mockBaseConverter: BaseConverter = mock()
     private val subject = SendTransactionGenerator(mockBaseConverter)
@@ -25,35 +25,35 @@ class DomainTransactionGeneratorTest {
 
     @Test
     fun getSendPaymentFromIban_returnsDefaultSendPaymentWithIncorrectFormat() {
-        val expectedPayment = DomainTransaction()
+        val expectedPayment = SendTransaction()
         val actualPayment = subject.getSendPaymentFromIban("iba:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV?amount=0.023")
         actualPayment shouldEqual expectedPayment
     }
 
     @Test
     fun getSendPaymentFromIban_returnsDefaultSendPaymentWithTooShortIban() {
-        val expectedPayment = DomainTransaction()
+        val expectedPayment = SendTransaction()
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJ")
         actualPayment shouldEqual expectedPayment
     }
 
     @Test
     fun getSendPaymentFromIban_returnsSendPaymentWithDefaultAmountAndLabel() {
-        val expectedPayment = DomainTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase())
+        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase())
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV")
         actualPayment shouldEqual expectedPayment
     }
 
     @Test
     fun getSendPaymentFromIban_returnsSendPaymentWithCorrectAmount() {
-        val expectedPayment = DomainTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 0.023)
+        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 0.023)
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV?amount=0.023")
         actualPayment shouldEqual expectedPayment
     }
 
     @Test
     fun getSendPaymentFromIban_returnsSendPaymentWithCorrectAmountAndLabel() {
-        val expectedPayment = DomainTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 0.023, "quepasa")
+        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 0.023, "quepasa")
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV?amount=0.023&label=quepasa")
         actualPayment shouldEqual expectedPayment
     }

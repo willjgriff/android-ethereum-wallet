@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.data.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 
 /**
@@ -9,11 +9,11 @@ import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 class TransactionManager(private val addressManager: AddressManager,
                          private val transactionAdapter: TransactionAdapter) {
 
-    fun executeTransaction(domainTransaction: DomainTransaction, password: String) {
+    fun executeTransaction(sendTransaction: SendTransaction, password: String) {
 
-        transactionAdapter.submitTransaction(domainTransaction, addressManager.getActiveAddress(), password)
+        transactionAdapter.submitTransaction(sendTransaction, addressManager.getActiveAddress(), password)
 
-        // Store transaction somewhere
+        // Store transaction somewhere, or always get them from the network...
 
     }
 }

@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.data.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.icap.IbanParam
 
@@ -18,15 +18,15 @@ class SendTransactionGenerator(private val baseConverter: BaseConverter) {
     private val IBAN_PARAM_KEY_VALUE_DELIMITER = "="
     private val HEX_PREFIX = "0x"
 
-    fun getSendPaymentFromIban(iban: String): DomainTransaction {
+    fun getSendPaymentFromIban(iban: String): SendTransaction {
         return if (validEthereumIban(iban)) {
             val hexAddress = getHexAddressFromIban(iban)
             val params = getParamsFromIban(iban)
-            DomainTransaction(hexAddress,
+            SendTransaction(hexAddress,
                     params.get(IbanParam.AMOUNT)?.toLong() ?: 0L,
                     params.get(IbanParam.LABEL) ?: "")
         } else {
-            DomainTransaction()
+            SendTransaction()
         }
     }
 

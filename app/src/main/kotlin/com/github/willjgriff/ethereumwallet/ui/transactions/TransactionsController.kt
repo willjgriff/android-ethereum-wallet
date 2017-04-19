@@ -3,7 +3,6 @@ package com.github.willjgriff.ethereumwallet.ui.transactions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
@@ -11,6 +10,7 @@ import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListe
 import com.github.willjgriff.ethereumwallet.ui.transactions.di.DaggerTransactionsComponent
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
+import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import kotlinx.android.synthetic.main.controller_transactions.view.*
 import javax.inject.Inject
 
@@ -52,7 +52,6 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun setBalance(balanceAtAddress: String) {
         view?.controller_transactions_balance?.text = balanceAtAddress
-        navigationToolbarListener.setBalance("ETH: $balanceAtAddress")
     }
 
     override fun setPendingBalance(pendingBalanceAtAddress: String) {

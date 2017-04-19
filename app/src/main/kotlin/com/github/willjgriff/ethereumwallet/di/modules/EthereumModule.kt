@@ -37,4 +37,9 @@ class EthereumModule {
     fun provideTransactionManager(ethereumManager: EthereumManager) =
             ethereumManager.transactionManager
 
+    @Provides
+    @Singleton
+    fun provideTransactionsManager(ethereumManager: EthereumManager) =
+            ethereumManager.transactionsManager
+
 }

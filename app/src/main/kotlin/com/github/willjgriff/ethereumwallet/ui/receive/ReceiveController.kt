@@ -18,6 +18,7 @@ import javax.inject.Inject
  */
 class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), ReceiveView {
 
+    lateinit var navigationToolbarListener: NavigationToolbarListener
     @Inject lateinit var receivePresenter: ReceivePresenter
 
     init {
@@ -30,15 +31,19 @@ class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), Re
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_receive)
+        setNavigationToolbarListener()
         setupToolbarTitle()
         return view
     }
 
-    private fun setupToolbarTitle() {
-        val targetController = targetController
+    private fun setNavigationToolbarListener() {
         if (targetController is NavigationToolbarListener) {
-            targetController.setToolbarTitle(applicationContext?.getString(R.string.controller_receive_title))
+            navigationToolbarListener = targetController as NavigationToolbarListener
         }
+    }
+
+    private fun setupToolbarTitle() {
+        navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_receive_title))
     }
 
     override fun setReceiveAddress(address: String) {
@@ -53,5 +58,6 @@ class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), Re
     override fun setConfirmedBalance(confirmedBalance: String) {
         val ethBalance = applicationContext?.getString(R.string.controller_receive_eth_balance, confirmedBalance)
         view?.controller_receive_confirmed_balance?.text = ethBalance
+        navigationToolbarListener.setBalance(ethBalance)
     }
 }

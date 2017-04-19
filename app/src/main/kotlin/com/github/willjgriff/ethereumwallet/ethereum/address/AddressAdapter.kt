@@ -14,13 +14,14 @@ class AddressAdapter(val keyStore: KeyStore) {
         return DomainAddress.fromAddress(newAccount.address)
     }
 
-    fun getAddresses(): List<DomainAddress> = keyStore.accounts.asList()
+    fun getAddresses(): List<DomainAddress> = keyStore.accounts
+            .asList()
             .map { DomainAddress.fromAddress(it.address) }
-            .toList()
 
     fun deleteAddress(activeAddress: DomainAddress, password: String) {
         val gethAccount = keyStore.accounts
-                .asList().getGethAccountFromAddress(activeAddress)
+                .asList()
+                .getGethAccountFromAddress(activeAddress)
         keyStore.deleteAccount(gethAccount, password)
     }
 }

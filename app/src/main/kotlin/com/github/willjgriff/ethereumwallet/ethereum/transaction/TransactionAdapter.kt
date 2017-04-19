@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
 import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.data.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.address.asList
 import com.github.willjgriff.ethereumwallet.ethereum.address.getGethAccountFromAddress
 import org.ethereum.geth.*
@@ -16,8 +16,8 @@ class TransactionAdapter(private val keyStore: KeyStore,
     val STANDARD_TRANSACTION_GAS_LIMIT = 2100L
     val MAIN_NET_CHAIN_ID_NUMBER = 1L
 
-    fun submitTransaction(domainTransaction: DomainTransaction, fromAddress: DomainAddress, password: String) {
-        val unsignedTransaction = getUnsignedTransaction(domainTransaction.amount, fromAddress, domainTransaction.toAddress)
+    fun submitTransaction(sendTransaction: SendTransaction, fromAddress: DomainAddress, password: String) {
+        val unsignedTransaction = getUnsignedTransaction(sendTransaction.amount, fromAddress, sendTransaction.toAddress)
         val signedTransaction = signTransaction(fromAddress, password, unsignedTransaction)
 
         ethereumClient.sendTransaction(context, signedTransaction)

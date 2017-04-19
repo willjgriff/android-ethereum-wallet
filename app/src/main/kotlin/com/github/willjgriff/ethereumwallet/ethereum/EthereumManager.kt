@@ -9,6 +9,7 @@ import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBala
 import com.github.willjgriff.ethereumwallet.ethereum.node.DomainNode
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionManager
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionsManager
 
 /**
  * Created by williamgriffiths on 17/04/2017.
@@ -30,4 +31,5 @@ class EthereumManager(context: Context) {
     val addressManager = AddressManager(gethAdapterFactory.accountsAdapter, activeAccountAddress)
     val accountBalance = AddressBalance(gethAdapterFactory.accountBalanceAdapter, addressManager)
     val transactionManager = TransactionManager(addressManager, gethAdapterFactory.transactionAdapter)
+    val transactionsManager = TransactionsManager(gethAdapterFactory.transactionsAdapter, addressManager)
 }
