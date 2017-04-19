@@ -8,6 +8,13 @@ It will allow for basic account/address creation and transfer to/from it. The ac
 
 This app uses a structure similar to my Skeleton app. It uses MVP, Dagger, RxJava2 and Conductor. I started by using Kotlin for testing and for Ethereum related classes but will slowly convert the whole project to it removing Java wherever possible.
 
-I've created a set of delegate classes that wrap around the Geth light client classes as I cannot Unit Test anything that uses the Geth light client classes without instrumentation (a link error is returned when run as standard JUnit tests). The decoupling the delegate classes provide allows me to Unit Test the Ethereum related classes without accessing the actual Geth classes. I'm not testing much at the moment generally. More will come once classes become more established.
+I've created Geth adapters that wrap around the Geth light client classes to decouple them from the rest of the app. I also cannot Unit Test anything that uses the Geth light client classes without instrumentation (a link error is returned when run as standard JUnit tests). Decoupling the Geth classes from the rest of the code allows me to Unit Test the Ethereum manager classes without accessing the actual Geth classes. I'm not testing much at the moment generally. More will come once the code is more established.
 
-The app currently only allows creation, deletion and switching of account addresses fairly crudely from the Settings screen and some basic wireframes for the other screens. It also includes a status screen which displays node and syncing details.
+Current progress (note the UI is still very basic, I hope to make it better):<br>
+[x] Creation, deletion and switching of account addresses from the Settings screen.<br>
+[x] Node status screen which displays syncing updates.<br>
+[x] Receive screen balance updates.<br>
+[ ] Send screen submit transaction.<br>
+[ ] Creation of QR code for receving ether.<br>
+[ ] Creation of send transaction from QR code.<br>
+[ ] Transactions list, outgoing and incoming.
