@@ -5,7 +5,7 @@ import android.preference.PreferenceManager
 import com.github.willjgriff.ethereumwallet.ethereum.adapters.GethAdapterFactory
 import com.github.willjgriff.ethereumwallet.ethereum.address.ActiveAddress
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalance
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance
 import com.github.willjgriff.ethereumwallet.ethereum.node.DomainNode
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionManager
@@ -28,6 +28,6 @@ class EthereumManager(context: Context) {
 
     val nodeDetails = NodeDetails(gethAdapterFactory.nodeDetailsAdapter)
     val addressManager = AddressManager(gethAdapterFactory.accountsAdapter, activeAccountAddress)
-    val accountBalance = AccountBalance(gethAdapterFactory.accountBalanceAdapter, addressManager)
+    val accountBalance = AddressBalance(gethAdapterFactory.accountBalanceAdapter, addressManager)
     val transactionManager = TransactionManager(addressManager, gethAdapterFactory.transactionAdapter)
 }

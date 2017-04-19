@@ -22,7 +22,7 @@
     <item
         android:id="@+id/navigation_status"
         android:enabled="true"
-        android:icon="@drawable/ic_receive_24dp"
+        android:icon="@drawable/ic_node_status_24dp"
         android:title="@string/controller_node_status_title"
         app:showAsAction="always"/>
     <item

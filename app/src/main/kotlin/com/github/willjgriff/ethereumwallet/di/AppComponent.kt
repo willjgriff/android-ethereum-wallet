@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.di
 
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule
 import com.github.willjgriff.ethereumwallet.di.modules.EthereumModule
-import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AccountBalance
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.EthereumWalletApplication
@@ -24,7 +24,7 @@ interface AppComponent {
 
     fun provideAccountManager(): AddressManager
 
-    fun providesAccountBalance(): AccountBalance
+    fun providesAccountBalance(): AddressBalance
 
     fun inject(mainActivity: MainActivity)
 

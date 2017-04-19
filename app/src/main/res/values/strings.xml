@@ -26,6 +26,7 @@
     <string name="controller_receive_ethereum_address">Ethereum Address:</string>
     <string name="controller_receive_receive_amount">Receive amount</string>
     <string name="controller_receive_create_qr_code">Create QR Code</string>
+    <string name="controller_receive_eth_balance">ETH: %1$s</string>
 
     <!--Settings-->
     <string name="controller_settings_active_address">Current active address</string>

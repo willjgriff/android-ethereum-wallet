@@ -8,19 +8,21 @@ import java.math.BigInteger
 /**
  * Created by williamgriffiths on 17/04/2017.
  */
-class AccountBalanceAdapter(private val ethereumClient: EthereumClient,
+class AddressBalanceAdapter(private val ethereumClient: EthereumClient,
                             private val context: Context) {
 
     private val DEFAULT_TO_CURRENT_BLOCK_VALUE = -1L
 
     fun getBalanceAt(addressString: String): BigInteger = try {
-        BigInteger(ethereumClient.getBalanceAt(context, Address(addressString), DEFAULT_TO_CURRENT_BLOCK_VALUE).string())
+        val bigIntBalance = ethereumClient.getBalanceAt(context, Address(addressString), DEFAULT_TO_CURRENT_BLOCK_VALUE)
+        BigInteger(bigIntBalance.string())
     } catch (exception: Exception) {
         BigInteger("0")
     }
 
     fun getPendingBalanceAt(addressString: String): BigInteger = try {
-        BigInteger(ethereumClient.getPendingBalanceAt(context, Address(addressString)).string())
+        val bigIntBalance = ethereumClient.getPendingBalanceAt(context, Address(addressString))
+        BigInteger(bigIntBalance.string())
     } catch (exception: Exception) {
         BigInteger("0")
     }

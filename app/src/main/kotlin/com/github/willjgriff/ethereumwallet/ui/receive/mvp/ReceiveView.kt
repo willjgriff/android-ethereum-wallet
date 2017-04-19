@@ -6,5 +6,7 @@ package com.github.willjgriff.ethereumwallet.ui.receive.mvp
 interface ReceiveView {
 
     fun setReceiveAddress(address: String)
+    fun setPendingBalance(pendingBalance: String)
+    fun setConfirmedBalance(confirmedBalance: String)
 
 }

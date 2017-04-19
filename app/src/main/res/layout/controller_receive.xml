@@ -56,7 +56,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="32dp"
             app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintTop_toBottomOf="@+id/textView3"/>
 
 
@@ -91,9 +91,62 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="@string/controller_receive_receive_amount"/>
+                android:hint="@string/controller_receive_receive_amount"
+                android:id="@+id/textInputEditText"/>
 
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:text="Confirmed"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            app:layout_constraintRight_toRightOf="@+id/controller_receive_confirmed_balance"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/controller_receive_detail_button"
+            app:layout_constraintLeft_toLeftOf="@+id/controller_receive_confirmed_balance"/>
+
+        <TextView
+            android:text="Pending"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            app:layout_constraintLeft_toLeftOf="@+id/controller_receive_pending_balance"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+            app:layout_constraintRight_toRightOf="@+id/controller_receive_pending_balance"/>
+
+        <TextView
+            tools:text="0.004"
+            style="@style/Text.Title"
+            android:textColor="@color/secondary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/controller_receive_pending_balance"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintRight_toLeftOf="@+id/controller_receive_confirmed_balance"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"/>
+
+        <TextView
+            tools:text="0.000123"
+            android:textColor="@color/secondary_text"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/controller_receive_confirmed_balance"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/controller_receive_pending_balance"/>
 
     </android.support.constraint.ConstraintLayout>
 

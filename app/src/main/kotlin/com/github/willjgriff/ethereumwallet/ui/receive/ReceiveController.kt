@@ -18,8 +18,7 @@ import javax.inject.Inject
  */
 class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), ReceiveView {
 
-    @Inject
-    lateinit var receivePresenter: ReceivePresenter
+    @Inject lateinit var receivePresenter: ReceivePresenter
 
     init {
         injectNewReceivePresenter()
@@ -44,5 +43,15 @@ class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), Re
 
     override fun setReceiveAddress(address: String) {
         view?.controller_receive_ethereum_address?.text = address
+    }
+
+    override fun setPendingBalance(pendingBalance: String) {
+        val ethBalance = applicationContext?.getString(R.string.controller_receive_eth_balance, pendingBalance)
+        view?.controller_receive_pending_balance?.text = ethBalance
+    }
+
+    override fun setConfirmedBalance(confirmedBalance: String) {
+        val ethBalance = applicationContext?.getString(R.string.controller_receive_eth_balance, confirmedBalance)
+        view?.controller_receive_confirmed_balance?.text = ethBalance
     }
 }
