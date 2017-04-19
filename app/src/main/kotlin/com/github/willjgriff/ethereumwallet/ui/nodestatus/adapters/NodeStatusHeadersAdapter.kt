@@ -4,29 +4,25 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
+import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import kotlinx.android.synthetic.main.view_node_status_header_item.view.*
-import kotlinx.android.synthetic.main.view_node_status_peer_item.view.*
 
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
 class NodeStatusHeadersAdapter : RecyclerView.Adapter<NodeStatusHeadersAdapter.NodeStatusHeaderViewHolder>() {
 
-    private val headers: MutableList<String> = ArrayList()
+    private val headers: MutableList<String> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodeStatusHeaderViewHolder {
-        return NodeStatusHeaderViewHolder(parent.inflate(R.layout.view_node_status_header_item))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodeStatusHeaderViewHolder =
+            NodeStatusHeaderViewHolder(parent.inflate(R.layout.view_node_status_header_item))
 
-    override fun getItemCount(): Int {
-        return headers.size
-    }
+    override fun getItemCount(): Int =
+            headers.size
 
-    override fun onBindViewHolder(holder: NodeStatusHeaderViewHolder, position: Int) {
-        holder.bind(headers.get(position))
-    }
+    override fun onBindViewHolder(holder: NodeStatusHeaderViewHolder, position: Int) =
+            holder.bind(headers[position])
 
     fun addHeaderHash(headerHash: String) {
         headers.add(headerHash)

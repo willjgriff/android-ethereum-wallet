@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
+import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import kotlinx.android.synthetic.main.view_node_status_peer_item.view.*
 
 /**
@@ -13,24 +13,20 @@ import kotlinx.android.synthetic.main.view_node_status_peer_item.view.*
  */
 class NodeStatusPeersAdapter : RecyclerView.Adapter<NodeStatusPeersAdapter.NodeStatusPeerViewHolder>() {
 
-    private var peers: List<String> = ArrayList()
+    var peers: List<String> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodeStatusPeerViewHolder {
-        return NodeStatusPeerViewHolder(parent.inflate(R.layout.view_node_status_peer_item))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodeStatusPeerViewHolder =
+            NodeStatusPeerViewHolder(parent.inflate(R.layout.view_node_status_peer_item))
 
-    override fun getItemCount(): Int {
-        return peers.size
-    }
+    override fun getItemCount(): Int =
+            peers.size
 
-    override fun onBindViewHolder(holder: NodeStatusPeerViewHolder, position: Int) {
-        holder.bind(peers.get(position))
-    }
-
-    fun setPeerStrings(peers: List<String>) {
-        this.peers = peers
-        notifyDataSetChanged()
-    }
+    override fun onBindViewHolder(holder: NodeStatusPeerViewHolder, position: Int) =
+            holder.bind(peers.get(position))
 
     class NodeStatusPeerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val peerDetails: TextView by lazy { itemView.view_node_status_peer_item_details }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
@@ -15,6 +14,7 @@ import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPee
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
+import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import kotlinx.android.synthetic.main.controller_node_status.view.*
 import javax.inject.Inject
 
@@ -88,6 +88,6 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     }
 
     override fun setPeerStrings(peers: List<String>) {
-        peersAdapter.setPeerStrings(peers)
+        peersAdapter.peers = peers
     }
 }

@@ -1,11 +1,13 @@
 package com.github.willjgriff.ethereumwallet.di
 
+import com.github.willjgriff.ethereumwallet.EthereumWalletApplication
 import com.github.willjgriff.ethereumwallet.di.modules.AppModule
 import com.github.willjgriff.ethereumwallet.di.modules.EthereumModule
-import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
+import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
-import com.github.willjgriff.ethereumwallet.EthereumWalletApplication
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionManager
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionsManager
 import com.github.willjgriff.ethereumwallet.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -25,6 +27,10 @@ interface AppComponent {
     fun provideAccountManager(): AddressManager
 
     fun providesAccountBalance(): AddressBalance
+
+    fun providesTransactionManager(): TransactionManager
+
+    fun providesTransactionsManager(): TransactionsManager
 
     fun inject(mainActivity: MainActivity)
 

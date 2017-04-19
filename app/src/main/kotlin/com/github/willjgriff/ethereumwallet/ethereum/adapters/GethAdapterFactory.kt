@@ -27,5 +27,5 @@ class GethAdapterFactory(domainNode: DomainNode, keyStoreFilePath: String) {
     val accountsAdapter = AddressAdapter(keyStore)
     val accountBalanceAdapter = AddressBalanceAdapter(ethClient, context)
     val transactionAdapter = TransactionAdapter(keyStore, ethClient, context)
-    val transactionsAdapter = TransactionsAdapter(ethClient, context)
+    val transactionsAdapter = TransactionsAdapter(node, ethClient, context)
 }

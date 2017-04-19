@@ -9,9 +9,10 @@ import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 class TransactionsManager(private val transactionsAdapter: TransactionsAdapter, private val addressManager: AddressManager) {
 
     private val TRANSACTION_SEARCH_FROM_BLOCK = 3563000L
+    private val TRANSACTION_SEARCH_TO_BLOCK = 3564000L
 
     fun getTransactionsFromSomeTime(): List<DomainTransaction> {
         val address = addressManager.getActiveAddress()
-        return transactionsAdapter.getTransactionsInBlockRange(address, TRANSACTION_SEARCH_FROM_BLOCK)
+        return transactionsAdapter.getTransactionsInBlockRange(address, TRANSACTION_SEARCH_FROM_BLOCK, TRANSACTION_SEARCH_TO_BLOCK)
     }
 }
