@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainAddress;
+import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.adapter.ChangeAddressItemViewHolder.ChangeAddressItemListener;
 

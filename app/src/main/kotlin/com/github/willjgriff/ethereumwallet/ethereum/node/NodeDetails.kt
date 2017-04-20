@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
-import com.github.willjgriff.ethereumwallet.data.extensions.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.data.extensions.replayConnect
-import com.github.willjgriff.ethereumwallet.data.model.DomainHeader
+import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
+import com.github.willjgriff.ethereumwallet.extensions.replayConnect
+import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainHeader
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit

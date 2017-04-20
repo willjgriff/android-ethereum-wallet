@@ -1,12 +1,11 @@
 package com.github.willjgriff.ethereumwallet.ui.transactions
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
 import com.github.willjgriff.ethereumwallet.ui.transactions.adapters.TransactionsAdapter
@@ -22,8 +21,9 @@ import javax.inject.Inject
  */
 class TransactionsController : BaseMvpController<TransactionsView, TransactionsPresenter>(), TransactionsView {
 
+    private val TRANSACTIONS_LIST_ITEM_TOP_BOTTOM_PADDING_DP = 16
+    private val TRANSACTIONS_LIST_ITEM_LEFT_RIGHT_PADDING_DP = 8
     private val transactionsAdapter: TransactionsAdapter = TransactionsAdapter()
-    private lateinit var navigationToolbarListener: NavigationToolbarListener
     @Inject lateinit var presenter: TransactionsPresenter
 
     init {
@@ -37,26 +37,22 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_transactions)
         setNavigationToolbarListener()
-        setupToolbarTitle()
-        setupTransactionsList()
+        setupTransactionsList(view)
         return view
     }
 
     private fun setNavigationToolbarListener() {
-        if (targetController is NavigationToolbarListener) {
-            navigationToolbarListener = targetController as NavigationToolbarListener
+        val navigationToolbarListener = targetController
+        if (navigationToolbarListener is NavigationToolbarListener) {
+            navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
         }
     }
 
-    private fun setupToolbarTitle() {
-        navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
-    }
-
-    private fun setupTransactionsList() {
-        val transactionsList: RecyclerView? = view?.controller_transactions_recycler_view
-        transactionsList?.apply {
+    private fun setupTransactionsList(view: View) {
+        view.controller_transactions_recycler_view.apply {
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = transactionsAdapter
+            addItemDecoration(EvenPaddingDecorator(TRANSACTIONS_LIST_ITEM_TOP_BOTTOM_PADDING_DP, TRANSACTIONS_LIST_ITEM_LEFT_RIGHT_PADDING_DP))
         }
     }
 

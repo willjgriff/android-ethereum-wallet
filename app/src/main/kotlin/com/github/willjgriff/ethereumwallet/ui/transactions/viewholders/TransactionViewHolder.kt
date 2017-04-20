@@ -3,7 +3,7 @@ package com.github.willjgriff.ethereumwallet.ui.transactions.viewholders
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
 import kotlinx.android.synthetic.main.view_transaction_item.view.*
 import java.util.*
 

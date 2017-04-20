@@ -1,8 +1,10 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
 import org.ethereum.geth.*
+import timber.log.Timber
+import java.math.BigDecimal
 import java.math.BigInteger
 
 /**
@@ -15,16 +17,35 @@ class TransactionsAdapter(private val node: Node, private val ethereumClient: Et
 
     fun getTransactionsInBlockRange(address: DomainAddress, fromBlock: Long, toBlock: Long): List<DomainTransaction> {
         // TODO: Fix this.
-        if (node.peersInfo.size() > 0) {
-            return fromBlock.rangeTo(toBlock)
-                    .map { ethereumClient.getBlockByNumber(context, it) }
-                    .flatMap { block -> getTransactionsForBlock(block) }
-                    .filter { it.from.hex == address.hex || it.from.hex == address.hex }
-                    .map { createDomainTransaction(it) }
-        } else {
-            return listOf()
-        }
+        return fromBlock.rangeTo(toBlock)
+                .map {
+                    Timber.d("Blocknumber: $it")
+                    retryGetBlockByNumber(it)
+                }
+                .flatMap { block -> getTransactionsForBlock(block) }
+                .filter {
+                    val from = tryFuncCatchEmpty { it.from.hex }
+                    val to = tryFuncCatchEmpty { it.to.hex }
+                    Timber.d("Transaction from: $from to: $to")
+                    from == address.hex || to == address.hex
+                }
+                .map { createDomainTransaction(it) }
+
     }
+
+    private fun retryGetBlockByNumber(blockNumber: Long): Block =
+            try {
+                ethereumClient.getBlockByNumber(context, blockNumber)
+            } catch (exception: Exception) {
+                Block()
+            }
+
+    private fun tryFuncCatchEmpty(func: () -> String): String =
+            try {
+                func.invoke()
+            } catch (exception: Exception) {
+                ""
+            }
 
     private fun getTransactionsForBlock(block: Block): List<Transaction> =
             0L.rangeTo(block.transactions.size() - 1)

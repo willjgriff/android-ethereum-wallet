@@ -24,6 +24,12 @@ public class UiUtils {
 		return px / (metrics.densityDpi / 160f);
 	}
 
+	public static int convertDpToPixel(int dp, Context context) {
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		return dp * (metrics.densityDpi / 160);
+	}
+
 	public static void hideSoftKeyboard(View view) {
 		if (view != null) {
 			InputMethodManager inputMethodManager = (InputMethodManager)

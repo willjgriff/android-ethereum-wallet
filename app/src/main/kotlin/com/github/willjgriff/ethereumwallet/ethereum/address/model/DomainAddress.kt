@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.data.model
+package com.github.willjgriff.ethereumwallet.ethereum.address.model
 
 import org.ethereum.geth.Address
 

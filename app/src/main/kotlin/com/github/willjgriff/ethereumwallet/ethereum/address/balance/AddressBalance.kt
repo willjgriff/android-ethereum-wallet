@@ -1,10 +1,11 @@
 package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 
-import com.github.willjgriff.ethereumwallet.data.extensions.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.data.extensions.replayConnect
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
+import com.github.willjgriff.ethereumwallet.ethereum.extensions.Denomination
+import com.github.willjgriff.ethereumwallet.ethereum.extensions.fromWeiTo
+import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
+import com.github.willjgriff.ethereumwallet.extensions.replayConnect
 import io.reactivex.Observable
-import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -13,7 +14,6 @@ import java.util.concurrent.TimeUnit
  */
 class AddressBalance(private val addressBalanceAdapter: AddressBalanceAdapter, private val addressManager: AddressManager) {
 
-    private val WEI_TO_ETHER_DIVISOR = "1000000000000000000"
     private val EMISSION_INTERVAL_SECONDS = 1L
     private val storedAddressBalances: MutableMap<String, Observable<String>> = mutableMapOf()
     private val storedPendingAddressBalances: MutableMap<String, Observable<String>> = mutableMapOf()
@@ -34,8 +34,7 @@ class AddressBalance(private val addressBalanceAdapter: AddressBalanceAdapter, p
             .interval(EMISSION_INTERVAL_SECONDS, TimeUnit.SECONDS)
             .map { function }
             .map { it.invoke() }
-            .map(::BigDecimal)
-            .map { it.divide(BigDecimal(WEI_TO_ETHER_DIVISOR)) }
+            .map { it.fromWeiTo(Denomination.ETHER) }
             .map { it.toString() }
             .distinctUntilChanged()
             .replayConnect(1)

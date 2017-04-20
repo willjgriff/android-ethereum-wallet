@@ -1,6 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.account
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import com.github.willjgriff.ethereumwallet.ethereum.address.ActiveAddress
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager

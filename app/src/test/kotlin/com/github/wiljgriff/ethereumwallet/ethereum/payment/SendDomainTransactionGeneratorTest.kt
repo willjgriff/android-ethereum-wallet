@@ -1,6 +1,6 @@
 package com.github.wiljgriff.ethereumwallet.ethereum.payment
 
-import com.github.willjgriff.ethereumwallet.data.model.SendTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.SendTransactionGenerator
 import com.nhaarman.mockito_kotlin.mock

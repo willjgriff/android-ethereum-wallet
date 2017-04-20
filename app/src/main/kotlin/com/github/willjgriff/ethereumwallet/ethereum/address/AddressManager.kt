@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ethereum.address
 
-import com.github.willjgriff.ethereumwallet.data.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import timber.log.Timber
 
 /**

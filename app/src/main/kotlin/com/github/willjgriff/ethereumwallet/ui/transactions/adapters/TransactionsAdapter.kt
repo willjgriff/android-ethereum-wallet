@@ -3,7 +3,7 @@ package com.github.willjgriff.ethereumwallet.ui.transactions.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.data.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.ui.transactions.viewholders.TransactionViewHolder
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 
