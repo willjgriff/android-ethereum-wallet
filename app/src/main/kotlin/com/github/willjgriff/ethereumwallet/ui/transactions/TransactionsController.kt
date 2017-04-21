@@ -56,7 +56,7 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
         }
     }
 
-    override fun setTransactions(transactions: List<DomainTransaction>) {
-        transactionsAdapter.transactions = transactions
+    override fun addTransaction(transaction: DomainTransaction) {
+        transactionsAdapter.addTransaction(transaction)
     }
 }

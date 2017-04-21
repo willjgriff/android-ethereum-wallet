@@ -11,6 +11,8 @@ class TransactionsPresenter @Inject constructor(private val transactionsManager:
 
     override fun viewReady() {
 
-        view.setTransactions(transactionsManager.getTransactionsFromSomeTime())
+        addDisposable(transactionsManager
+                .transactionsObservable.subscribe { view.addTransaction(it) })
+
     }
 }

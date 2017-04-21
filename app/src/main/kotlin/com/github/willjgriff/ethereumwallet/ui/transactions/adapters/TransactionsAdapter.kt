@@ -12,7 +12,7 @@ import com.github.willjgriff.ethereumwallet.ui.utils.inflate
  */
 class TransactionsAdapter : RecyclerView.Adapter<TransactionViewHolder>() {
 
-    var transactions: List<DomainTransaction> = mutableListOf()
+    var transactions: MutableList<DomainTransaction> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -26,4 +26,9 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder =
             TransactionViewHolder(parent.inflate(R.layout.view_transaction_item))
+
+    fun addTransaction(transaction: DomainTransaction) {
+        transactions.add(transaction)
+        notifyItemInserted(transactions.size - 1)
+    }
 }

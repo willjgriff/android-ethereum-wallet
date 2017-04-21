@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ethereum.adapters
+package com.github.willjgriff.ethereumwallet.ethereum
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalanceAdapter

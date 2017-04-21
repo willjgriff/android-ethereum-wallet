@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.ethereum.extensions.Denomination
-import com.github.willjgriff.ethereumwallet.ethereum.extensions.fromWeiTo
+import com.github.willjgriff.ethereumwallet.ethereum.common.Denomination
+import com.github.willjgriff.ethereumwallet.ethereum.common.fromWeiTo
 import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
 import com.github.willjgriff.ethereumwallet.extensions.replayConnect
 import io.reactivex.Observable

@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.ethereum
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.github.willjgriff.ethereumwallet.ethereum.adapters.GethAdapterFactory
+import com.github.willjgriff.ethereumwallet.ethereum.GethAdapterFactory
 import com.github.willjgriff.ethereumwallet.ethereum.address.ActiveAddress
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance

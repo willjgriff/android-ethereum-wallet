@@ -2,9 +2,9 @@ package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
+import io.reactivex.Observable
 import org.ethereum.geth.*
 import timber.log.Timber
-import java.math.BigDecimal
 import java.math.BigInteger
 
 /**
@@ -15,23 +15,31 @@ class TransactionsAdapter(private val node: Node, private val ethereumClient: Et
     // TODO: This may need to be replaced with currentBlock
 //    private val currentBlock = ethereumClient.syncProgress(context).highestBlock
 
-    fun getTransactionsInBlockRange(address: DomainAddress, fromBlock: Long, toBlock: Long): List<DomainTransaction> {
-        // TODO: Fix this.
-        return fromBlock.rangeTo(toBlock)
-                .map {
-                    Timber.d("Blocknumber: $it")
-                    retryGetBlockByNumber(it)
-                }
-                .flatMap { block -> getTransactionsForBlock(block) }
-                .filter {
-                    val from = tryFuncCatchEmpty { it.from.hex }
-                    val to = tryFuncCatchEmpty { it.to.hex }
-                    Timber.d("Transaction from: $from to: $to")
-                    from == address.hex || to == address.hex
-                }
-                .map { createDomainTransaction(it) }
+    fun getTransactionsInBlockRange(address: DomainAddress, fromBlock: Long, numberOfBlocks: Long): Observable<DomainTransaction> =
+            Observable
+                    .rangeLong(0, numberOfBlocks)
+                    .map { fromBlock - it }
+                    .map {
+                        Timber.d("Blocknumber: $it")
+                        retryGetBlockByNumber(it)
+                    }
+                    .flatMap { block ->
+                        getTransactionsForBlock(block)
+                                .filter { addressInTransaction(address, it) }
+                                .map { createDomainTransaction(it, block) }
+                    }
 
+    private fun addressInTransaction(address: DomainAddress, it: Transaction): Boolean {
+        val from = tryFuncCatchEmpty { it.from.hex }
+        val to = tryFuncCatchEmpty { it.to.hex }
+        Timber.d("Transaction from: $from to: $to")
+        return from == address.hex || to == address.hex
     }
+
+    private fun getTransactionsForBlock(block: Block): Observable<Transaction> =
+            Observable
+                    .rangeLong(0, block.transactions.size())
+                    .map { block.transactions.get(it) }
 
     private fun retryGetBlockByNumber(blockNumber: Long): Block =
             try {
@@ -47,13 +55,10 @@ class TransactionsAdapter(private val node: Node, private val ethereumClient: Et
                 ""
             }
 
-    private fun getTransactionsForBlock(block: Block): List<Transaction> =
-            0L.rangeTo(block.transactions.size() - 1)
-                    .map { block.transactions.get(it) }
-
-    private fun createDomainTransaction(transaction: Transaction): DomainTransaction {
+    private fun createDomainTransaction(transaction: Transaction, block: Block): DomainTransaction {
         val toAddress = DomainAddress(transaction.to.hex)
         val value = BigInteger(transaction.value.string())
-        return DomainTransaction(toAddress, value)
+        val time = block.time
+        return DomainTransaction(toAddress, value, time)
     }
 }

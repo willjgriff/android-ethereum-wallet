@@ -6,61 +6,89 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/xsmall"
         android:paddingRight="@dimen/xsmall"
         android:paddingTop="@dimen/xxsmall"
-        android:paddingBottom="@dimen/xxsmall"
-        android:weightSum="1">
+        android:paddingBottom="@dimen/xxsmall">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.7">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+
+                <TextView
+                    style="@style/Text.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To:"
+                    android:id="@+id/textView9"/>
+
+                <TextView
+                    android:id="@+id/view_transaction_item_to_address"
+                    style="@style/Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="0x3498fj39485t89u34983r498ru4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2">
+
+                <TextView
+                    style="@style/Text.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Value:"/>
+
+                <TextView
+                    android:id="@+id/view_transaction_item_value"
+                    style="@style/Text.Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="start"
+                    tools:text="0.01"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                style="@style/Text.Subtitle"
+                style="@style/Text.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To:"
-                android:id="@+id/textView9"/>
+                android:text="Time: "/>
 
             <TextView
-                android:id="@+id/view_transaction_item_to_address"
+                android:id="@+id/view_transaction_item_time"
                 style="@style/Text.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:ellipsize="end"
-                tools:text="0x3498fj39485t89u34983r498ru4"/>
+                android:ellipsize="start"
+                tools:text="23/04/17-4:15:56"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3">
-
-            <TextView
-                style="@style/Text.Subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Value:"/>
-
-            <TextView
-                android:id="@+id/view_transaction_item_value"
-                style="@style/Text.Subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="0.01"/>
-
-        </LinearLayout>
-
-
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
