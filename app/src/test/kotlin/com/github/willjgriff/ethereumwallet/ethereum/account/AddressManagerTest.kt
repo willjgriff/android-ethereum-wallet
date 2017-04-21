@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.ethereum.account
+package com.github.willjgriff.ethereumwallet.ethereum.account
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import com.github.willjgriff.ethereumwallet.ethereum.address.ActiveAddress

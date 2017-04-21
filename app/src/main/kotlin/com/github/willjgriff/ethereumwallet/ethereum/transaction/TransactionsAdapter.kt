@@ -56,9 +56,10 @@ class TransactionsAdapter(private val node: Node, private val ethereumClient: Et
             }
 
     private fun createDomainTransaction(transaction: Transaction, block: Block): DomainTransaction {
+        val fromAddress = DomainAddress(tryFuncCatchEmpty { transaction.from.hex })
         val toAddress = DomainAddress(transaction.to.hex)
         val value = BigInteger(transaction.value.string())
         val time = block.time
-        return DomainTransaction(toAddress, value, time)
+        return DomainTransaction(fromAddress, toAddress, value, time)
     }
 }

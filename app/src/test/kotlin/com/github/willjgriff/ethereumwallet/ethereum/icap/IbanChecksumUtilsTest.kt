@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.ethereum.icap
+package com.github.willjgriff.ethereumwallet.ethereum.icap
 
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.icap.IbanChecksumUtils

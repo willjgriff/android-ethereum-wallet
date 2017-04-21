@@ -6,6 +6,7 @@ import java.math.BigInteger
 /**
  * Created by williamgriffiths on 19/04/2017.
  */
-class DomainTransaction(val toAddress: DomainAddress,
+class DomainTransaction(val fromAddress: DomainAddress,
+                        val toAddress: DomainAddress,
                         val value: BigInteger,
                         val time: Long)

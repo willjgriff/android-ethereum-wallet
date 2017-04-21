@@ -8,7 +8,8 @@ import io.reactivex.Observable
 /**
  * Created by williamgriffiths on 19/04/2017.
  */
-class TransactionsManager(private val transactionsAdapter: TransactionsAdapter, private val addressManager: AddressManager) {
+class TransactionsManager(private val transactionsAdapter: TransactionsAdapter,
+                          private val addressManager: AddressManager) {
 
     private val TRANSACTION_SEARCH_FROM_BLOCK = 3563500L
     private val NUMBER_OF_BLOCKS_TO_SEARCH = 200L

@@ -1,10 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
-import com.github.willjgriff.ethereumwallet.ethereum.node.getNodeInfoString
-import com.github.willjgriff.ethereumwallet.ethereum.node.getPeersInfoStrings
-import com.github.willjgriff.ethereumwallet.ethereum.node.getSyncProgressString
 import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainHeader
-import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import org.ethereum.geth.*
 
 /**

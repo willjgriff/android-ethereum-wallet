@@ -15,7 +15,7 @@ fun EthereumClient.getSyncProgressString(context: Context): String {
                 "Known States: ${it.knownStates}\n" +
                 "Pulled Stats: ${it.pulledStates}"
     }
-    return ""
+    return "\nSYNC PROGRESS NULL"
 }
 
 fun Node.getNodeInfoString(): String =

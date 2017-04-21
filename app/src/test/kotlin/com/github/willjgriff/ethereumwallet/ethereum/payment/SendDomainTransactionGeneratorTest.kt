@@ -1,4 +1,4 @@
-package com.github.wiljgriff.ethereumwallet.ethereum.payment
+package com.github.willjgriff.ethereumwallet.ethereum.payment
 
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter

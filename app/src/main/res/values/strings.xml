@@ -1,3 +1,4 @@
+
 <resources>
     <string name="app_name">Ethereum Wallet</string>
 
@@ -16,6 +17,9 @@
     <!--Create Account-->
     <string name="controller_create_account_set_password_message">Set a password for your Ethereum wallet. If forgotten it cannot be recovered. A new account can be created at any time, rendering this account inactive. Inactive accounts can be reactivated from the settings.</string>
     <string name="controller_create_account_enter_password_error">Enter a password</string>
+
+    <!--Transactions-->
+    <string name="controller_transactions_info_message">Searching the blockchain for transactions is time consuming. We search from the current block back in time until either a page of transactions are found or a threshold number of blocks searched is reached. This means there could be gaps between transactions shown where transactions have occurred but are not shown.</string>
 
     <!--Send-->
     <string name="controller_send_amount">Amount</string>
