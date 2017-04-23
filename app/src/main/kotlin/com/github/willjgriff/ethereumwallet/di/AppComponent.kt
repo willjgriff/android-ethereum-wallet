@@ -6,8 +6,8 @@ import com.github.willjgriff.ethereumwallet.di.modules.EthereumModule
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalance
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionManager
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionsManager
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.transaction.TransactionManager
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.TransactionsManager
 import com.github.willjgriff.ethereumwallet.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton

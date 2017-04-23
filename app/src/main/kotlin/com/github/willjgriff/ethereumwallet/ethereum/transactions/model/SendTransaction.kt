@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transaction.model
+package com.github.willjgriff.ethereumwallet.ethereum.transactions.model
 
 /**
  * Created by Will on 12/03/2017.

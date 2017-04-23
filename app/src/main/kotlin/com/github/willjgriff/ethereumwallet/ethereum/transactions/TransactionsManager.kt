@@ -1,14 +1,15 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transaction
+package com.github.willjgriff.ethereumwallet.ethereum.transactions
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
 import io.reactivex.Observable
 
 /**
  * Created by williamgriffiths on 19/04/2017.
  */
-class TransactionsManager(private val transactionsAdapter: TransactionsAdapter,
+class TransactionsManager(private val transactionsStorage: TransactionsStorage,
+                          private val transactionsAdapter: TransactionsAdapter,
                           private val addressManager: AddressManager) {
 
     private val TRANSACTION_SEARCH_FROM_BLOCK = 3563500L

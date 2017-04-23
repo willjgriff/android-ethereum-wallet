@@ -1,7 +1,7 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transaction
+package com.github.willjgriff.ethereumwallet.ethereum.transactions.transaction
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.address.asList
 import com.github.willjgriff.ethereumwallet.ethereum.address.getGethAccountFromAddress
 import org.ethereum.geth.*

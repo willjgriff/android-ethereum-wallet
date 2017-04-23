@@ -1,6 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.transactions.mvp
 
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionsManager
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.TransactionsManager
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter
 import javax.inject.Inject
 

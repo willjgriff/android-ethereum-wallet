@@ -1,7 +1,7 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transaction
+package com.github.willjgriff.ethereumwallet.ethereum.transactions
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import io.reactivex.Observable
 import org.ethereum.geth.*
 import timber.log.Timber

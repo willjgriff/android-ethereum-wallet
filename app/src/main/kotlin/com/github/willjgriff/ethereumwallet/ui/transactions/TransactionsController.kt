@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.DomainTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
 import com.github.willjgriff.ethereumwallet.ui.transactions.adapters.TransactionsAdapter

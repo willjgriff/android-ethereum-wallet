@@ -13,6 +13,18 @@ fun BigInteger.fromWeiTo(denomination: Denomination): BigDecimal =
         BigDecimal(toString())
                 .divide(BigDecimal(denomination.numberOfWei))
 
+//fun EtherAmount.to(denomination: Denomination): EtherAmount {
+//
+//    // Might have to be a BigInteger
+//    var newAmount: Long =
+//
+//    when (this.denomination) {
+//        Denomination.WEI -> amount * denomination.numberOfWei
+//    }
+//
+//    EtherAmount(amount + , denomination)
+//}
+
 enum class Denomination(val numberOfWei: Long) {
     WEI(1),
     KWEI(1000),

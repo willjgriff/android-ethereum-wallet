@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transaction.model
+package com.github.willjgriff.ethereumwallet.ethereum.transactions.model
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import java.math.BigInteger
