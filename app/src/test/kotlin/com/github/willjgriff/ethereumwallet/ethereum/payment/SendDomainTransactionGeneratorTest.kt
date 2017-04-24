@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.payment
 
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.transaction.SendTransactionGenerator
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.SendTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.SendTransactionGenerator
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.amshove.kluent.shouldEqual

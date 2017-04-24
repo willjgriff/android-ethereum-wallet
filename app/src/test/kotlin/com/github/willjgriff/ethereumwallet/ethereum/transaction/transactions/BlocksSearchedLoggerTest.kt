@@ -1,7 +1,12 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction.transactions
 
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.BlockRange
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.BlocksSearchedLogger
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.TransactionsStorage
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.BlockRange
+import com.nhaarman.mockito_kotlin.atLeastOnce
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
@@ -10,7 +15,11 @@ import org.junit.Test
  */
 class BlocksSearchedLoggerTest {
 
-    val subject: BlocksSearchedLogger = BlocksSearchedLogger()
+    val mockBlocksSearchedStorage = mock<TransactionsStorage> {
+        on { getBlocksSearched() } doReturn listOf<BlockRange>()
+    }
+
+    val subject: BlocksSearchedLogger = BlocksSearchedLogger(mockBlocksSearchedStorage)
 
     @Test
     fun addingSearchedBlocksAreAddedToList() {
@@ -20,7 +29,7 @@ class BlocksSearchedLoggerTest {
             blockSearched(8)
         }
 
-        subject.blockRangesSearched shouldEqual listOf(BlockRange(10, 8))
+        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 8)))
     }
 
     @Test
@@ -33,8 +42,40 @@ class BlocksSearchedLoggerTest {
             blockSearched(14)
             blockSearched(13)
         }
+        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 8), BlockRange(15, 13)))
+    }
 
-        subject.blockRangesSearched shouldEqual listOf(BlockRange(10, 8), BlockRange(15, 13))
+    @Test
+    fun addingTheSameBlockManyTimesIncludesBlockRangeOnce() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(10)
+            blockSearched(10)
+        }
+        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 10)))
+    }
+
+    @Test
+    fun addingBlocksInAscendingOrderCreatesExpectedBlockRanges() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(11)
+            blockSearched(12)
+        }
+        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 10), BlockRange(11, 11), BlockRange(12, 12)))
+    }
+
+    @Test
+    fun addingBlocksInRandomOrderStillAddsToExpectedBlockRanges() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(20)
+            blockSearched(11)
+            blockSearched(19)
+            blockSearched(10)
+            blockSearched(11)
+        }
+        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 10), BlockRange(20, 19), BlockRange(11, 11)))
     }
 
     @Test
@@ -96,5 +137,21 @@ class BlocksSearchedLoggerTest {
         }
         val searchBlocks = subject.getBlocksToSearchFromTopBlock(16, 5)
         searchBlocks shouldEqual listOf(BlockRange(16, 16), BlockRange(13, 13), BlockRange(11, 11), BlockRange(8, 7))
+    }
+
+    @Test
+    fun manyMultipleBlockRangesSearchedArentInBlocksToSearchResponse2() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(9)
+            blockSearched(12)
+            blockSearched(15)
+            blockSearched(14)
+            blockSearched(20)
+            blockSearched(19)
+            blockSearched(18)
+        }
+        val searchBlocks = subject.getBlocksToSearchFromTopBlock(23, 10)
+        searchBlocks shouldEqual listOf(BlockRange(23, 21), BlockRange(17, 16), BlockRange(13, 13), BlockRange(11, 11), BlockRange(8, 6))
     }
 }

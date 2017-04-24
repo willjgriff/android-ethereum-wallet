@@ -1,6 +1,6 @@
-package com.github.willjgriff.ethereumwallet.ethereum.transactions.transaction
+package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.SendTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.icap.IbanParam
 

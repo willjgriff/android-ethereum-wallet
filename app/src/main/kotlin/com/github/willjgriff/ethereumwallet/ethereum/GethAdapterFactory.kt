@@ -4,7 +4,7 @@ import com.github.willjgriff.ethereumwallet.ethereum.address.AddressAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.address.balance.AddressBalanceAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.node.DomainNode
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetailsAdapter
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.transaction.TransactionAdapter
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.TransactionAdapter
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.TransactionsAdapter
 import org.ethereum.geth.Context
 import org.ethereum.geth.Geth
@@ -27,5 +27,5 @@ class GethAdapterFactory(domainNode: DomainNode, keyStoreFilePath: String) {
     val accountsAdapter = AddressAdapter(keyStore)
     val accountBalanceAdapter = AddressBalanceAdapter(ethClient, context)
     val transactionAdapter = TransactionAdapter(keyStore, ethClient, context)
-    val transactionsAdapter = TransactionsAdapter(node, ethClient, context)
+    val transactionsAdapter = TransactionsAdapter(ethClient, context)
 }

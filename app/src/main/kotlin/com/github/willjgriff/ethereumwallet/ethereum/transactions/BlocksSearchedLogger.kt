@@ -1,28 +1,33 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transactions
 
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.BlockRange
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.TransactionsStorage
 import timber.log.Timber
 
 /**
  * Created by williamgriffiths on 23/04/2017.
  */
-class BlocksSearchedLogger {
+class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage) {
 
     val EXCLUSIVE_RANGE_OFFSET = 1
-    val blockRangesSearched: MutableList<BlockRange> = mutableListOf()
+    private val blockRangesSearched: MutableList<BlockRange> = transactionsStorage.getBlocksSearched().toMutableList()
 
     fun blockSearched(blockNumber: Long) {
         val blockRangeBlockNumberBelongsTo = blockRangesSearched
-                .filter { it.lowerBlock == blockNumber + 1 }
+                .filter { it.lowerBlock == blockNumber + 1 || it.upperBlock == blockNumber }
 
         when (blockRangeBlockNumberBelongsTo.size) {
             0 -> blockRangesSearched.add(BlockRange(blockNumber, blockNumber))
             1 -> blockRangeBlockNumberBelongsTo.first().lowerBlock = blockNumber
             else -> Timber.e("Error: Multiple searched block ranges including block number")
         }
+
+        // TODO: This isn't the most efficient way of storing the transactions but for now it will do
+        transactionsStorage.storeBlocksSearched(blockRangesSearched)
     }
 
-    // TODO: This function/algorithm needs minimising.
+    // TODO: Try to introduce more functional aspects to this function/algorithm. It's very confusing like this
+    // It can at least be optimised by merging neighbouring blocks in blockRangesSearched
     fun getBlocksToSearchFromTopBlock(topBlock: Long, numberOfBlocks: Long): List<BlockRange> {
         if (blockRangesSearched.size == 0) {
             return getInitialBlocksToSearch(topBlock, numberOfBlocks)
@@ -30,6 +35,8 @@ class BlocksSearchedLogger {
 
         var blocksToSearchCount = numberOfBlocks
         val unsearchedBlockRanges = mutableListOf<BlockRange>()
+
+        blockRangesSearched.sortBy { it.upperBlock }
         val tempBlocksSearched = ArrayList(blockRangesSearched)
 
         while (blocksToSearchCount > 0 && tempBlocksSearched.size > 0) {

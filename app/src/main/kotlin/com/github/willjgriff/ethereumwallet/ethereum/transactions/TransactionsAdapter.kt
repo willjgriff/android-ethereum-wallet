@@ -3,31 +3,34 @@ package com.github.willjgriff.ethereumwallet.ethereum.transactions
 import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import io.reactivex.Observable
-import org.ethereum.geth.*
+import org.ethereum.geth.Block
+import org.ethereum.geth.Context
+import org.ethereum.geth.EthereumClient
+import org.ethereum.geth.Transaction
 import timber.log.Timber
 import java.math.BigInteger
 
 /**
  * Created by williamgriffiths on 19/04/2017.
  */
-class TransactionsAdapter(private val node: Node, private val ethereumClient: EthereumClient, private val context: Context) {
+class TransactionsAdapter(private val ethereumClient: EthereumClient, private val context: Context) {
 
-    // TODO: This may need to be replaced with currentBlock
-//    private val currentBlock = ethereumClient.syncProgress(context).highestBlock
-
-    fun getTransactionsInBlockRange(address: DomainAddress, fromBlock: Long, numberOfBlocks: Long): Observable<DomainTransaction> =
+    fun getTransactionsInBlockRange(address: DomainAddress, fromBlock: Long, numberOfBlocks: Long, blockSearchedFunc: (Long) -> Unit): Observable<DomainTransaction> =
             Observable
                     .rangeLong(0, numberOfBlocks)
                     .map { fromBlock - it }
                     .map {
-                        Timber.d("Blocknumber: $it")
+                        Timber.d("Block number: $it")
                         retryGetBlockByNumber(it)
                     }
-                    .flatMap { block ->
-                        getTransactionsForBlock(block)
-                                .filter { addressInTransaction(address, it) }
-                                .map { createDomainTransaction(it, block) }
-                    }
+                    .doOnNext { blockSearchedFunc.invoke(it.number) }
+                    .flatMap { getTransactionsInBlockIncludingAddress(address, it) }
+
+    private fun getTransactionsInBlockIncludingAddress(address: DomainAddress, block: Block): Observable<DomainTransaction> {
+        return getTransactionsForBlock(block)
+                .filter { addressInTransaction(address, it) }
+                .map { createDomainTransaction(it, block) }
+    }
 
     private fun addressInTransaction(address: DomainAddress, it: Transaction): Boolean {
         val from = tryFuncCatchEmpty { it.from.hex }
