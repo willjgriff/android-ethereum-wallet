@@ -23,6 +23,7 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
         }
 
         // TODO: This isn't the most efficient way of storing the transactions but for now it will do
+        // since we only update the last blockRangeSearched, we should just pass that
         transactionsStorage.storeBlocksSearched(blockRangesSearched)
     }
 

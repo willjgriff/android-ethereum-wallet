@@ -26,7 +26,7 @@ class NodeStatusPeersAdapter : RecyclerView.Adapter<NodeStatusPeersAdapter.NodeS
             peers.size
 
     override fun onBindViewHolder(holder: NodeStatusPeerViewHolder, position: Int) =
-            holder.bind(peers.get(position))
+            holder.bind(peers[position])
 
     class NodeStatusPeerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val peerDetails: TextView by lazy { itemView.view_node_status_peer_item_details }

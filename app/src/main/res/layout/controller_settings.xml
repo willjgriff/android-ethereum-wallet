@@ -50,10 +50,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/controller_settings_change_address"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/controller_settings_current_address"
-            app:layout_constraintRight_toLeftOf="@+id/controller_settings_delete_address"
-            app:layout_constraintLeft_toRightOf="@+id/controller_settings_new_address"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/controller_settings_new_address"
+            android:layout_marginLeft="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
 
         <Button
             android:text="@string/controller_settings_new_address"
@@ -61,12 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/controller_settings_new_address"
-            app:layout_constraintRight_toLeftOf="@+id/controller_settings_change_address"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/controller_settings_change_address"
-            android:layout_marginTop="0dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            android:layout_marginLeft="32dp"/>
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/controller_settings_current_address"/>
 
         <Button
             android:text="@string/controller_settings_delete_address"
@@ -74,11 +73,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/controller_settings_delete_address"
-            app:layout_constraintTop_toTopOf="@+id/controller_settings_change_address"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/controller_settings_change_address"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="32dp"/>
+            android:layout_marginRight="158dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/controller_settings_current_address"
+            app:layout_constraintLeft_toRightOf="@+id/controller_settings_new_address"
+            android:layout_marginLeft="16dp"/>
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

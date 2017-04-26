@@ -8,7 +8,7 @@ import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTr
  *
  * TODO: We may want to extend this to save transactions and blocks searched for different addresses
  */
-public interface TransactionsStorage {
+interface TransactionsStorage {
 
     fun storeTransaction(transaction: DomainTransaction)
 

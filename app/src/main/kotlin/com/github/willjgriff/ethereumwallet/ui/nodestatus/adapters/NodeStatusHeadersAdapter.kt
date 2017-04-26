@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.view_node_status_header_item.view.*
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
-class NodeStatusHeadersAdapter : RecyclerView.Adapter<NodeStatusHeadersAdapter.NodeStatusHeaderViewHolder>() {
+class NodeStatusHeadersAdapter(private val adapterListener: NodeStatusHeadersAdapterListener)
+    : RecyclerView.Adapter<NodeStatusHeadersAdapter.NodeStatusHeaderViewHolder>() {
 
     private val headers: MutableList<String> = mutableListOf()
 
@@ -26,7 +27,8 @@ class NodeStatusHeadersAdapter : RecyclerView.Adapter<NodeStatusHeadersAdapter.N
 
     fun addHeaderHash(headerHash: String) {
         headers.add(headerHash)
-        notifyItemInserted(headers.size)
+        notifyItemInserted(headers.size - 1)
+        adapterListener.headerInserted(headers.size - 1)
     }
 
     class NodeStatusHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,5 +36,9 @@ class NodeStatusHeadersAdapter : RecyclerView.Adapter<NodeStatusHeadersAdapter.N
         fun bind(headerHash: String) {
             this.headerHash.text = headerHash
         }
+    }
+
+    interface NodeStatusHeadersAdapterListener {
+        fun headerInserted(position: Int)
     }
 }

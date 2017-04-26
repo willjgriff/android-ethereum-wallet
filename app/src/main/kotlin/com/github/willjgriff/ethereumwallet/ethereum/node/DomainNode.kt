@@ -1,5 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
+import org.ethereum.geth.Geth
 import org.ethereum.geth.Node
 import org.ethereum.geth.NodeConfig
 
@@ -8,9 +9,12 @@ import org.ethereum.geth.NodeConfig
  */
 class DomainNode(nodeFilePath: String) {
 
-    val node = Node(nodeFilePath, NodeConfig())
+    val nodeConfig = NodeConfig()
+    val node: Node = Geth.newNode(nodeFilePath, nodeConfig)
 
     init {
+//        EthereumNetworkId: 1 = MainNet, 2 = Morden TestNet, 3 = Ropsten TestNet. I think?
+//        nodeConfig.ethereumNetworkID = 1
         node.start()
     }
 }

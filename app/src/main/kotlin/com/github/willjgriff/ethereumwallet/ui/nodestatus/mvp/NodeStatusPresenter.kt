@@ -1,6 +1,5 @@
 package com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp
 
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter
 import timber.log.Timber
@@ -13,11 +12,11 @@ class NodeStatusPresenter @Inject constructor(private val nodeDetails: NodeDetai
 
     override fun viewReady() {
         addDisposable(nodeDetails.cachedBlockHeaderObservable
-                .subscribe({ header -> view.newHeaderHash(header.hashHex) },
+                .subscribe({ (hashHex, _) -> view.newHeaderHash(hashHex) },
                         { throwable -> Timber.e(throwable) }))
 
         addDisposable(nodeDetails.getNumberOfPeers()
-                .subscribe({ peerInfos -> view.updateNumberOfPeers(peerInfos) },
+                .subscribe({ view.updateNumberOfPeers(it) },
                         { throwable -> Timber.e(throwable) }))
 
         addDisposable(nodeDetails.getSyncProgressString()

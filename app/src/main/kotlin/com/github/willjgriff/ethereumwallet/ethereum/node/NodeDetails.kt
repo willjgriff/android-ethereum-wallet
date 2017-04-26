@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
+import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainBlockHeader
 import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
 import com.github.willjgriff.ethereumwallet.extensions.replayConnect
-import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainHeader
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -10,27 +10,18 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by williamgriffiths on 15/04/2017.
  */
-class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter) {
+class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter,
+                  private val newBlockHeaderAdapter: NewBlockHeaderAdapter) {
 
     private val EMISSION_INTERVAL_SECONDS = 1L
-    val cachedBlockHeaderObservable: Observable<DomainHeader> by lazy { getBlockHeaderObservable() }
+    val cachedBlockHeaderObservable: Observable<DomainBlockHeader> by lazy { getBlockHeaderObservable() }
 
-    private fun getBlockHeaderObservable(): Observable<DomainHeader> {
-        return Observable
-                .create<DomainHeader> {
-                    nodeDetailsAdapter.subscribeNewHeaderHandler(object : NewDomainHeaderListener {
-                        override fun onNewDomainHeader(headHex: DomainHeader) {
-                            it.onNext(headHex)
-                        }
-
-                        override fun onError(error: String) {
-                            it.onError(Throwable(error))
-                        }
-                    })
-                }
-                .androidIoSchedule()
+    private fun getBlockHeaderObservable(): Observable<DomainBlockHeader> {
+        return newBlockHeaderAdapter
+                .newBlockHeaderObservable
                 .throttleFirst(EMISSION_INTERVAL_SECONDS, TimeUnit.SECONDS)
                 .replayConnect(10)
+                .androidIoSchedule()
     }
 
     fun getNodeInfoString() = nodeDetailsAdapter.getNodeInfo()
@@ -47,11 +38,6 @@ class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter) {
             .map { function.invoke() }
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-
-    interface NewDomainHeaderListener {
-        fun onNewDomainHeader(headHex: DomainHeader)
-        fun onError(error: String)
-    }
 
 }
 

@@ -1,7 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
-import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainHeader
-import org.ethereum.geth.*
+import org.ethereum.geth.Context
+import org.ethereum.geth.EthereumClient
+import org.ethereum.geth.Node
 
 /**
  * Created by Will on 16/03/2017.
@@ -12,22 +13,6 @@ import org.ethereum.geth.*
 class NodeDetailsAdapter(private val node: Node,
                          private val ethereumClient: EthereumClient,
                          private val context: Context) {
-
-    // TODO: Find out what this number means. It may be MB of cache for lightchaindata.
-    private val SOME_RANDOM_SAMPLING_SIZE = 16L
-
-    fun subscribeNewHeaderHandler(newDomainHeaderListener: NodeDetails.NewDomainHeaderListener): Subscription =
-            ethereumClient
-                    .subscribeNewHead(context, object : NewHeadHandler {
-                        override fun onNewHead(header: Header) {
-                            newDomainHeaderListener.onNewDomainHeader(DomainHeader.fromHeader(header))
-                        }
-
-                        override fun onError(error: String) {
-                            newDomainHeaderListener.onError(error)
-                        }
-
-                    }, SOME_RANDOM_SAMPLING_SIZE)
 
     fun getNodeInfo(): String = node.getNodeInfoString()
 

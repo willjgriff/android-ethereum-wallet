@@ -21,23 +21,25 @@ import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.Transa
  */
 class EthereumManager(context: Context) {
 
-    private val nodeFilePath = context.filesDir.toString() + "/ethereum_node/"
+    private val nodeFilePathMain = context.filesDir.toString() + "/ethereum_node/"
+//    private val nodeFilePathRopsten = context.filesDir.toString() + "/ethereum_node_ropsten/"
     private val keyStoreFilePath = context.filesDir.toString() + "/ethereum_key_store/"
 
-    private val domainNode = DomainNode(nodeFilePath)
+    private val domainNode = DomainNode(nodeFilePathMain)
     private val gethAdapterFactory = GethAdapterFactory(domainNode, keyStoreFilePath)
     private val activeAccountAddress = ActiveAddress(PreferenceManager.getDefaultSharedPreferences(context))
 
     /** This can be switched for anything that implements [TransactionsStorage] */
     var transactionsStorage = SharedPrefsTransactionsStorage(context)
 
-    val nodeDetails = NodeDetails(gethAdapterFactory.nodeDetailsAdapter)
+    val nodeDetails = NodeDetails(gethAdapterFactory.nodeDetailsAdapter, gethAdapterFactory.newBlockHeaderAdapter)
     val addressManager = AddressManager(gethAdapterFactory.accountsAdapter, activeAccountAddress)
     val accountBalance = AddressBalance(gethAdapterFactory.accountBalanceAdapter, addressManager)
     val transactionManager = TransactionManager(addressManager, gethAdapterFactory.transactionAdapter)
-    val transactionsManager = TransactionsManager(transactionsStorage, gethAdapterFactory.transactionsAdapter, addressManager)
+    val transactionsManager = TransactionsManager(transactionsStorage, gethAdapterFactory.transactionsAdapter, gethAdapterFactory.newBlockHeaderAdapter, addressManager)
 
+    // TODO: Delete this, just for testing.
     init {
-        transactionsStorage.deleteStoredData()
+//        transactionsStorage.deleteStoredData()
     }
 }

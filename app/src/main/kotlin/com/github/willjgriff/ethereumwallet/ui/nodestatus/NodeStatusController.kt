@@ -10,6 +10,7 @@ import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter.NodeStatusHeadersAdapterListener
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
@@ -21,7 +22,8 @@ import javax.inject.Inject
 /**
  * Created by Will on 20/03/2017.
  */
-class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(), NodeStatusView {
+class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(),
+        NodeStatusView, NodeStatusHeadersAdapterListener {
 
     private lateinit var nodeDetails: TextView
     private lateinit var syncProgress: TextView
@@ -30,7 +32,7 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     private lateinit var headers: RecyclerView
 
     private val peersAdapter: NodeStatusPeersAdapter = NodeStatusPeersAdapter()
-    private val headersAdapter: NodeStatusHeadersAdapter = NodeStatusHeadersAdapter()
+    private val headersAdapter: NodeStatusHeadersAdapter = NodeStatusHeadersAdapter(this)
 
     @Inject lateinit var presenter: NodeStatusPresenter
 
@@ -69,6 +71,10 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
             layoutManager = LinearLayoutManager(applicationContext)
             adapter = peersAdapter
         }
+    }
+
+    override fun headerInserted(position: Int) {
+        headers.scrollToPosition(position)
     }
 
     override fun newHeaderHash(headerHash: String) {
