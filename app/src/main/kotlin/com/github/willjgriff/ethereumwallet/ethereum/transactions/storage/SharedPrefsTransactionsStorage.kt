@@ -11,6 +11,9 @@ import com.google.gson.reflect.TypeToken
 
 /**
  * Created by williamgriffiths on 24/04/2017.
+ *
+ * TODO: This needs to be thread safe. Accessing SharedPreferences from two threads
+ * at the same time throws a ConcurrentModificationException
  */
 class SharedPrefsTransactionsStorage(context: Context): TransactionsStorage {
 
@@ -33,18 +36,14 @@ class SharedPrefsTransactionsStorage(context: Context): TransactionsStorage {
         sharedPreferencesManager.writeObjectToPreferences(TRANSACTIONS_KEY, transactions)
     }
 
-    override fun getStoredTransactions(): List<DomainTransaction> {
-        return transactions
-    }
+    override fun getStoredTransactions(): List<DomainTransaction> = transactions
 
     override fun storeBlocksSearched(blocksSearched: List<BlockRange>) {
         this.blocksSearched = blocksSearched
         sharedPreferencesManager.writeObjectToPreferences(BLOCKS_SEARCHED_KEY, this.blocksSearched)
     }
 
-    override fun getBlocksSearched(): List<BlockRange> {
-        return blocksSearched
-    }
+    override fun getBlocksSearched(): List<BlockRange> = blocksSearched
 
     override fun deleteStoredData() {
         transactions.clear()

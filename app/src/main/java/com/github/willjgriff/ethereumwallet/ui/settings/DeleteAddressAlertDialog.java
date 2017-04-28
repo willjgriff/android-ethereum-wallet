@@ -1,7 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.settings;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +10,6 @@ import android.widget.FrameLayout;
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.settings.di.SettingsInjector;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenter;
-import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressView;
 import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -27,8 +25,8 @@ import io.reactivex.Observable;
 public class DeleteAddressAlertDialog extends AlertDialog implements DeleteAddressView {
 
 	@Inject
-	DeleteAddressPresenterFactory mPresenterFactory;
-	private DeleteAddressPresenter mPresenter;
+	DeleteAddressPresenter mPresenter;
+
 	private ValidatedTextInputLayout mValidatedTextInputLayout;
 	private SettingsDeleteAlertDialogListener mDialogListener;
 
@@ -79,7 +77,7 @@ public class DeleteAddressAlertDialog extends AlertDialog implements DeleteAddre
 		Observable<Boolean> isTextValid = mValidatedTextInputLayout.getTextValidObservable();
 		Observable<String> textChanged = mValidatedTextInputLayout.getTextChangedObservable();
 
-		mPresenter = mPresenterFactory.create(deleteButton, cancelButton, isTextValid, textChanged);
+		mPresenter.setObservables(deleteButton, cancelButton, isTextValid, textChanged);
 	}
 
 	@Override

@@ -79,7 +79,7 @@ class TransactionsAdapter(private val ethereumClient: EthereumClient, private va
     private fun addressInTransaction(address: DomainAddress, it: Transaction): Boolean {
         val from = tryStringFuncCatchEmpty { it.from.hex }
         val to = tryStringFuncCatchEmpty { it.to.hex }
-        Timber.d("Transaction from: $from to: $to")
+//        Timber.d("Transaction from: $from to: $to")
         return from == address.hex || to == address.hex
     }
 

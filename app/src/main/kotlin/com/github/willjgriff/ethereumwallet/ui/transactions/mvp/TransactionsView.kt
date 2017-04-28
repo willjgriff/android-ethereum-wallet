@@ -7,5 +7,7 @@ import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTr
  */
 interface TransactionsView {
 
-    fun addTransaction(transactions: DomainTransaction)
+    fun addTransaction(transaction: DomainTransaction)
+
+    fun clearTransactions()
 }

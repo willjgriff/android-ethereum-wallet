@@ -5,5 +5,5 @@ package com.github.willjgriff.ethereumwallet.ethereum.transactions.model
  */
 data class BlockRange(val upperBlock: Long, var lowerBlock: Long) {
 
-    var rangeExclusive = upperBlock - lowerBlock + 1
+    fun rangeExclusive() = upperBlock - lowerBlock + 1
 }

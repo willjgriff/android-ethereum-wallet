@@ -41,7 +41,7 @@ kapt {
 }
 
 ext {
-    supportLib  = '25.3.0'
+    supportLib  = '25.3.1'
     constraint  = '1.0.2'
     timber      = '4.5.1'
     conductor   = '2.0.7'
@@ -51,16 +51,11 @@ ext {
     dagger      = '2.10'
     javax       = '1.0'
     butterknife = '8.4.0'
-    autovalue   = '1.4-rc1'
-    autoparcel  = '0.2.5'
-    autogson    = '0.4.5'
-    autofactory = '1.0-beta3'
 
     junit       = '4.12'
     mockito     = '2.7.0'
     robolectric = '3.2.2'
     kotMockito  = '1.1.0'
-    kotJunit    = '1.1.1'
     kluent      = '1.14'
 
     dexmaker    = '2.2.0'
@@ -93,12 +88,7 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterknife}"
     kapt "com.jakewharton:butterknife-compiler:${butterknife}"
 
-    // AutoValue (currently only use AutoFactory, potentially remove others)
-    // TODO: These are where we get Gson from at the moment...
     compile "com.google.code.gson:gson:2.8.0"
-    provided "com.google.auto.value:auto-value:${autovalue}"
-    provided "com.google.auto.factory:auto-factory:${autofactory}"
-    kapt "com.google.auto.factory:auto-factory:${autofactory}"
 
     // Leak Canary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -111,7 +101,7 @@ dependencies {
     testCompile("com.nhaarman:mockito-kotlin:${kotMockito}", {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
     })
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotJunit}"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotlin_version}"
     testCompile "org.amshove.kluent:kluent:${kluent}"
 
     // AndroidTest version of Mockito

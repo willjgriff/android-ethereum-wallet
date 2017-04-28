@@ -1,8 +1,8 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction.transactions
 
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.BlocksSearchedLogger
-import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.TransactionsStorage
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.BlockRange
+import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.TransactionsStorage
 import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -77,6 +77,16 @@ class BlocksSearchedLoggerTest {
         }
         verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(listOf(BlockRange(10, 10), BlockRange(20, 19), BlockRange(11, 11)))
     }
+
+//    @Test
+//    fun addingBlocksSearchDoesntCreateLowerGreterThanUpper() {
+//        subject.apply {
+//            blockSearched(10)
+//            blockSearched(12)
+//        }
+//        val expectedList = listOf(BlockRange(10, 10), BlockRange(12, 12))
+//        verify(mockBlocksSearchedStorage, atLeastOnce()).storeBlocksSearched(expectedList)
+//    }
 
     @Test
     fun searchBlocksAreCorrectWhenNoBlocksHaveBeenSearched() {
@@ -153,5 +163,29 @@ class BlocksSearchedLoggerTest {
         }
         val searchBlocks = subject.getBlocksToSearchFromTopBlock(23, 10)
         searchBlocks shouldEqual listOf(BlockRange(23, 21), BlockRange(17, 16), BlockRange(13, 13), BlockRange(11, 11), BlockRange(8, 6))
+    }
+
+    @Test
+    fun returnsCorrectRangeWhenStartingFromBlockLowerThanInCurrentlySearchedRanges() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(9)
+            blockSearched(8)
+        }
+        val searchBlocks = subject.getBlocksToSearchFromTopBlock(6, 3)
+        searchBlocks shouldEqual listOf(BlockRange(6, 4))
+    }
+
+    @Test
+    fun doesntReturnNegativeBlockRangeWithMultipleRanges() {
+        subject.apply {
+            blockSearched(10)
+            blockSearched(9)
+            blockSearched(8)
+            blockSearched(15)
+            blockSearched(14)
+        }
+        val searchBlocks = subject.getBlocksToSearchFromTopBlock(9, 3)
+        searchBlocks shouldEqual listOf(BlockRange(7, 5))
     }
 }

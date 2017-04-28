@@ -3,8 +3,8 @@ package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
 import com.github.willjgriff.ethereumwallet.ethereum.common.Denomination
 import com.github.willjgriff.ethereumwallet.ethereum.common.fromWeiTo
-import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.extensions.replayConnect
+import com.github.willjgriff.ethereumwallet.utils.androidIoSchedule
+import com.github.willjgriff.ethereumwallet.utils.replayConnect
 import io.reactivex.Observable
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit

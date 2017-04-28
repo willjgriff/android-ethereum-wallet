@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.extensions
+package com.github.willjgriff.ethereumwallet.utils
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

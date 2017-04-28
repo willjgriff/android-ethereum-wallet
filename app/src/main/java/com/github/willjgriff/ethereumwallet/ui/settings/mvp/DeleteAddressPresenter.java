@@ -2,8 +2,8 @@ package com.github.willjgriff.ethereumwallet.ui.settings.mvp;
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
-import com.google.auto.factory.AutoFactory;
-import com.google.auto.factory.Provided;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
@@ -14,7 +14,6 @@ import io.reactivex.Observable;
  * the Controller / AlertDialog. Therefore we don't have to release references to
  * View containing objects or dispose of Observable Subscriptions.
  */
-@AutoFactory
 public class DeleteAddressPresenter extends BaseMvpPresenter<DeleteAddressView> {
 
 	private AddressManager mAddressManager;
@@ -23,10 +22,13 @@ public class DeleteAddressPresenter extends BaseMvpPresenter<DeleteAddressView> 
 	private Observable<Boolean> mPasswordValid;
 	private Observable<String> mPasswordChanged;
 
-	DeleteAddressPresenter(@Provided AddressManager addressManager,
-	                       Observable<Object> deleteButton, Observable<Object> cancelButton,
-	                       Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
+	@Inject
+	DeleteAddressPresenter(AddressManager addressManager) {
 		mAddressManager = addressManager;
+	}
+
+	public void setObservables(Observable<Object> deleteButton, Observable<Object> cancelButton,
+	                           Observable<Boolean> passwordValid, Observable<String> passwordChanged) {
 		mDeleteButton = deleteButton;
 		mCancelButton = cancelButton;
 		mPasswordValid = passwordValid;

@@ -10,7 +10,7 @@ import timber.log.Timber
 class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage) {
 
     val EXCLUSIVE_RANGE_OFFSET = 1
-    private val blockRangesSearched: MutableList<BlockRange> = transactionsStorage.getBlocksSearched().toMutableList()
+    private var blockRangesSearched: MutableList<BlockRange> = transactionsStorage.getBlocksSearched().toMutableList()
 
     fun blockSearched(blockNumber: Long) {
         val blockRangeBlockNumberBelongsTo = blockRangesSearched
@@ -30,15 +30,27 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
     // TODO: Try to introduce more functional aspects to this function/algorithm. It's very confusing like this
     // It can at least be optimised by merging neighbouring blocks in blockRangesSearched
     fun getBlocksToSearchFromTopBlock(topBlock: Long, numberOfBlocks: Long): List<BlockRange> {
-        if (blockRangesSearched.size == 0) {
+        blockRangesSearched.sortBy { it.upperBlock }
+
+        // Remove ranges that are higher than the topBlock specified.
+        val tempBlocksSearched = ArrayList(blockRangesSearched)
+                .filter { it.lowerBlock < topBlock }
+                .toMutableList()
+
+        // Base case if the top block is within a searched range
+        if (tempBlocksSearched.size == 1
+                && topBlock > tempBlocksSearched[0].lowerBlock
+                && topBlock < tempBlocksSearched[0].upperBlock) {
+            return getInitialBlocksToSearch(tempBlocksSearched[0].lowerBlock - EXCLUSIVE_RANGE_OFFSET, numberOfBlocks)
+        }
+
+        // Base case if no blocks have been searched within the requested range
+        if (tempBlocksSearched.size == 0) {
             return getInitialBlocksToSearch(topBlock, numberOfBlocks)
         }
 
         var blocksToSearchCount = numberOfBlocks
         val unsearchedBlockRanges = mutableListOf<BlockRange>()
-
-        blockRangesSearched.sortBy { it.upperBlock }
-        val tempBlocksSearched = ArrayList(blockRangesSearched)
 
         while (blocksToSearchCount > 0 && tempBlocksSearched.size > 0) {
 
@@ -62,7 +74,7 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
             adjustForBlocksToSearchCount(newBlockRange, blocksToSearchCount)
             unsearchedBlockRanges.add(newBlockRange)
 
-            blocksToSearchCount -= newBlockRange.rangeExclusive
+            blocksToSearchCount -= newBlockRange.rangeExclusive()
         }
 
         return unsearchedBlockRanges
@@ -96,7 +108,7 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
     }
 
     private fun adjustForBlocksToSearchCount(newBlockRange: BlockRange, blocksAvailableCount: Long) {
-        if (blocksAvailableCount < newBlockRange.rangeExclusive) {
+        if (blocksAvailableCount < newBlockRange.rangeExclusive()) {
             newBlockRange.lowerBlock = newBlockRange.upperBlock - blocksAvailableCount + EXCLUSIVE_RANGE_OFFSET
         }
     }

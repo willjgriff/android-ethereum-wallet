@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
@@ -13,6 +14,7 @@ import com.github.willjgriff.ethereumwallet.ui.transactions.di.injectNewTransact
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
+import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_transactions.view.*
 import javax.inject.Inject
 
@@ -23,7 +25,11 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     private val TRANSACTIONS_LIST_ITEM_TOP_BOTTOM_PADDING_DP = 16
     private val TRANSACTIONS_LIST_ITEM_LEFT_RIGHT_PADDING_DP = 8
+
     private val transactionsAdapter: TransactionsAdapter = TransactionsAdapter()
+    private lateinit var clearTxsButton: Button
+    private lateinit var selectSearchRange: Button
+
     @Inject lateinit var presenter: TransactionsPresenter
 
     init {
@@ -34,11 +40,19 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun createPresenter() = presenter
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_transactions)
         setNavigationToolbarListener()
+        bindViews(view)
         setupTransactionsList(view)
         return view
+    }
+
+    private fun bindViews(view: View) {
+        clearTxsButton = view.controller_transactions_clear_transactions
+        selectSearchRange = view.controller_transactions_search_in_range
+        presenter.setObservables(RxView.clicks(clearTxsButton), RxView.clicks(selectSearchRange))
     }
 
     private fun setNavigationToolbarListener() {
@@ -58,5 +72,9 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun addTransaction(transaction: DomainTransaction) {
         transactionsAdapter.addTransaction(transaction)
+    }
+
+    override fun clearTransactions() {
+        transactionsAdapter.transactions = mutableListOf()
     }
 }

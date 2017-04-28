@@ -11,7 +11,7 @@ public enum CreateAccountInjector {
 
 	INSTANCE;
 
-	public void injectPresenterFactory(CreateAccountController createAccountController) {
+	public void injectPresenter(CreateAccountController createAccountController) {
 		DaggerCreateAccountComponent
 			.builder()
 			.appComponent(AppInjector.appComponent)

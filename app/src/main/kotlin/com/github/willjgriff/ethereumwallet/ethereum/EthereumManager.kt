@@ -40,6 +40,6 @@ class EthereumManager(context: Context) {
 
     // TODO: Delete this, just for testing.
     init {
-//        transactionsStorage.deleteStoredData()
+        transactionsStorage.deleteStoredData()
     }
 }

@@ -1,10 +1,9 @@
 package com.github.willjgriff.ethereumwallet.ethereum.node
 
 import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainBlockHeader
-import com.github.willjgriff.ethereumwallet.extensions.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.extensions.replayConnect
+import com.github.willjgriff.ethereumwallet.utils.androidIoSchedule
+import com.github.willjgriff.ethereumwallet.utils.replayConnect
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,7 +36,7 @@ class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter,
             .startWith(0)
             .map { function.invoke() }
             .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
+            .androidIoSchedule()
 
 }
 

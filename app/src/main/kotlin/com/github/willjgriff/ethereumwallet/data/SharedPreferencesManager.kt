@@ -9,6 +9,8 @@ import com.google.gson.reflect.TypeToken
  */
 class SharedPreferencesManager(private val sharedPreferences: SharedPreferences, private val gson: Gson) {
 
+    val lock: Any = Any()
+
     fun <T> writeObjectToPreferences(key: String, value: T) {
         val json = gson.toJson(value)
         sharedPreferences.edit().putString(key, json).apply()

@@ -10,7 +10,6 @@ import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.CreateAccountInjector;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter;
-import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenterFactory;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView;
 import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -34,10 +33,10 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 	Button mSubmitButton;
 
 	@Inject
-	CreateAccountPresenterFactory mCreateAccountPresenterFactory;
+	CreateAccountPresenter mPresenter;
 
 	public CreateAccountController() {
-		CreateAccountInjector.INSTANCE.injectPresenterFactory(this);
+		CreateAccountInjector.INSTANCE.injectPresenter(this);
 	}
 
 	@Override
@@ -51,7 +50,9 @@ public class CreateAccountController extends BaseMvpController<CreateAccountView
 		Observable<Boolean> passwordValid = mPassword.getTextValidObservable();
 		Observable<Object> submitButtonObservable = RxView.clicks(mSubmitButton).share();
 		mPassword.setCheckValidationTrigger(submitButtonObservable);
-		return mCreateAccountPresenterFactory.create(passwordChanged, passwordValid, submitButtonObservable);
+
+		mPresenter.setObservables(passwordChanged, passwordValid, submitButtonObservable);
+		return mPresenter;
 	}
 
 	@NonNull
