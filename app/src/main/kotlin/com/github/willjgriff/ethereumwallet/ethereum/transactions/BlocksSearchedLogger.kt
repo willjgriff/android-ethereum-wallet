@@ -12,6 +12,10 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
     val EXCLUSIVE_RANGE_OFFSET = 1
     private var blockRangesSearched: MutableList<BlockRange> = transactionsStorage.getBlocksSearched().toMutableList()
 
+    fun resetBlockRangesSearched() {
+        blockRangesSearched = transactionsStorage.getBlocksSearched().toMutableList()
+    }
+
     fun blockSearched(blockNumber: Long) {
         val blockRangeBlockNumberBelongsTo = blockRangesSearched
                 .filter { it.lowerBlock == blockNumber + 1 || it.upperBlock == blockNumber }
@@ -30,6 +34,8 @@ class BlocksSearchedLogger(private val transactionsStorage: TransactionsStorage)
     // TODO: Try to introduce more functional aspects to this function/algorithm. It's very confusing like this
     // It can at least be optimised by merging neighbouring blocks in blockRangesSearched
     fun getBlocksToSearchFromTopBlock(topBlock: Long, numberOfBlocks: Long): List<BlockRange> {
+        val blockRangesSearched = transactionsStorage.getBlocksSearched().toMutableList()
+
         blockRangesSearched.sortBy { it.upperBlock }
 
         // Remove ranges that are higher than the topBlock specified.

@@ -13,18 +13,20 @@ class SharedPreferencesManager(private val sharedPreferences: SharedPreferences,
 
     fun <T> writeObjectToPreferences(key: String, value: T) {
         val json = gson.toJson(value)
-        sharedPreferences.edit().putString(key, json).apply()
+        synchronized(lock, { sharedPreferences.edit().putString(key, json).apply() })
     }
 
     fun <T> readObjectFromPreferences(key: String, returnType: Class<T>): T? {
-        return gson.fromJson(sharedPreferences.getString(key, ""), returnType)
+        val readObject = synchronized(lock, { sharedPreferences.getString(key, "") })
+        return gson.fromJson(readObject, returnType)
     }
 
     fun <T> readComplexObjectFromPreferences(key: String, typeToken: TypeToken<T>): T? {
-        return gson.fromJson<T>(sharedPreferences.getString(key, ""), typeToken.type)
+        val readObject = synchronized(lock, { sharedPreferences.getString(key, "") })
+        return gson.fromJson<T>(readObject, typeToken.type)
     }
 
     fun removeObjectFromPrefs(key: String) {
-        sharedPreferences.edit().remove(key).apply()
+        synchronized(lock, { sharedPreferences.edit().remove(key).apply() })
     }
 }

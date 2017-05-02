@@ -7,8 +7,10 @@
         <attr name="validator"/>
     </declare-styleable>
 
+    // Note the next flag value should be 4
     <attr name="validator" format="integer">
         <flag name="notEmpty" value="1"/>
+        <flag name="blockRange" value="2"/>
     </attr>
 
 </resources>

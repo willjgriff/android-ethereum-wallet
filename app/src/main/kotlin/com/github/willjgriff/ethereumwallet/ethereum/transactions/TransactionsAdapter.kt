@@ -53,7 +53,8 @@ class TransactionsAdapter(private val ethereumClient: EthereumClient, private va
     /**
      * [EthereumClient.getBlockByNumber] may throw an error, currently unsure what scenario causes this.
      * Alternatively we catch the error and return a [DomainBlock] wrapper with a null [Block] field.
-     * The [DomainBlock] is necessary as RxJava will error if we try to pass null through it.
+     * The [DomainBlock] is necessary as RxJava will error if we try to pass null through it. We then
+     * filter the null blocks.
      */
     private fun retryGetBlockByNumber(blockNumber: Long): DomainBlock =
             try {

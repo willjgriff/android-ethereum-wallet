@@ -83,6 +83,7 @@ class TransactionsManager(private val transactionsStorage: TransactionsStorage,
 
     fun clearAndRestart() {
         transactionsStorage.deleteStoredData()
+        blocksSearchedLogger.resetBlockRangesSearched()
         resettableLazyManager.reset()
     }
 }

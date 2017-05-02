@@ -15,6 +15,11 @@ class TransactionsPresenter @Inject constructor(private val transactionsManager:
 
     fun setObservables(clearTransactions: Observable<Any>, selectSearchRange: Observable<Any>) {
         setupClearTransactions(clearTransactions)
+        setupSelectSearchRange(selectSearchRange)
+    }
+
+    private fun setupSelectSearchRange(selectSearchRange: Observable<Any>) {
+        addDisposable(selectSearchRange.subscribe { view.displayRangeDialog() })
     }
 
     override fun viewReady() {

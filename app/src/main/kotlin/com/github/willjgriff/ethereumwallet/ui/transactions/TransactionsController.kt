@@ -1,10 +1,10 @@
 package com.github.willjgriff.ethereumwallet.ui.transactions
 
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
@@ -25,11 +25,7 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     private val TRANSACTIONS_LIST_ITEM_TOP_BOTTOM_PADDING_DP = 16
     private val TRANSACTIONS_LIST_ITEM_LEFT_RIGHT_PADDING_DP = 8
-
     private val transactionsAdapter: TransactionsAdapter = TransactionsAdapter()
-    private lateinit var clearTxsButton: Button
-    private lateinit var selectSearchRange: Button
-
     @Inject lateinit var presenter: TransactionsPresenter
 
     init {
@@ -40,7 +36,6 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun createPresenter() = presenter
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_transactions)
         setNavigationToolbarListener()
@@ -50,8 +45,8 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
     }
 
     private fun bindViews(view: View) {
-        clearTxsButton = view.controller_transactions_clear_transactions
-        selectSearchRange = view.controller_transactions_search_in_range
+        val clearTxsButton = view.controller_transactions_clear_transactions
+        val selectSearchRange = view.controller_transactions_search_in_range
         presenter.setObservables(RxView.clicks(clearTxsButton), RxView.clicks(selectSearchRange))
     }
 
@@ -76,5 +71,13 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
 
     override fun clearTransactions() {
         transactionsAdapter.transactions = mutableListOf()
+    }
+
+    override fun displayRangeDialog() {
+//        val rangeFields = applicationContext?.inflate(R.layout.view_controller_transactions_search_range_dialog)!!
+//        val rangeDialog = AlertDialog
+//                .Builder(applicationContext!!)
+//                .setView(rangeFields)
+//                .show()
     }
 }

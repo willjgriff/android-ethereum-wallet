@@ -22,7 +22,6 @@ import com.github.willjgriff.ethereumwallet.ethereum.transactions.storage.Transa
 class EthereumManager(context: Context) {
 
     private val nodeFilePathMain = context.filesDir.toString() + "/ethereum_node/"
-//    private val nodeFilePathRopsten = context.filesDir.toString() + "/ethereum_node_ropsten/"
     private val keyStoreFilePath = context.filesDir.toString() + "/ethereum_key_store/"
 
     private val domainNode = DomainNode(nodeFilePathMain)
@@ -37,9 +36,4 @@ class EthereumManager(context: Context) {
     val accountBalance = AddressBalance(gethAdapterFactory.accountBalanceAdapter, addressManager)
     val transactionManager = TransactionManager(addressManager, gethAdapterFactory.transactionAdapter)
     val transactionsManager = TransactionsManager(transactionsStorage, gethAdapterFactory.transactionsAdapter, gethAdapterFactory.newBlockHeaderAdapter, addressManager)
-
-    // TODO: Delete this, just for testing.
-    init {
-        transactionsStorage.deleteStoredData()
-    }
 }

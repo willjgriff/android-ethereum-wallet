@@ -29,6 +29,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionViewHolder>() {
 
     fun addTransaction(transaction: DomainTransaction) {
         transactions.add(transaction)
-        notifyItemInserted(transactions.size - 1)
+        transactions.sortByDescending { it.time }
+        notifyDataSetChanged()
     }
 }
