@@ -3,6 +3,7 @@ package com.github.willjgriff.ethereumwallet.ui.transactions.di
 import com.github.willjgriff.ethereumwallet.di.AppComponent
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.di.ControllerScope
+import com.github.willjgriff.ethereumwallet.ui.transactions.SelectBlockRangeAlertDialog
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController
 import dagger.Component
 
@@ -14,10 +15,18 @@ import dagger.Component
 interface TransactionsComponent {
 
     fun inject(transactionsController: TransactionsController)
+
+    fun inject(selectBlockRangeAlertDialog: SelectBlockRangeAlertDialog)
 }
 
-fun TransactionsController.injectNewTransactionsPresenter() =
-        DaggerTransactionsComponent.builder()
-                .appComponent(AppInjector.appComponent)
-                .build()
-                .inject(this)
+fun TransactionsController.injectPresenter() =
+        transactionsComponent().inject(this)
+
+fun SelectBlockRangeAlertDialog.injectPresenter() =
+        transactionsComponent().inject(this)
+
+private fun transactionsComponent(): TransactionsComponent {
+    return DaggerTransactionsComponent.builder()
+            .appComponent(AppInjector.appComponent)
+            .build()
+}

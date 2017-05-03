@@ -1,6 +1,5 @@
 package com.github.willjgriff.ethereumwallet.ui.transactions
 
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,13 @@ import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTr
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
 import com.github.willjgriff.ethereumwallet.ui.transactions.adapters.TransactionsAdapter
-import com.github.willjgriff.ethereumwallet.ui.transactions.di.injectNewTransactionsPresenter
+import com.github.willjgriff.ethereumwallet.ui.transactions.di.injectPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
+import com.github.willjgriff.ethereumwallet.ui.utils.EvenPaddingDecorator
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_transactions.view.*
-import kotlinx.android.synthetic.main.view_controller_transactions_search_range_dialog.view.*
 import javax.inject.Inject
 
 /**
@@ -34,7 +33,7 @@ class TransactionsController : BaseMvpControllerKotlin<TransactionsView, Transac
     private val transactionsAdapter: TransactionsAdapter = TransactionsAdapter()
 
     init {
-        injectNewTransactionsPresenter()
+        injectPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -74,16 +73,7 @@ class TransactionsController : BaseMvpControllerKotlin<TransactionsView, Transac
         transactionsAdapter.transactions = mutableListOf()
     }
 
-    // TODO: This should be extracted into a separate AlertDialog extending class and appropriate restrictions placed on the input
     override fun displayRangeDialog() {
-        val rangeFieldsView: View = activity?.layoutInflater?.inflate(R.layout.view_controller_transactions_search_range_dialog, null)!!
-        val rangeDialog = AlertDialog
-                .Builder(activity!!)
-                .setView(rangeFieldsView)
-                .setPositiveButton(applicationContext?.getString(R.string.common_ok), { dialog, _ -> dialog.dismiss() })
-                .setTitle("Select a block range")
-                .show()
-
-        rangeFieldsView.controller_transactions_select_range_upper_block
+        SelectBlockRangeAlertDialog(activity!!).show()
     }
 }
