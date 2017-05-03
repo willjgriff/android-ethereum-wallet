@@ -20,6 +20,7 @@
 
     <!--Transactions-->
     <string name="controller_transactions_info_message">Searching the blockchain for transactions is time consuming. We search from the current block back in time until either a page of transactions are found or a threshold number of blocks searched is reached. This means there could be gaps between transactions shown where transactions have occurred but are not shown.</string>
+    <string name="controller_transactions_select_range_error">Enter a number between 0 and the current block height</string>
 
     <!--Send-->
     <string name="controller_send_amount">Amount</string>

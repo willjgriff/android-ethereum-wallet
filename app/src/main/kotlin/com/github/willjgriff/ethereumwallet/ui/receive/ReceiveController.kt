@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
 import com.github.willjgriff.ethereumwallet.ui.receive.di.injectNewReceivePresenter
 import com.github.willjgriff.ethereumwallet.ui.receive.mvp.ReceivePresenter
@@ -16,18 +16,17 @@ import javax.inject.Inject
 /**
  * Created by williamgriffiths on 18/04/2017.
  */
-class ReceiveController : BaseMvpController<ReceiveView, ReceivePresenter>(), ReceiveView {
+class ReceiveController : BaseMvpControllerKotlin<ReceiveView, ReceivePresenter>(), ReceiveView {
+
+    override val mvpView: ReceiveView
+        get() = this
+    @Inject lateinit override var presenter: ReceivePresenter
 
     lateinit var navigationToolbarListener: NavigationToolbarListener
-    @Inject lateinit var receivePresenter: ReceivePresenter
 
     init {
         injectNewReceivePresenter()
     }
-
-    override fun getMvpView() = this
-
-    override fun createPresenter() = receivePresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_receive)

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter.NodeStatusHeadersAdapterListener
 import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
@@ -22,8 +22,11 @@ import javax.inject.Inject
 /**
  * Created by Will on 20/03/2017.
  */
-class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresenter>(),
+class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusPresenter>(),
         NodeStatusView, NodeStatusHeadersAdapterListener {
+
+    override val mvpView: NodeStatusView
+        get() = this
 
     private lateinit var nodeDetails: TextView
     private lateinit var syncProgress: TextView
@@ -34,7 +37,7 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
     private val peersAdapter: NodeStatusPeersAdapter = NodeStatusPeersAdapter()
     private val headersAdapter: NodeStatusHeadersAdapter = NodeStatusHeadersAdapter(this)
 
-    @Inject lateinit var presenter: NodeStatusPresenter
+    @Inject lateinit override var presenter: NodeStatusPresenter
 
     init {
         DaggerNodeStatusComponent.builder()
@@ -42,10 +45,6 @@ class NodeStatusController : BaseMvpController<NodeStatusView, NodeStatusPresent
                 .build()
                 .inject(this)
     }
-
-    override fun createPresenter() = presenter
-
-    override fun getMvpView() = this
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_node_status)

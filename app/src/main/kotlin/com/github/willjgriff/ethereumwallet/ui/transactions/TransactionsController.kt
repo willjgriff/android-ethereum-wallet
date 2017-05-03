@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
 import com.github.willjgriff.ethereumwallet.ui.transactions.adapters.TransactionsAdapter
 import com.github.willjgriff.ethereumwallet.ui.transactions.di.injectNewTransactionsPresenter
@@ -16,25 +16,26 @@ import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_transactions.view.*
+import kotlinx.android.synthetic.main.view_controller_transactions_search_range_dialog.view.*
 import javax.inject.Inject
 
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
-class TransactionsController : BaseMvpController<TransactionsView, TransactionsPresenter>(), TransactionsView {
+class TransactionsController : BaseMvpControllerKotlin<TransactionsView, TransactionsPresenter>(),
+        TransactionsView {
+
+    override val mvpView: TransactionsView
+        get() = this
+    @Inject lateinit override var presenter: TransactionsPresenter
 
     private val TRANSACTIONS_LIST_ITEM_TOP_BOTTOM_PADDING_DP = 16
     private val TRANSACTIONS_LIST_ITEM_LEFT_RIGHT_PADDING_DP = 8
     private val transactionsAdapter: TransactionsAdapter = TransactionsAdapter()
-    @Inject lateinit var presenter: TransactionsPresenter
 
     init {
         injectNewTransactionsPresenter()
     }
-
-    override fun getMvpView() = this
-
-    override fun createPresenter() = presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_transactions)
@@ -73,11 +74,16 @@ class TransactionsController : BaseMvpController<TransactionsView, TransactionsP
         transactionsAdapter.transactions = mutableListOf()
     }
 
+    // TODO: This should be extracted into a separate AlertDialog extending class and appropriate restrictions placed on the input
     override fun displayRangeDialog() {
-//        val rangeFields = applicationContext?.inflate(R.layout.view_controller_transactions_search_range_dialog)!!
-//        val rangeDialog = AlertDialog
-//                .Builder(applicationContext!!)
-//                .setView(rangeFields)
-//                .show()
+        val rangeFieldsView: View = activity?.layoutInflater?.inflate(R.layout.view_controller_transactions_search_range_dialog, null)!!
+        val rangeDialog = AlertDialog
+                .Builder(activity!!)
+                .setView(rangeFieldsView)
+                .setPositiveButton(applicationContext?.getString(R.string.common_ok), { dialog, _ -> dialog.dismiss() })
+                .setTitle("Select a block range")
+                .show()
+
+        rangeFieldsView.controller_transactions_select_range_upper_block
     }
 }

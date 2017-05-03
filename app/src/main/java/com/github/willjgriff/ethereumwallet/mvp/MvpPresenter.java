@@ -14,9 +14,9 @@ public interface MvpPresenter<VIEW> {
 
 	/**
 	 * When implementing this method, asynchronous operations should be converted to observables
-	 * and their disposables should be added with {@link BaseMvpPresenter#addDisposable(Disposable)}.
-	 * This will ensure callbacks are only executed between {@link BaseMvpPresenter#bindView(Object)}
-	 * and {@link BaseMvpPresenter#unbindView()}, preventing View access when it isn't available.
+	 * and their disposables should be added with {@link BaseMvpPresenterKotlin#addDisposable(Disposable)}.
+	 * This will ensure callbacks are only executed between {@link BaseMvpPresenterKotlin#bindView(Object)}
+	 * and {@link BaseMvpPresenterKotlin#unbindView()}, preventing View access when it isn't available.
 	 */
 	void viewReady();
 }

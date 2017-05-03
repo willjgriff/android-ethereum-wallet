@@ -4,28 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/xsmall"
     android:orientation="horizontal">
 
     <com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
+        android:id="@+id/controller_transactions_select_range_upper_block"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:paddingLeft="@dimen/xsmall"
         android:paddingRight="@dimen/xxsmall"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:hint="Upper block"
-        app:error_text="Enter a number between the current block height and 0"
+        app:error_text="@string/controller_transactions_select_range_error"
         app:validator="notEmpty|blockRange"/>
 
     <com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
+        android:id="@+id/controller_transactions_select_range_lower_block"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:paddingLeft="@dimen/xxsmall"
         android:paddingRight="@dimen/xsmall"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:hint="Lower block"
-        app:error_text="Enter a number between the current block height and 0"
+        app:error_text="@string/controller_transactions_select_range_error"
         app:validator="notEmpty|blockRange"/>
 
 </LinearLayout>
