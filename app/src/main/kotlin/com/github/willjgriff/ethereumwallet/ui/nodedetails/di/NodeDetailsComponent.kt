@@ -1,6 +1,6 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus.di
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.di
 
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.NodeStatusController
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.NodeDetailsController
 import com.github.willjgriff.ethereumwallet.di.AppComponent
 import com.github.willjgriff.ethereumwallet.di.ControllerScope
 import dagger.Component
@@ -10,7 +10,7 @@ import dagger.Component
  */
 @Component(dependencies = arrayOf(AppComponent::class))
 @ControllerScope
-interface NodeStatusComponent {
+interface NodeDetailsComponent {
 
-    fun inject(nodeStatusController: NodeStatusController)
+    fun inject(nodeDetailsController: NodeDetailsController)
 }

@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.view_node_status_peer_item.view.*
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
-class NodeStatusPeersAdapter : RecyclerView.Adapter<NodeStatusPeersAdapter.NodeStatusPeerViewHolder>() {
+class NodeDetailsPeersAdapter : RecyclerView.Adapter<NodeDetailsPeersAdapter.NodeStatusPeerViewHolder>() {
 
     var peers: List<String> = listOf()
         set(value) {

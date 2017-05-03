@@ -1,9 +1,9 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp
 
 /**
  * Created by Will on 20/03/2017.
  */
-interface NodeStatusView {
+interface NodeDetailsView {
 
     fun newHeaderHash(headerHash: String)
 

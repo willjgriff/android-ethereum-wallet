@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus
+package com.github.willjgriff.ethereumwallet.ui.nodedetails
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,12 +9,12 @@ import android.widget.TextView
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusHeadersAdapter.NodeStatusHeadersAdapterListener
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters.NodeStatusPeersAdapter
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.di.DaggerNodeStatusComponent
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusPresenter
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp.NodeStatusView
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsHeadersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsHeadersAdapter.NodeStatusHeadersAdapterListener
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsPeersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.di.DaggerNodeDetailsComponent
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp.NodeDetailsPresenter
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp.NodeDetailsView
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
 import kotlinx.android.synthetic.main.controller_node_status.view.*
 import javax.inject.Inject
@@ -22,11 +22,12 @@ import javax.inject.Inject
 /**
  * Created by Will on 20/03/2017.
  */
-class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusPresenter>(),
-        NodeStatusView, NodeStatusHeadersAdapterListener {
+class NodeDetailsController : BaseMvpControllerKotlin<NodeDetailsView, NodeDetailsPresenter>(),
+        NodeDetailsView, NodeStatusHeadersAdapterListener {
 
-    override val mvpView: NodeStatusView
+    override val mvpView: NodeDetailsView
         get() = this
+    @Inject lateinit override var presenter: NodeDetailsPresenter
 
     private lateinit var nodeDetails: TextView
     private lateinit var syncProgress: TextView
@@ -34,13 +35,11 @@ class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusP
     private lateinit var peersInfo: RecyclerView
     private lateinit var headers: RecyclerView
 
-    private val peersAdapter: NodeStatusPeersAdapter = NodeStatusPeersAdapter()
-    private val headersAdapter: NodeStatusHeadersAdapter = NodeStatusHeadersAdapter(this)
-
-    @Inject lateinit override var presenter: NodeStatusPresenter
+    private val mPeersAdapter: NodeDetailsPeersAdapter = NodeDetailsPeersAdapter()
+    private val mHeadersAdapter: NodeDetailsHeadersAdapter = NodeDetailsHeadersAdapter(this)
 
     init {
-        DaggerNodeStatusComponent.builder()
+        DaggerNodeDetailsComponent.builder()
                 .appComponent(AppInjector.appComponent)
                 .build()
                 .inject(this)
@@ -64,11 +63,11 @@ class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusP
     private fun setupRecyclerViews() {
         headers.apply {
             layoutManager = LinearLayoutManager(applicationContext)
-            adapter = headersAdapter
+            adapter = mHeadersAdapter
         }
         peersInfo.apply {
             layoutManager = LinearLayoutManager(applicationContext)
-            adapter = peersAdapter
+            adapter = mPeersAdapter
         }
     }
 
@@ -77,7 +76,7 @@ class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusP
     }
 
     override fun newHeaderHash(headerHash: String) {
-        headersAdapter.addHeaderHash(headerHash)
+        mHeadersAdapter.addHeaderHash(headerHash)
     }
 
     override fun updateNumberOfPeers(numberOfPeers: Long) {
@@ -93,6 +92,6 @@ class NodeStatusController : BaseMvpControllerKotlin<NodeStatusView, NodeStatusP
     }
 
     override fun setPeerStrings(peers: List<String>) {
-        peersAdapter.peers = peers
+        mPeersAdapter.peers = peers
     }
 }

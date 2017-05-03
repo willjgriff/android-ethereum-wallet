@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ui.createaccount.mvp
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenterKotlin
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by williamgriffiths on 03/05/2017.
  */
-class CreateAccountPresenter @Inject constructor(private val addressManager: AddressManager) : BaseMvpPresenter<CreateAccountView>() {
+class CreateAccountPresenter @Inject constructor(private val addressManager: AddressManager) : BaseMvpPresenterKotlin<CreateAccountView>() {
 
     private lateinit var password: Observable<String>
     private lateinit var validPassword: Observable<Boolean>
@@ -42,7 +42,7 @@ class CreateAccountPresenter @Inject constructor(private val addressManager: Add
                 .first("")
                 .subscribe { password ->
                     addressManager.createActiveAddress(password.toString())
-                    view.openWallet()
+                    view?.openWallet()
                 }
     }
 }

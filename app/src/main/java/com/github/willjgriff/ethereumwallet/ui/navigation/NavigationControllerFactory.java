@@ -4,7 +4,7 @@ import android.view.MenuItem;
 
 import com.bluelinelabs.conductor.Controller;
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.ui.nodestatus.NodeStatusController;
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.NodeDetailsController;
 import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController;
 import com.github.willjgriff.ethereumwallet.ui.send.SendController;
 import com.github.willjgriff.ethereumwallet.ui.settings.SettingsController;
@@ -25,7 +25,7 @@ public class NavigationControllerFactory {
 			case R.id.navigation_receive:
 				return new ReceiveController();
 			case R.id.navigation_status:
-				return new NodeStatusController();
+				return new NodeDetailsController();
 			case R.id.navigation_settings:
 				return new SettingsController();
 		}

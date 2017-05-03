@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus.mvp
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp
 
 import com.github.willjgriff.ethereumwallet.ethereum.node.NodeDetails
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenterKotlin
@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by Will on 20/03/2017.
  */
-class NodeStatusPresenter @Inject constructor(private val nodeDetails: NodeDetails) : BaseMvpPresenterKotlin<NodeStatusView>() {
+class NodeDetailsPresenter @Inject constructor(private val nodeDetails: NodeDetails) : BaseMvpPresenterKotlin<NodeDetailsView>() {
 
     override fun viewReady() {
         addDisposable(nodeDetails.cachedBlockHeaderObservable

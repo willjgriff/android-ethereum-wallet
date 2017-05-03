@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.nodestatus.adapters
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.view_node_status_header_item.view.*
 /**
  * Created by williamgriffiths on 11/04/2017.
  */
-class NodeStatusHeadersAdapter(private val adapterListener: NodeStatusHeadersAdapterListener)
-    : RecyclerView.Adapter<NodeStatusHeadersAdapter.NodeStatusHeaderViewHolder>() {
+class NodeDetailsHeadersAdapter(private val adapterListener: NodeStatusHeadersAdapterListener)
+    : RecyclerView.Adapter<NodeDetailsHeadersAdapter.NodeStatusHeaderViewHolder>() {
 
     private val headers: MutableList<String> = mutableListOf()
 
