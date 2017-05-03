@@ -1,16 +1,16 @@
 package com.github.willjgriff.ethereumwallet.ui.send.mvp
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenterKotlin
 import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
  * Created by williamgriffiths on 03/05/2017.
  */
-class SendPresenter @Inject constructor(private val mAddressManager: AddressManager) : BaseMvpPresenter<SendView>() {
+class SendPresenter @Inject constructor(private val addressManager: AddressManager) : BaseMvpPresenterKotlin<SendView>() {
 
-    private var mSendEther: Observable<Any>? = null
+    private var sendEther: Observable<Any>? = null
 
     override fun viewReady() {}
 
@@ -19,11 +19,11 @@ class SendPresenter @Inject constructor(private val mAddressManager: AddressMana
                        accountPasswordObservable: Observable<CharSequence>,
                        sendObservable: Observable<Any>) {
 
-        mSendEther = sendObservable
-        mSendEther?.subscribe { _ -> view.toString() }
+        sendEther = sendObservable
+        sendEther?.subscribe { _ -> view.toString() }
     }
 
     override fun releaseViewReferences() {
-        mSendEther = null
+        sendEther = null
     }
 }

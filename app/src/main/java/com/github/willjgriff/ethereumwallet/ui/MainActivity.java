@@ -9,9 +9,9 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
+import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager;
-import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.PreNavigationCreateAccountController;
 import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 

@@ -32,7 +32,7 @@ abstract class BaseMvpPresenterKotlin<VIEW> : MvpPresenter<VIEW> {
      * it is associated too, override this method and set to null any View references /
      * runtime dependencies that can no longer be used to prevent potential memory leaks.
      */
-    fun releaseViewReferences() {
+    open fun releaseViewReferences() {
 
     }
 
