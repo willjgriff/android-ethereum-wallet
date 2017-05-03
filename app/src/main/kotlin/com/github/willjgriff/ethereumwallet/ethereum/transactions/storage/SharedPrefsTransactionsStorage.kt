@@ -22,14 +22,9 @@ class SharedPrefsTransactionsStorage(context: Context): TransactionsStorage {
 
     private val gson: Gson = GsonBuilder().create()
     private val sharedPreferencesManager = SharedPreferencesManager(PreferenceManager.getDefaultSharedPreferences(context), gson)
-
     private val listDomainTransactionsType: TypeToken<List<DomainTransaction>> = object: TypeToken<List<DomainTransaction>>() {}
     private val transactions: MutableList<DomainTransaction> = sharedPreferencesManager
             .readComplexObjectFromPreferences(TRANSACTIONS_KEY, listDomainTransactionsType)?.toMutableList() ?: mutableListOf()
-
-    private val listBlockRangesType: TypeToken<List<BlockRange>> = object: TypeToken<List<BlockRange>>() {}
-    private var blocksSearched: List<BlockRange> = sharedPreferencesManager
-            .readComplexObjectFromPreferences(BLOCKS_SEARCHED_KEY, listBlockRangesType) ?: listOf()
 
     override fun storeTransaction(transaction: DomainTransaction) {
         transactions.add(transaction)
@@ -39,15 +34,19 @@ class SharedPrefsTransactionsStorage(context: Context): TransactionsStorage {
     override fun getStoredTransactions(): List<DomainTransaction> = transactions
 
     override fun storeBlocksSearched(blocksSearched: List<BlockRange>) {
-        this.blocksSearched = blocksSearched
-        sharedPreferencesManager.writeObjectToPreferences(BLOCKS_SEARCHED_KEY, this.blocksSearched)
+        // I think copying the list prevents a ConcurrentModificationException with Gson.
+        sharedPreferencesManager.writeObjectToPreferences(BLOCKS_SEARCHED_KEY, ArrayList<BlockRange>(blocksSearched))
     }
 
-    override fun getBlocksSearched(): List<BlockRange> = blocksSearched
+    override fun getBlocksSearched(): List<BlockRange> {
+        val listBlockRangesType: TypeToken<List<BlockRange>> = object : TypeToken<List<BlockRange>>() {}
+        return sharedPreferencesManager
+                .readComplexObjectFromPreferences(BLOCKS_SEARCHED_KEY, listBlockRangesType)
+                ?: listOf()
+    }
 
     override fun deleteStoredData() {
         transactions.clear()
-        blocksSearched = listOf()
         sharedPreferencesManager.removeObjectFromPrefs(TRANSACTIONS_KEY)
         sharedPreferencesManager.removeObjectFromPrefs(BLOCKS_SEARCHED_KEY)
     }

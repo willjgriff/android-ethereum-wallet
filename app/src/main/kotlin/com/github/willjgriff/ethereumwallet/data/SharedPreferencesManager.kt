@@ -10,27 +10,21 @@ import com.google.gson.reflect.TypeToken
 class SharedPreferencesManager(private val sharedPreferences: SharedPreferences, private val gson: Gson) {
 
     fun <T> writeObjectToPreferences(key: String, value: T) {
-        synchronized(this, {
-            val json = gson.toJson(value)
-            sharedPreferences.edit().putString(key, json).apply()
-        })
+        val json = gson.toJson(value)
+        return sharedPreferences.edit().putString(key, json).apply()
     }
 
     fun <T> readObjectFromPreferences(key: String, returnType: Class<T>): T? {
-        return synchronized(this, {
-            val readObject = sharedPreferences.getString(key, "")
-            gson.fromJson(readObject, returnType)
-        })
+        val readObject = sharedPreferences.getString(key, "")
+        return gson.fromJson(readObject, returnType)
     }
 
     fun <T> readComplexObjectFromPreferences(key: String, typeToken: TypeToken<T>): T? {
-        return synchronized(this, {
-            val readObject = sharedPreferences.getString(key, "")
-            gson.fromJson<T>(readObject, typeToken.type)
-        })
+        val readObject = sharedPreferences.getString(key, "")
+        return gson.fromJson<T>(readObject, typeToken.type)
     }
 
     fun removeObjectFromPrefs(key: String) {
-        synchronized(this, { sharedPreferences.edit().remove(key).apply() })
+        sharedPreferences.edit().remove(key).apply()
     }
 }
