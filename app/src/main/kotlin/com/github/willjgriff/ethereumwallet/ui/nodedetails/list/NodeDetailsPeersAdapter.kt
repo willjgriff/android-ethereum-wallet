@@ -1,4 +1,4 @@
-package com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters
+package com.github.willjgriff.ethereumwallet.ui.nodedetails.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

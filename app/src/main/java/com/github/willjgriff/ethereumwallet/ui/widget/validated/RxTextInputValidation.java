@@ -1,6 +1,5 @@
 package com.github.willjgriff.ethereumwallet.ui.widget.validated;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -11,12 +10,10 @@ import io.reactivex.Observable;
  * Created by williamgriffiths on 24/02/2017.
  */
 
-@SuppressLint({"RxLeakedSubscription", "RxSubscribeOnError"})
 public class RxTextInputValidation {
 
 	private ValidTextInputListener mValidTextInputListener;
 	private Observable<String> mTextChanged;
-	private Observable<Object> mValidateTrigger;
 	private Observable<Boolean> mTextValid;
 	private List<Validator> mValidators;
 
@@ -36,7 +33,8 @@ public class RxTextInputValidation {
 	public void setupTextChangedObservable() {
 		// TODO: Debug these Observables and check they behave as expected (they may be firing to often)
 		mTextValid = mTextChanged
-			.map((inputText) -> isTextValid(inputText))
+			.flatMap(this::isTextValid)
+			.map(validText -> validText)
 			.distinctUntilChanged();
 
 		// Hide the error when valid text is emitted
@@ -57,23 +55,10 @@ public class RxTextInputValidation {
 			.subscribe(isNotValid -> mValidTextInputListener.showError());
 	}
 
-	private boolean isTextValid(String inputText) {
-		boolean isValid = true;
-		for (
-			Validator validator : mValidators) {
-			if (!validator.isValid(inputText)) {
-				isValid = false;
-			}
-		}
-		return isValid;
-
-		// Attempt at achieving the above with Rx. I'm sure there's a better way of doing this
-		// but I can't think of it yet.
-//		Single<Boolean> isValidObservable = Observable.fromIterable(mValidators)
-//			.withLatestFrom(mTextChanged, Validator::isValid)
-//			.all(isValid -> isValid);
-//
-//		return mTextChanged.filter(textInput -> isValidObservable.blockingGet());
+	private Observable<Boolean> isTextValid(String inputText) {
+		return Observable.fromIterable(mValidators)
+			.all(validator -> validator.isValid(inputText))
+			.toObservable();
 	}
 
 	public void setValidateTrigger(Observable<Object> validateTrigger) {
@@ -91,10 +76,8 @@ public class RxTextInputValidation {
 		return mTextValid;
 	}
 
-
 	public interface ValidTextInputListener {
 		void showError();
-
 		void hideError();
 	}
 }

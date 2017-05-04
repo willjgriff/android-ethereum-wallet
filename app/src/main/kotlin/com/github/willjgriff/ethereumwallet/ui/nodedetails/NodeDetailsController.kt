@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
-import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsHeadersAdapter
-import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsHeadersAdapter.NodeStatusHeadersAdapterListener
-import com.github.willjgriff.ethereumwallet.ui.nodedetails.adapters.NodeDetailsPeersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.list.NodeDetailsHeadersAdapter
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.list.NodeDetailsHeadersAdapter.NodeStatusHeadersAdapterListener
+import com.github.willjgriff.ethereumwallet.ui.nodedetails.list.NodeDetailsPeersAdapter
 import com.github.willjgriff.ethereumwallet.ui.nodedetails.di.DaggerNodeDetailsComponent
 import com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp.NodeDetailsPresenter
 import com.github.willjgriff.ethereumwallet.ui.nodedetails.mvp.NodeDetailsView

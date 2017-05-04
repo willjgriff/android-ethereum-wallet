@@ -14,12 +14,8 @@ import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.di.invalidation.ComponentsInvalidator;
-import com.github.willjgriff.ethereumwallet.ui.navigation.di.DaggerNavigationComponent;
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController;
 import com.github.willjgriff.ethereumwallet.ui.utils.UiUtils;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,15 +40,6 @@ public class NavigationController extends Controller
 
 	// TODO: See if there is a better way of doing this / find it manually each time it's needed.
 	private int mCurrentlySelectedMenuItemId = 0;
-
-	@Inject
-	ComponentsInvalidator mComponentsInvalidator;
-
-	public NavigationController() {
-		DaggerNavigationComponent.builder()
-			.build()
-			.inject(this);
-	}
 
 	@NonNull
 	@Override
@@ -92,7 +79,6 @@ public class NavigationController extends Controller
 	}
 
 	private void switchToController(Controller controller) {
-		mComponentsInvalidator.invalidateComponents();
 		controller.setTargetController(this);
 		getChildRouter(mControllerContainer)
 			.setRoot(RouterTransaction.with(controller)
