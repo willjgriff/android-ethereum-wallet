@@ -12,7 +12,7 @@ import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController
+import com.github.willjgriff.ethereumwallet.ui.screens.transactions.TransactionsController
 import com.github.willjgriff.ethereumwallet.ui.utils.hideSoftKeyboard
 import kotlinx.android.synthetic.main.controller_navigation.view.*
 

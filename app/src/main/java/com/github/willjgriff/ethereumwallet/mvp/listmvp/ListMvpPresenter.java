@@ -1,7 +1,7 @@
 package com.github.willjgriff.ethereumwallet.mvp.listmvp;
 
 import com.github.willjgriff.ethereumwallet.data.RefreshableRepository;
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenter;
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpPresenterKotlin;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import timber.log.Timber;
  * Created by Will on 12/11/2016.
  */
 public abstract class ListMvpPresenter<TYPE, VIEW extends ListMvpView<TYPE>, QUERY>
-	extends BaseMvpPresenter<VIEW> {
+	extends BaseMvpPresenterKotlin<VIEW> {
 
 	public void setRefreshTrigger(Observable<Object> swipeRefreshObservable) {
 		getRepository().setRefreshTrigger(swipeRefreshObservable);

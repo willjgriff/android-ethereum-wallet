@@ -3,11 +3,11 @@ package com.github.willjgriff.ethereumwallet.ui.navigation
 import android.view.MenuItem
 import com.bluelinelabs.conductor.Controller
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.ui.nodedetails.NodeDetailsController
-import com.github.willjgriff.ethereumwallet.ui.receive.ReceiveController
-import com.github.willjgriff.ethereumwallet.ui.send.SendController
-import com.github.willjgriff.ethereumwallet.ui.settings.SettingsController
-import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController
+import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.NodeDetailsController
+import com.github.willjgriff.ethereumwallet.ui.screens.receive.ReceiveController
+import com.github.willjgriff.ethereumwallet.ui.screens.send.SendController
+import com.github.willjgriff.ethereumwallet.ui.screens.settings.SettingsController
+import com.github.willjgriff.ethereumwallet.ui.screens.transactions.TransactionsController
 
 /**
  * Created by williamgriffiths on 04/05/2017.

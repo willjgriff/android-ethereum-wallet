@@ -10,9 +10,9 @@ import android.widget.ProgressBar;
 
 import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.data.utils.ConnectivityUtils;
-import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
+import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.listmvp.ListMvpViewHolder.ListItemListener;
-import com.github.willjgriff.ethereumwallet.ui.utils.error.ErrorDisplayer;
+import com.github.willjgriff.ethereumwallet.ui.error.ErrorDisplayer;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PRESENTER extends ListMvpPresenter<TYPE, VIEW, QUERY>, VIEWHOLDER extends ListMvpViewHolder<TYPE>, QUERY>
-	extends BaseMvpController<VIEW, PRESENTER>
+	extends BaseMvpControllerKotlin<VIEW, PRESENTER>
 	implements ListMvpView<TYPE>, ListItemListener<TYPE> {
 
 	private RecyclerView mRecyclerView;
