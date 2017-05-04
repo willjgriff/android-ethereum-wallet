@@ -12,7 +12,7 @@ import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.data.utils.ConnectivityUtils;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpController;
 import com.github.willjgriff.ethereumwallet.mvp.listmvp.ListMvpViewHolder.ListItemListener;
-import com.github.willjgriff.ethereumwallet.ui.utils.ErrorDisplayer;
+import com.github.willjgriff.ethereumwallet.ui.utils.error.ErrorDisplayer;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PR
 			.filter(aVoid -> !ConnectivityUtils.isConnected(getApplicationContext()))
 			.subscribe(aVoid -> {
 				mSwipeRefreshLayout.setRefreshing(false);
-				ErrorDisplayer.displayError(getView(), new Throwable());
+				ErrorDisplayer.INSTANCE.displayError(getView(), new Throwable());
 			});
 	}
 
@@ -95,6 +95,6 @@ public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PR
 
 	@Override
 	public void showError(Throwable throwable) {
-		ErrorDisplayer.displayError(getView(), throwable);
+		ErrorDisplayer.INSTANCE.displayError(getView(), throwable);
 	}
 }

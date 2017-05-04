@@ -13,7 +13,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.ui.transactions.TransactionsController
-import com.github.willjgriff.ethereumwallet.ui.utils.UiUtils
+import com.github.willjgriff.ethereumwallet.ui.utils.hideSoftKeyboard
 import kotlinx.android.synthetic.main.controller_navigation.view.*
 
 /**
@@ -63,7 +63,7 @@ class NavigationController : Controller(), NavigationToolbarListener {
 
     private fun bottomNavItemClicked(navigationControllerFactory: NavigationControllerFactory, item: MenuItem): Boolean {
         currentlySelectedMenuItemId = item.itemId
-        UiUtils.hideSoftKeyboard(view)
+        view?.hideSoftKeyboard()
         val controller = navigationControllerFactory.getController(item)
         if (controller != null) {
             switchToController(controller)

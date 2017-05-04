@@ -42,7 +42,7 @@ class ReceiveController : BaseMvpControllerKotlin<ReceiveView, ReceivePresenter>
     }
 
     private fun setupToolbarTitle() {
-        navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_receive_title))
+        navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_receive_title) ?: "")
     }
 
     override fun setReceiveAddress(address: String) {
@@ -57,6 +57,6 @@ class ReceiveController : BaseMvpControllerKotlin<ReceiveView, ReceivePresenter>
     override fun setConfirmedBalance(confirmedBalance: String) {
         val ethBalance = applicationContext?.getString(R.string.controller_receive_eth_balance, confirmedBalance)
         view?.controller_receive_confirmed_balance?.text = ethBalance
-        navigationToolbarListener.setBalance(ethBalance)
+        navigationToolbarListener.setBalance(ethBalance ?: "")
     }
 }

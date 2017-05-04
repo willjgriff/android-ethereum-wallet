@@ -15,6 +15,6 @@ fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): 
     return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
 }
 
-fun Context.inflate(@LayoutRes layoutId: Int): View {
-    return LayoutInflater.from(this).inflate(layoutId, FrameLayout(this), false)
+fun Context.inflate(@LayoutRes layoutId: Int, viewGroup: ViewGroup = FrameLayout(this), attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(this).inflate(layoutId, viewGroup, attachToRoot)
 }

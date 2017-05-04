@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/xsmall"
     android:orientation="horizontal">
 
-    <com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
+    <com.github.willjgriff.ethereumwallet.ui.widget.validatedtextinput.ValidatedTextInputLayout
         android:id="@+id/controller_transactions_select_range_upper_block"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:error_text="@string/controller_transactions_select_range_error"
         app:validator="notEmpty|blockRange"/>
 
-    <com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
+    <com.github.willjgriff.ethereumwallet.ui.widget.validatedtextinput.ValidatedTextInputLayout
         android:id="@+id/controller_transactions_select_range_lower_block"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

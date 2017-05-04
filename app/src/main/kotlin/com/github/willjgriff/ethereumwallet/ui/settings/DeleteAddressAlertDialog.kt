@@ -9,7 +9,7 @@ import com.github.willjgriff.ethereumwallet.ui.settings.di.injectPresenter
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressPresenter
 import com.github.willjgriff.ethereumwallet.ui.settings.mvp.DeleteAddressView
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
-import com.github.willjgriff.ethereumwallet.ui.widget.validated.ValidatedTextInputLayout
+import com.github.willjgriff.ethereumwallet.ui.widget.validatedtextinput.ValidatedTextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import javax.inject.Inject
 

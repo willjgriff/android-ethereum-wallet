@@ -8,6 +8,7 @@ import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.createaccount.di.injectPresenter
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountPresenter
 import com.github.willjgriff.ethereumwallet.ui.createaccount.mvp.CreateAccountView
+import com.github.willjgriff.ethereumwallet.ui.widget.validatedtextinput.ValidatedTextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_create_account.view.*
 import javax.inject.Inject
@@ -32,7 +33,7 @@ class CreateAccountController : BaseMvpControllerKotlin<CreateAccountView, Creat
     }
 
     private fun setPresenterObservables(view: View) {
-        val passwordField = view.controller_create_account_password_text_input
+        val passwordField = view.controller_create_account_password_text_input as ValidatedTextInputLayout
         val passwordChanged = passwordField.textChangedObservable
         val passwordValid = passwordField.textValidObservable
         val submitButtonObservable = RxView.clicks(view.controller_create_account_create_button).share()

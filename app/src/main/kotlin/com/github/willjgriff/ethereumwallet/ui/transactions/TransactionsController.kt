@@ -12,8 +12,8 @@ import com.github.willjgriff.ethereumwallet.ui.transactions.adapters.Transaction
 import com.github.willjgriff.ethereumwallet.ui.transactions.di.injectPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsPresenter
 import com.github.willjgriff.ethereumwallet.ui.transactions.mvp.TransactionsView
-import com.github.willjgriff.ethereumwallet.ui.utils.EvenPaddingDecorator
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
+import com.github.willjgriff.ethereumwallet.ui.utils.listdecorator.EvenPaddingDecorator
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_transactions.view.*
 import javax.inject.Inject
@@ -53,7 +53,7 @@ class TransactionsController : BaseMvpControllerKotlin<TransactionsView, Transac
     private fun setNavigationToolbarListener() {
         val navigationToolbarListener = targetController
         if (navigationToolbarListener is NavigationToolbarListener) {
-            navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title))
+            navigationToolbarListener.setToolbarTitle(applicationContext?.getString(R.string.controller_transactions_title) ?: "")
         }
     }
 

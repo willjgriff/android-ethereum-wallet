@@ -13,6 +13,7 @@ import com.github.willjgriff.ethereumwallet.R;
 import com.github.willjgriff.ethereumwallet.di.AppInjector;
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager;
 import com.github.willjgriff.ethereumwallet.ui.createaccount.PreNavigationCreateAccountController;
+import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationController;
 
 import javax.inject.Inject;
 
