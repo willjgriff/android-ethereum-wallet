@@ -3,8 +3,8 @@ package com.github.willjgriff.ethereumwallet.ui.screens.transactions.viewholders
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import com.github.willjgriff.ethereumwallet.ethereum.common.Denomination
 import com.github.willjgriff.ethereumwallet.ethereum.common.fromWeiTo
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.Denomination
 import com.github.willjgriff.ethereumwallet.ethereum.transactions.model.DomainTransaction
 import kotlinx.android.synthetic.main.view_transaction_item.view.*
 import java.text.DateFormat

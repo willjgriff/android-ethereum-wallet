@@ -8,6 +8,10 @@ import android.support.v7.app.AlertDialog
  */
 abstract class BaseMvpAlertDialog<VIEW, out PRESENTER : MvpPresenter<VIEW>>(context: Context) : AlertDialog(context) {
 
+    protected abstract val mvpView: VIEW
+
+    protected abstract val presenter: PRESENTER
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         presenter.bindView(mvpView)
@@ -18,8 +22,4 @@ abstract class BaseMvpAlertDialog<VIEW, out PRESENTER : MvpPresenter<VIEW>>(cont
         super.onDetachedFromWindow()
         presenter.unbindView()
     }
-
-    protected abstract val mvpView: VIEW
-
-    protected abstract val presenter: PRESENTER
 }

@@ -9,10 +9,11 @@ import android.widget.TextView
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
+import com.github.willjgriff.ethereumwallet.ui.navigation.NavigationToolbarListener
+import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.di.DaggerNodeDetailsComponent
 import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.list.NodeDetailsHeadersAdapter
 import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.list.NodeDetailsHeadersAdapter.NodeStatusHeadersAdapterListener
 import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.list.NodeDetailsPeersAdapter
-import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.di.DaggerNodeDetailsComponent
 import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.mvp.NodeDetailsPresenter
 import com.github.willjgriff.ethereumwallet.ui.screens.nodedetails.mvp.NodeDetailsView
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
@@ -47,9 +48,17 @@ class NodeDetailsController : BaseMvpControllerKotlin<NodeDetailsView, NodeDetai
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = container.inflate(R.layout.controller_node_status)
+        setupToolbarTitle()
         bindViews(view)
         setupRecyclerViews()
         return view
+    }
+
+    private fun setupToolbarTitle() {
+        if (targetController is NavigationToolbarListener) {
+            (targetController as NavigationToolbarListener)
+                    .setToolbarTitle(applicationContext!!.getString(R.string.controller_node_details_title))
+        }
     }
 
     private fun bindViews(view: View) {

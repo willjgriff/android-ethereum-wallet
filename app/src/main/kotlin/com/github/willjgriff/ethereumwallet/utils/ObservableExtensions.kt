@@ -8,5 +8,5 @@ fun <T> Observable<T>.androidIoSchedule(): Observable<T> =
         subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Observable<T>.replayConnect(numberOfItems: Int): Observable<T> =
+fun <T> Observable<T>.replayEmissions(numberOfItems: Int): Observable<T> =
         replay(numberOfItems).autoConnect()

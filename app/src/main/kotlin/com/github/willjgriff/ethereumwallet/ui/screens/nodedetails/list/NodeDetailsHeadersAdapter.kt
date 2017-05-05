@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.ui.utils.inflate
-import kotlinx.android.synthetic.main.view_node_status_header_item.view.*
+import kotlinx.android.synthetic.main.view_node_details_header_item.view.*
 
 /**
  * Created by williamgriffiths on 11/04/2017.
@@ -17,7 +17,7 @@ class NodeDetailsHeadersAdapter(private val adapterListener: NodeStatusHeadersAd
     private val headers: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NodeStatusHeaderViewHolder =
-            NodeStatusHeaderViewHolder(parent.inflate(R.layout.view_node_status_header_item))
+            NodeStatusHeaderViewHolder(parent.inflate(R.layout.view_node_details_header_item))
 
     override fun getItemCount(): Int =
             headers.size

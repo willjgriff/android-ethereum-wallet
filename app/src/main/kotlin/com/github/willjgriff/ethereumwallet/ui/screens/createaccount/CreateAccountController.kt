@@ -8,7 +8,6 @@ import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin
 import com.github.willjgriff.ethereumwallet.ui.screens.createaccount.di.injectPresenter
 import com.github.willjgriff.ethereumwallet.ui.screens.createaccount.mvp.CreateAccountPresenter
 import com.github.willjgriff.ethereumwallet.ui.screens.createaccount.mvp.CreateAccountView
-import com.github.willjgriff.ethereumwallet.ui.widget.validatedtextinput.ValidatedTextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.controller_create_account.view.*
 import javax.inject.Inject
@@ -22,24 +21,26 @@ class CreateAccountController : BaseMvpControllerKotlin<CreateAccountView, Creat
         get() = this
     @Inject lateinit override var presenter: CreateAccountPresenter
 
-    init {
-        injectPresenter()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+        injectPresenter()
         val view = inflater.inflate(R.layout.controller_create_account, container, false)
         setPresenterObservables(view)
         return view
     }
 
     private fun setPresenterObservables(view: View) {
-        val passwordField = view.controller_create_account_password_text_input as ValidatedTextInputLayout
+        val passwordField = view.controller_create_account_password_text_input
+
         val passwordChanged = passwordField.textChangedObservable
         val passwordValid = passwordField.textValidObservable
-        val submitButtonObservable = RxView.clicks(view.controller_create_account_create_button).share()
-        passwordField.setCheckValidationTrigger(submitButtonObservable)
+        val submitClicked = RxView.clicks(view.controller_create_account_create_button).share()
+        passwordField.setCheckValidationTrigger(submitClicked)
 
-        presenter.setObservables(passwordChanged, passwordValid, submitButtonObservable)
+        presenter.apply {
+            this.passwordChanged = passwordChanged
+            this.passwordValid = passwordValid
+            this.submitClicked = submitClicked
+        }
     }
 
     override fun openWallet() {

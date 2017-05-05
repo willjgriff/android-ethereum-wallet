@@ -2,7 +2,7 @@ package com.github.willjgriff.ethereumwallet.ethereum.node
 
 import com.github.willjgriff.ethereumwallet.ethereum.node.model.DomainBlockHeader
 import com.github.willjgriff.ethereumwallet.utils.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.utils.replayConnect
+import com.github.willjgriff.ethereumwallet.utils.replayEmissions
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -19,7 +19,7 @@ class NodeDetails(private val nodeDetailsAdapter: NodeDetailsAdapter,
         return newBlockHeaderAdapter
                 .newBlockHeaderObservable
                 .throttleFirst(EMISSION_INTERVAL_SECONDS, TimeUnit.SECONDS)
-                .replayConnect(10)
+                .replayEmissions(10)
                 .androidIoSchedule()
     }
 

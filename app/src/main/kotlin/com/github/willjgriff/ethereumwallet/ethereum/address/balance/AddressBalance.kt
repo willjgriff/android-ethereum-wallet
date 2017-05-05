@@ -1,10 +1,10 @@
 package com.github.willjgriff.ethereumwallet.ethereum.address.balance
 
 import com.github.willjgriff.ethereumwallet.ethereum.address.AddressManager
-import com.github.willjgriff.ethereumwallet.ethereum.common.Denomination
 import com.github.willjgriff.ethereumwallet.ethereum.common.fromWeiTo
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.Denomination
 import com.github.willjgriff.ethereumwallet.utils.androidIoSchedule
-import com.github.willjgriff.ethereumwallet.utils.replayConnect
+import com.github.willjgriff.ethereumwallet.utils.replayEmissions
 import io.reactivex.Observable
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
@@ -37,6 +37,6 @@ class AddressBalance(private val addressBalanceAdapter: AddressBalanceAdapter, p
             .map { it.fromWeiTo(Denomination.ETHER) }
             .map { it.toString() }
             .distinctUntilChanged()
-            .replayConnect(1)
+            .replayEmissions(1)
             .androidIoSchedule()
 }

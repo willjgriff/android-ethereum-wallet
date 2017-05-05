@@ -7,7 +7,7 @@
     <string name="controller_send_title">Send</string>
     <string name="controller_receive_title">Receive</string>
     <string name="controller_create_account_title">Create Account</string>
-    <string name="controller_node_status_title">Node Status</string>
+    <string name="controller_node_details_title">Node Details</string>
     <string name="controller_settings_title">Settings</string>
 
     <!--Common-->
@@ -26,6 +26,9 @@
     <string name="controller_send_amount">Amount</string>
     <string name="controller_send_recipient_address">Recipient Address</string>
     <string name="controller_send_send_button">Send Ether</string>
+    <string name="controller_send_enter_an_address">Enter an address</string>
+    <string name="controller_send_enter_an_amount">Enter an amount</string>
+    <string name="controller_send_enter_password">Enter the account\'s password</string>
 
     <!--Receive-->
     <string name="controller_receive_ethereum_address">Ethereum Address:</string>

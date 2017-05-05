@@ -8,6 +8,10 @@ import com.bluelinelabs.conductor.rxlifecycle2.RxController
  */
 abstract class BaseMvpControllerKotlin<VIEW, out PRESENTER : MvpPresenter<VIEW>> : RxController() {
 
+    protected abstract val mvpView: VIEW
+
+    protected abstract val presenter: PRESENTER
+
     override fun onAttach(view: View) {
         super.onAttach(view)
         presenter.bindView(mvpView)
@@ -18,8 +22,4 @@ abstract class BaseMvpControllerKotlin<VIEW, out PRESENTER : MvpPresenter<VIEW>>
         super.onDetach(view)
         presenter.unbindView()
     }
-
-    protected abstract val mvpView: VIEW
-
-    protected abstract val presenter: PRESENTER
 }

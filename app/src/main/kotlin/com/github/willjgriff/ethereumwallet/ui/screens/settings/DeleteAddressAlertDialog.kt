@@ -46,13 +46,18 @@ class DeleteAddressAlertDialog(context: Context, private val mDialogListener: Se
     }
 
     private fun setupObservablesOnPresenter() {
-        val deleteButton = RxView.clicks(getButton(DialogInterface.BUTTON_POSITIVE)).share()
-        val cancelButton = RxView.clicks(getButton(DialogInterface.BUTTON_NEGATIVE)).share()
-        mValidatedTextInputLayout.setCheckValidationTrigger(deleteButton)
-        val isTextValid = mValidatedTextInputLayout.textValidObservable
-        val textChanged = mValidatedTextInputLayout.textChangedObservable
+        val deleteClick = RxView.clicks(getButton(DialogInterface.BUTTON_POSITIVE)).share()
+        val cancelClick = RxView.clicks(getButton(DialogInterface.BUTTON_NEGATIVE)).share()
+        mValidatedTextInputLayout.setCheckValidationTrigger(deleteClick)
+        val passwordValid = mValidatedTextInputLayout.textValidObservable
+        val passwordChanged = mValidatedTextInputLayout.textChangedObservable
 
-        presenter.setObservables(deleteButton, cancelButton, isTextValid, textChanged)
+        presenter.apply {
+            this.deleteClick = deleteClick
+            this.cancelClick = cancelClick
+            this.passwordValid = passwordValid
+            this.passwordChanged = passwordChanged
+        }
     }
 
     override fun closeDialog() {

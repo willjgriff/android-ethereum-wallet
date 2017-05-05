@@ -1,9 +1,9 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import com.github.willjgriff.ethereumwallet.ethereum.address.asList
 import com.github.willjgriff.ethereumwallet.ethereum.address.getGethAccountFromAddress
+import com.github.willjgriff.ethereumwallet.ethereum.address.model.DomainAddress
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
 import org.ethereum.geth.*
 
 /**
@@ -17,14 +17,14 @@ class TransactionAdapter(private val keyStore: KeyStore,
     val MAIN_NET_CHAIN_ID_NUMBER = 1L
 
     fun submitTransaction(sendTransaction: SendTransaction, fromAddress: DomainAddress, password: String) {
-        val unsignedTransaction = getUnsignedTransaction(sendTransaction.amount, fromAddress, sendTransaction.toAddress)
+        val unsignedTransaction = getUnsignedTransaction(sendTransaction.amountInWei, fromAddress, sendTransaction.toAddress)
         val signedTransaction = signTransaction(fromAddress, password, unsignedTransaction)
 
         ethereumClient.sendTransaction(context, signedTransaction)
     }
 
-    private fun signTransaction(fromAccount: DomainAddress, password: String, unsignedTransaction: Transaction): Transaction {
-        val gethAccount = keyStore.accounts.asList().getGethAccountFromAddress(fromAccount)
+    private fun signTransaction(fromAddress: DomainAddress, password: String, unsignedTransaction: Transaction): Transaction {
+        val gethAccount = keyStore.accounts.asList().getGethAccountFromAddress(fromAddress)
         val mainNetChainIdentifier = BigInt(MAIN_NET_CHAIN_ID_NUMBER)
 
         return keyStore.signTxPassphrase(gethAccount, password, unsignedTransaction, mainNetChainIdentifier)

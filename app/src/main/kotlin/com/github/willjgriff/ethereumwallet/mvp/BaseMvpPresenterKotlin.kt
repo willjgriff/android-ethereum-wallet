@@ -21,7 +21,7 @@ abstract class BaseMvpPresenterKotlin<VIEW> : MvpPresenter<VIEW> {
         releaseViewReferences()
         /**
          * This is only necessary if we retain the Presenter beyond the life of
-         * the View, we will do it anyway incase there's something I've
+         * the View, we will do it anyway in case there's something I've
          * overlooked or we wish to retain the Presenters in the future
          */
         view = null

@@ -14,37 +14,25 @@ import javax.inject.Inject
  * the Controller / AlertDialog. Therefore we don't have to release references to
  * View containing objects or dispose of Observable Subscriptions.
  */
-class DeleteAddressPresenter @Inject constructor(private val addressManager: AddressManager)
+class DeleteAddressPresenter @Inject
+constructor(private val addressManager: AddressManager)
     : BaseMvpPresenterKotlin<DeleteAddressView>() {
 
-    private lateinit var deleteClick: Observable<Any>
-    private lateinit var cancelClick: Observable<Any>
-    private lateinit var passwordValid: Observable<Boolean>
-    private lateinit var passwordChanged: Observable<String>
-
-    fun setObservables(deleteClick: Observable<Any>, cancelClick: Observable<Any>,
-                       passwordValid: Observable<Boolean>, passwordChanged: Observable<String>) {
-        this.deleteClick = deleteClick
-        this.cancelClick = cancelClick
-        this.passwordValid = passwordValid
-        this.passwordChanged = passwordChanged
-    }
+    lateinit var deleteClick: Observable<Any>
+    lateinit var cancelClick: Observable<Any>
+    lateinit var passwordValid: Observable<Boolean>
+    lateinit var passwordChanged: Observable<String>
 
     override fun viewReady() {
         setupDeleteButton(deleteClick, passwordValid, passwordChanged)
-
         cancelClick.subscribe { _ -> view?.closeDialog() }
     }
 
     private fun setupDeleteButton(deleteButton: Observable<Any>, passwordValid: Observable<Boolean>, passwordChanged: Observable<String>) {
-        val enteredPasswordObservable = passwordChanged
-                .replay(1)
-                .autoConnect()
-
         val deleteObservable = deleteButton
                 .withLatestFrom<Boolean, Boolean>(passwordValid, BiFunction<Any, Boolean, Boolean> { _, passwordIsValid -> passwordIsValid })
                 .filter { passwordIsValid -> passwordIsValid }
-                .flatMap { _ -> enteredPasswordObservable }
+                .flatMap { _ -> passwordChanged }
                 .map { validPassword -> addressManager.deleteActiveAddress(validPassword) }
                 .share()
 
