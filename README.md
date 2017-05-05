@@ -17,4 +17,4 @@ Current progress (note the UI is still very basic, I hope to make it better):<br
 [ ] Send screen submit transaction.<br>
 [ ] Creation of QR code for receving ether.<br>
 [ ] Creation of send transaction from QR code.<br>
-[ ] Transactions list, outgoing and incoming. (I have made an implementation for this but it is buggy. It is also inefficient to get and store the transaction list manually. This will be switched to getting it from a third party, probably etherscan.io)
+[ ] Transactions list, outgoing and incoming. (I have made an implementation for this but it is buggy. It is also inefficient to get and store the transaction list manually. This will be switched to use a third party, probably etherscan.io)
