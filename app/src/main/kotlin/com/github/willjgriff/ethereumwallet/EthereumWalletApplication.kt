@@ -1,12 +1,9 @@
 package com.github.willjgriff.ethereumwallet
 
 import android.app.Application
-
 import android.content.Context
 import com.github.willjgriff.ethereumwallet.di.AppInjector
 import com.squareup.leakcanary.LeakCanary
-import io.realm.Realm
-import io.realm.RealmConfiguration
 import timber.log.Timber
 
 /**
@@ -26,7 +23,6 @@ class EthereumWalletApplication : Application() {
         appObject = this
         setupLeakCanary()
         setupTimber()
-        setupRealm()
         setupDagger()
     }
 
@@ -43,17 +39,6 @@ class EthereumWalletApplication : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
-
-    private fun setupRealm() {
-        Realm.init(this)
-
-        // TODO: Delete for prod, test migrations first.
-        val realmConfig = RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build()
-
-        Realm.setDefaultConfiguration(realmConfig)
     }
 
     private fun setupDagger() {

@@ -5,7 +5,6 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import com.github.willjgriff.ethereumwallet.R
 import com.github.willjgriff.ethereumwallet.utils.isConnected
-import io.realm.exceptions.*
 import java.io.IOException
 
 /**
@@ -21,23 +20,13 @@ object ErrorDisplayer {
     }
 
     private fun getErrorMessage(context: Context, throwable: Throwable): String {
-        if (isStorageError(throwable)) {
-            return context.getString(R.string.error_storage)
-        } else if (internetDisconnected(context)) {
+        if (internetDisconnected(context)) {
             return context.getString(R.string.error_internet_disconnected)
         } else if (isNetworkError(throwable)) {
             return context.getString(R.string.error_network)
         } else {
             return context.getString(R.string.error_unknown)
         }
-    }
-
-    private fun isStorageError(throwable: Throwable): Boolean {
-        return throwable is RealmError ||
-                throwable is RealmException ||
-                throwable is RealmFileException ||
-                throwable is RealmMigrationNeededException ||
-                throwable is RealmPrimaryKeyConstraintException
     }
 
     private fun internetDisconnected(context: Context): Boolean {
