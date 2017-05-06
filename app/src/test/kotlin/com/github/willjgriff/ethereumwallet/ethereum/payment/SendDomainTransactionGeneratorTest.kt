@@ -1,5 +1,7 @@
 package com.github.willjgriff.ethereumwallet.ethereum.payment
 
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.Denomination
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.EtherAmount
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.SendTransactionGenerator
 import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
@@ -8,6 +10,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
+import java.math.BigDecimal
 
 /**
  * Created by Will on 12/03/2017.
@@ -46,14 +49,16 @@ class SendDomainTransactionGeneratorTest {
 
     @Test
     fun getSendPaymentFromIban_returnsSendPaymentWithCorrectAmount() {
-        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 23L)
+        val etherAmount = EtherAmount(BigDecimal("23"), Denomination.ETHER)
+        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), etherAmount)
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV?amount=23")
         actualPayment shouldEqual expectedPayment
     }
 
     @Test
     fun getSendPaymentFromIban_returnsSendPaymentWithCorrectAmountAndLabel() {
-        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), 23L, "quepasa")
+        val etherAmount = EtherAmount(BigDecimal("23"), Denomination.ETHER)
+        val expectedPayment = SendTransaction("0xD69F2FF2893C73B5eF4959a2ce85Ab1B1d35CE6B".toLowerCase(), etherAmount, "quepasa")
         val actualPayment = subject.getSendPaymentFromIban("iban:XE08P2J0C65CFU410SM2IXXO687WQO2HMJV?amount=23&label=quepasa")
         actualPayment shouldEqual expectedPayment
     }

@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.github.willjgriff.ethereumwallet.R;
-import com.github.willjgriff.ethereumwallet.data.utils.ConnectivityUtils;
 import com.github.willjgriff.ethereumwallet.mvp.BaseMvpControllerKotlin;
 import com.github.willjgriff.ethereumwallet.mvp.listmvp.ListMvpViewHolder.ListItemListener;
 import com.github.willjgriff.ethereumwallet.ui.error.ErrorDisplayer;
+import com.github.willjgriff.ethereumwallet.utils.ErrorExtensionsKt;
 
 import java.util.List;
 
@@ -63,10 +63,10 @@ public abstract class ListMvpController<TYPE, VIEW extends ListMvpView<TYPE>, PR
 		mSwipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshObservable.onNext(new Object()));
 
 		getPresenter().setRefreshTrigger(swipeRefreshObservable.hide()
-			.filter(aVoid -> ConnectivityUtils.isConnected(getApplicationContext())));
+			.filter(aVoid -> ErrorExtensionsKt.isConnected(getApplicationContext())));
 
 		swipeRefreshObservable
-			.filter(aVoid -> !ConnectivityUtils.isConnected(getApplicationContext()))
+			.filter(aVoid -> !ErrorExtensionsKt.isConnected(getApplicationContext()))
 			.subscribe(aVoid -> {
 				mSwipeRefreshLayout.setRefreshing(false);
 				ErrorDisplayer.INSTANCE.displayError(getView(), new Throwable());

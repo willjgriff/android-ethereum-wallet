@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.github.willjgriff.ethereumwallet.R
-import com.github.willjgriff.ethereumwallet.data.utils.ConnectivityUtils
+import com.github.willjgriff.ethereumwallet.utils.isConnected
 import io.realm.exceptions.*
 import java.io.IOException
 
@@ -41,7 +41,7 @@ object ErrorDisplayer {
     }
 
     private fun internetDisconnected(context: Context): Boolean {
-        return !ConnectivityUtils.isConnected(context)
+        return !context.isConnected()
     }
 
     private fun isNetworkError(throwable: Throwable): Boolean {

@@ -1,5 +1,6 @@
 package com.github.willjgriff.ethereumwallet.ui.screens.send
 
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +63,19 @@ class SendController : BaseMvpControllerKotlin<SendView, SendPresenter>(),
     }
 
     override fun displayTransactionSubmitted() {
+        AlertDialog.Builder(activity!!)
+                .setTitle(applicationContext?.getString(R.string.controller_send_success_dialog_title))
+                .setMessage(applicationContext?.getString(R.string.controller_send_success_dialog_message))
+                .setPositiveButton(applicationContext?.getString(R.string.common_ok), { dialog, _ -> dialog.dismiss() })
+                .show()
+    }
 
+    override fun displayErrorSubmittingTx() {
+        AlertDialog.Builder(activity!!)
+                .setTitle(applicationContext?.getString(R.string.controller_send_error_dialog_title))
+                .setMessage(applicationContext?.getString(R.string.controller_send_error_dialog_message))
+                .setPositiveButton(applicationContext?.getString(R.string.common_ok), { dialog, _ -> dialog.dismiss() })
+                .show()
     }
 
     override fun setBalance(balance: String) {

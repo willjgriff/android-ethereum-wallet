@@ -1,8 +1,11 @@
 package com.github.willjgriff.ethereumwallet.ethereum.transaction
 
-import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.Denomination
+import com.github.willjgriff.ethereumwallet.ethereum.common.model.EtherAmount
 import com.github.willjgriff.ethereumwallet.ethereum.icap.BaseConverter
 import com.github.willjgriff.ethereumwallet.ethereum.icap.IbanParam
+import com.github.willjgriff.ethereumwallet.ethereum.transaction.model.SendTransaction
+import java.math.BigDecimal
 
 /**
  * Created by Will on 12/03/2017.
@@ -22,9 +25,13 @@ class SendTransactionGenerator(private val baseConverter: BaseConverter) {
         return if (validEthereumIban(iban)) {
             val hexAddress = getHexAddressFromIban(iban)
             val params = getParamsFromIban(iban)
+
+            val amountAsBigDecimal = BigDecimal(params[IbanParam.AMOUNT] ?: "0")
+            val etherAmount = EtherAmount(amountAsBigDecimal, Denomination.WEI)
+
             SendTransaction(hexAddress,
-                    params.get(IbanParam.AMOUNT)?.toLong() ?: 0L,
-                    params.get(IbanParam.LABEL) ?: "")
+                    etherAmount,
+                    params[IbanParam.LABEL] ?: "")
         } else {
             SendTransaction()
         }

@@ -29,6 +29,10 @@
     <string name="controller_send_enter_an_address">Enter an address</string>
     <string name="controller_send_enter_an_amount">Enter an amount</string>
     <string name="controller_send_enter_password">Enter the account\'s password</string>
+    <string name="controller_send_success_dialog_title">Transaction Submitted Successfully</string>
+    <string name="controller_send_success_dialog_message">Your transaction will appear on the Ethereum network soon and the recipient will receive their funds</string>
+    <string name="controller_send_error_dialog_title">Error Submitting Transaction</string>
+    <string name="controller_send_error_dialog_message">There are various reasons your transaction was not submitted successfully. The password could be incorrect. The recipient address may be incorrect. The amount may be more than available. We may not be connected to the Ethereum network.</string>
 
     <!--Receive-->
     <string name="controller_receive_ethereum_address">Ethereum Address:</string>
