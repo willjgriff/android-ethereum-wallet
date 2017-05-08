@@ -17,9 +17,7 @@ class TransactionsManager(private val transactionsStorage: TransactionsStorage,
                           private val newBlockHeaderAdapter: NewBlockHeaderAdapter,
                           private val addressManager: AddressManager) {
 
-    // TODO: Remove this.
-    private val ADDRESS_LAST_TX_TOP_BLOCK = 3604807L
-    private val NUMBER_OF_BLOCKS_TO_SEARCH = 600L
+    private val NUMBER_OF_BLOCKS_TO_SEARCH = 500L
     val blocksSearchedLogger = BlocksSearchedLogger(transactionsStorage)
 
     private val resettableLazyManager = ResettableLazyManager()
@@ -64,7 +62,7 @@ class TransactionsManager(private val transactionsStorage: TransactionsStorage,
 
         return currentBlock
                 .toObservable()
-                .flatMap { searchAndStoreTransactions(ADDRESS_LAST_TX_TOP_BLOCK) }
+                .flatMap { searchAndStoreTransactions(it) }
     }
 
     private fun searchAndStoreTransactions(currentBlock: Long): Observable<DomainTransaction> {
