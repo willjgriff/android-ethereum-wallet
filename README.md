@@ -1,8 +1,8 @@
 # android-ethereum-wallet
 
-This is a work in progress.
+***For the time being I have stopped working on this app in favour of learning more about Ethereum and specifically Solidity. The below description is kept for historic use or incase I pick up the project again.***
 
-This app will be a front end for an Ethereum light client. To begin with I will use the Go Ethereum implementation since it is easy to import. However, this may drain the mobile's resources, it at least seems to use a lot of storage in preliminary builds once fully sycn'd (400MB+). I believe the current version of the light client doesn't remove unused data as it downloads block headers but in the future it should do, reducing this size. I may also experiment with connecting to an externally hosted node. 
+This app will be a front end for an Ethereum light client. To begin with I will use the Go Ethereum implementation since it is easy to import. However, this may drain the mobile's resources, it at least seems to use a lot of storage in preliminary builds once fully sycn'd (400MB+). I believe the current version of the light client doesn't remove unused data (mainly block headers I think) but in the future it should do, reducing this size. I may also experiment with connecting to an externally hosted node. 
 
 It will allow for basic account/address creation and transfer to/from it. The account may be extractable for use in other wallets. The behaviour and capability of the app will be largely dependant on the services provided by the light client.
 
