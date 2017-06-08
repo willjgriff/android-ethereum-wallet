@@ -6,7 +6,7 @@ This app will be a front end for an Ethereum light client. To begin with I will 
 
 It will allow for basic account/address creation and transfer to/from it. The account may be extractable for use in other wallets. The behaviour and capability of the app will be largely dependant on the services provided by the light client.
 
-This app uses a structure similar to my Skeleton app. It is written in Kotlin and uses MVP, Dagger, RxJava2 and Conductor.
+This app uses a structure similar to my Skeleton app. It is written in Kotlin and uses MVP, Dagger2, RxJava2 and only uses one Activity with Conductor for View management.
 
 I've created Geth adapters that wrap around the Geth light client classes to decouple them from the rest of the app. I also cannot Unit Test anything that uses the Geth light client classes without instrumentation (a link error is returned when run as standard JUnit tests). Decoupling the Geth classes from the rest of the code allows me to Unit Test the Ethereum manager classes without accessing the actual Geth classes. I'm not testing much at the moment generally. More will come later.
 
